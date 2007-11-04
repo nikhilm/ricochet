@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2171"
+   sodipodi:version="0.32"
+   inkscape:version="0.45"
+   sodipodi:modified="true">
+  <defs
+     id="defs2173" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="375"
+     inkscape:cy="520"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1440"
+     inkscape:window-height="845"
+     inkscape:window-x="0"
+     inkscape:window-y="30" />
+  <metadata
+     id="metadata2176">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2179"
+       width="753"
+       height="562"
+       x="12"
+       y="249.36218" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 156,235.36218 L 156,235.36218 L 156,826.36218"
+       id="path2181" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2183"
+       width="55"
+       height="49"
+       x="22"
+       y="262.36218" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2185"
+       width="52"
+       height="50"
+       x="93"
+       y="262.36218" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2187"
+       width="57"
+       height="51"
+       x="21"
+       y="328.36218" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2189"
+       width="54"
+       height="54"
+       x="85"
+       y="394.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="53"
+       y="527.36218"
+       id="text2191"><tspan
+         sodipodi:role="line"
+         id="tspan2193"
+         x="53"
+         y="527.36218">User blocks</tspan></text>
+    <image
+       y="257.36218"
+       x="168"
+       id="image2268"
+       height="58"
+       width="58"
+       sodipodi:absref="/home/nikhil/workspace/ricochet/images/block_launcher_right.png"
+       xlink:href="block_launcher_right.png" />
+    <image
+       y="255.36218"
+       x="354"
+       id="image2326"
+       height="58"
+       width="58"
+       sodipodi:absref="/home/nikhil/workspace/ricochet/images/block_def_down.png"
+       xlink:href="block_def_down.png" />
+    <image
+       y="478.36218"
+       x="353"
+       id="image2384"
+       height="58"
+       width="58"
+       sodipodi:absref="/home/nikhil/workspace/ricochet/images/block_switch_off.png"
+       xlink:href="block_switch_off.png" />
+    <image
+       y="418.36218"
+       x="353"
+       id="image2457"
+       height="58"
+       width="58"
+       sodipodi:absref="/home/nikhil/workspace/ricochet/images/block_odef_down.png"
+       xlink:href="block_odef_down.png" />
+    <image
+       xlink:href="block_switch_off.png"
+       sodipodi:absref="/home/nikhil/workspace/ricochet/images/block_switch_off.png"
+       width="58"
+       height="58"
+       id="image2460"
+       x="169"
+       y="420.36218" />
+    <image
+       y="542.36218"
+       x="352"
+       id="image2728"
+       height="58"
+       width="58"
+       sodipodi:absref="/home/nikhil/workspace/ricochet/images/block_wall.png"
+       xlink:href="block_wall.png" />
+  </g>
+</svg>

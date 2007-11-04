@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45"
+   sodipodi:docname="intro_bg.svg"
+   sodipodi:docbase="/home/nikhil/workspace/ricochet/images"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="TRUE">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient7142">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop7144" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop7146" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7142"
+       id="linearGradient2690"
+       gradientUnits="userSpaceOnUse"
+       x1="76.834839"
+       y1="281.15234"
+       x2="76.430191"
+       y2="291.30457" />
+    <filter
+       inkscape:collect="always"
+       id="filter3691">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="6.2004717"
+         id="feGaussianBlur3693" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7142"
+       id="linearGradient3711"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,-1,1,0,-29.362183,732.36218)"
+       x1="69.03125"
+       y1="419.48718"
+       x2="101.75"
+       y2="388.48718" />
+    <filter
+       inkscape:collect="always"
+       x="-0.022949497"
+       width="1.045899"
+       y="-0.10608885"
+       height="1.2121777"
+       id="filter4722">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="4.2821823"
+         id="feGaussianBlur4724" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="306.20026"
+     inkscape:cy="359.74428"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1440"
+     inkscape:window-height="845"
+     inkscape:window-x="0"
+     inkscape:window-y="30" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2164"
+       width="800"
+       height="600"
+       x="-2"
+       y="405.36218"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/images/intro_bg.png"
+       inkscape:export-xdpi="89.889999"
+       inkscape:export-ydpi="89.889999" />
+    <path
+       style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3691)"
+       d="M 520,453.36218 L 546,412.36218 L 548,462.36218 L 602,421.36218 L 576,483.36218 L 643,445.36218 L 606,508.36218 L 672,467.36218 L 632,539.36218 L 707,526.36218 L 643,569.36218 L 695,613.36218 L 624,574.36218 L 624,641.36218 L 607,555.36218 L 539,597.36218 L 580,529.36218 L 504,551.36218 L 544,497.36218 L 473,497.36218 L 521,473.36218 L 460,433.36218 L 520,453.36218 z "
+       id="path2692"
+       transform="matrix(0.7862903,0,0,0.7862903,130.1996,91.01893)" />
+    <g
+       id="g2686"
+       transform="matrix(2.2447231,0,0,2.2447231,-550.43001,-504.75401)">
+      <path
+         sodipodi:nodetypes="csssc"
+         id="path7154"
+         d="M 529.16267,466.5248 C 527.45887,468.22861 516.6512,460.18654 505.03841,448.57375 C 493.42563,436.96096 485.38356,426.15329 487.08737,424.44949 C 488.79117,422.74568 502.34884,428.03776 513.96162,439.65054 C 525.57441,451.26333 530.86648,464.821 529.16267,466.5248 z "
+         style="fill:#9c9999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         transform="matrix(0.7071067,0.7071068,-0.7071068,0.7071067,651.83172,194.22704)"
+         d="M 108.25 282.11218 A 32.375 4.75 0 1 1  43.5,282.11218 A 32.375 4.75 0 1 1  108.25 282.11218 z"
+         sodipodi:ry="4.75"
+         sodipodi:rx="32.375"
+         sodipodi:cy="282.11218"
+         sodipodi:cx="75.875"
+         id="path6171"
+         style="fill:url(#linearGradient2690);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+    </g>
+    <path
+       id="path3695"
+       d="M 520,453.36218 L 546,412.36218 L 548,462.36218 L 602,421.36218 L 576,483.36218 L 643,445.36218 L 606,508.36218 L 672,467.36218 L 632,539.36218 L 707,526.36218 L 643,569.36218 L 695,613.36218 L 624,574.36218 L 624,641.36218 L 607,555.36218 L 539,597.36218 L 580,529.36218 L 504,551.36218 L 544,497.36218 L 473,497.36218 L 521,473.36218 L 460,433.36218 L 520,453.36218 z "
+       style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3691)"
+       transform="matrix(-0.6809815,0.1824684,-0.1824684,-0.6809815,663.88303,829.29468)" />
+    <g
+       id="g3707"
+       transform="matrix(-0.5743172,-2.1433811,2.1433811,-0.5743172,-1009.1834,1769.3659)">
+      <rect
+         style="fill:#8c8c8c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4292"
+         width="62.962593"
+         height="1.3883704"
+         x="-218.98566"
+         y="746.79034"
+         ry="0"
+         transform="matrix(0.712488,-0.7016843,0.7016843,0.712488,0,0)" />
+      <path
+         style="fill:url(#linearGradient3711);fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 368.5625,684.54968 L 368.5625,642.11218 L 411.6875,642.11218 L 368.5625,684.54968 z "
+         id="path4294" />
+    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3140"
+       y="548.07526"
+       x="184.97177"
+       style="font-size:8.38564587px;font-style:normal;font-weight:normal;line-height:125%;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4722);font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         dx="0 1.3976077 1.3976077 1.3976077 1.3976077 1.3976077 1.3976077 1.3976077"
+         style="font-size:100.62775421px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;font-family:Impact"
+         y="548.07526"
+         x="184.97177"
+         id="tspan3142"
+         sodipodi:role="line">Ricochet</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.38564587px;font-style:normal;font-weight:normal;line-height:125%;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="180.77893"
+       y="550.87042"
+       id="text3136"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3138"
+         x="180.77893"
+         y="550.87042"
+         style="font-size:100.62775421px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Impact"
+         dx="0 1.3976077 1.3976077 1.3976077 1.3976077 1.3976077 1.3976077 1.3976077">Ricochet</tspan></text>
+  </g>
+</svg>
