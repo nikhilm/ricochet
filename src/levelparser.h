@@ -22,13 +22,24 @@
 #define RT_LEVELPARSER_H
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "resource.h"
 #include "level.h"
 #include "blocks.h"
 
+/*
+ * In init levels are parsed and stored as a quick struct.
+ * Its only when the level is requested in makeLevel that
+ * the actual objects are generated.
+ */
+ 
+struct rtFakeLevel {
+    std::string title, subtitle, userListStr, gridStr;
+}
 class rtLevelParser {
-    static std::vector<Level> Levels = std::vector<Level>();
+    static std::vector<rtLevel> Levels = std::vector<rtLevel>();
 public:
     void init() {
         std::ifstream levelFile = rtResource::getFile("levels.txt");
@@ -38,7 +49,7 @@ public:
             return;
         }
     
-        Level curLevel;
+        rtLevel curLevel;
         while(levelFile) {
             if(levelFile.eof()) break;
             
@@ -46,6 +57,14 @@ public:
             
             //read in the 
             levelFile.getline(line, 100);
+            
+            if(strlen(line) == 0) continue;
+            
+            switch(line[0]) {
+                case '#':break; //comment
+                
+                case '>':
+                    curLevel.setTitle(
             
         }
     }
