@@ -79,13 +79,8 @@ public:
         }
     }
     
-    static std::ifstream getFile(const char * fileName) {
-        std::ifstream file(RT_DATA+fileName);
-        if(file.bad()) {
-            std::cerr<<"Error opening file "<<fileName<<std::endl;
-            return NULL;
-        }
-        return file;
+    static const char * getFile(const char * fileName) {
+        return (RT_DATA+fileName).c_str();
     }
     
     static void cleanup() {
