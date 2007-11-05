@@ -18,25 +18,37 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef RT_LEVEL_H
-#define RT_LEVEL_H
+#ifndef RT_LEVELPARSER_H
+#define RT_LEVELPARSER_H
 
 #include <iostream>
-#include <string>
-#include <vector>
 
-#include <SDL/SDL.h>
+#include "resource.h"
+#include "level.h"
+#include "blocks.h"
 
-class rtLevel {
-    std::string m_title, m_subtitle, m_passcode;
-    
-    vector<rtBlock *> m_userBlockList;
-    
-    vector<rtBlock *> m_grid;
-     
+class rtLevelParser {
+    static std::vector<Level> Levels = std::vector<Level>();
 public:
-    enum {GRID_WIDTH = 12, GRID_HEIGHT = 12};
+    void init() {
+        std::ifstream levelFile = rtResource::getFile("levels.txt");
+        
+        if(levelFile == NULL || levelFile.bad()) {
+            std::cerr<<"Could not read levels\n";
+            return;
+        }
     
+        Level curLevel;
+        while(levelFile) {
+            if(levelFile.eof()) break;
+            
+            char * line;
+            
+            //read in the 
+            levelFile.getline(line, 100);
+            
+        }
+    }
 };
 
 #endif
