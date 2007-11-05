@@ -29,7 +29,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
-const std::string RT_DATA = "./";
+const std::string RT_DATA = "./data/";
 const std::string RT_IMGEXT = ".png";
 
 static std::map<std::string, SDL_Surface *> ImageCache;
