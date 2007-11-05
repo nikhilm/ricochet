@@ -26,7 +26,7 @@
 #include <vector>
 
 #include "resource.h"
-#include "level.h"
+//#include "level.h"
 #include "blocks.h"
 
 /*
@@ -36,20 +36,25 @@
  */
  
 struct rtFakeLevel {
-    std::string title, subtitle, userListStr, gridStr;
-}
+    std::string title, subtitle, passcode, userListStr, gridStr;
+};
+
+
+static std::vector<rtFakeLevel> Levels;
 class rtLevelParser {
-    static std::vector<rtLevel> Levels = std::vector<rtLevel>();
 public:
-    void init() {
-        std::ifstream levelFile = rtResource::getFile("levels.txt");
+    static void init() {
+        Levels = std::vector<rtFakeLevel>();
+        
+        std::ifstream levelFile(rtResource::getFile("levels.txt"));
         
         if(levelFile == NULL || levelFile.bad()) {
-            std::cerr<<"Could not read levels\n";
-            return;
-        }
+            std::cerr<<"Error opening levels file."<<rtResource::getFile("levels.txt")<<std::endl;
+        }        
     
-        rtLevel curLevel;
+        rtFakeLevel curLevel;
+        curLevel.gridStr = "";
+        
         while(levelFile) {
             if(levelFile.eof()) break;
             
@@ -58,14 +63,46 @@ public:
             //read in the 
             levelFile.getline(line, 100);
             
-            if(strlen(line) == 0) continue;
+            if(strlen(line) <= 2) continue;
             
+            std::string substring = std::string(line).substr(2);
             switch(line[0]) {
                 case '#':break; //comment
                 
                 case '>':
-                    curLevel.setTitle(
+                    curLevel.title = substring;
+                    break;
+                    
+                case '<':
+                    curLevel.subtitle = substring;
+                    break;
+                
+                case '&':
+                    curLevel.passcode = substring;
+                    break;
+                
+                case '@':
+                    curLevel.userListStr = substring;
+                    break;
+                    
+                case '!':
+                    Levels.push_back(curLevel);
+                    curLevel.gridStr = "";
+                    break;
+                    
+                default: //load the grid
+                    curLevel.gridStr += line + '\n';
+            }
             
+            
+        }
+        
+        for(int i = 0; i < Levels.size(); ++i) {
+            rtFakeLevel tmp = Levels[i];
+            std::cout<<"Level:"<<tmp.title<<std::endl;
+            std::cout<<"\tSubtitle:"<<tmp.subtitle<<std::endl;
+            std::cout<<"\tuserList:"<<tmp.userListStr<<std::endl;
+            std::cout<<"\tgridStr:"<<tmp.gridStr<<std::endl;
         }
     }
 };
