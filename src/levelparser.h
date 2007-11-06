@@ -50,20 +50,27 @@ public:
         
         if(levelFile == NULL || levelFile.bad()) {
             std::cerr<<"Error opening levels file."<<rtResource::getFile("levels.txt")<<std::endl;
-        }        
-    
+        }
+        
         rtFakeLevel curLevel;
         curLevel.gridStr = "";
-        
         while(levelFile) {
             if(levelFile.eof()) break;
             
-            char * line;
+            char line[100];
             
             //read in the 
             levelFile.getline(line, 100);
             
-            if(strlen(line) <= 2) continue;
+            //empty or length less than 2 but not a '!'
+            if(strlen(line) > 0  && line[0] == '!') {
+                Levels.push_back(curLevel);
+                std::cout<<Levels.size()<<std::endl;
+                curLevel.gridStr = "";
+                continue;
+            }
+            
+            if(strlen(line) < 3) continue;
             
             std::string substring = std::string(line).substr(2);
             switch(line[0]) {
@@ -85,13 +92,9 @@ public:
                     curLevel.userListStr = substring;
                     break;
                     
-                case '!':
-                    Levels.push_back(curLevel);
-                    curLevel.gridStr = "";
-                    break;
-                    
                 default: //load the grid
-                    curLevel.gridStr += line + '\n';
+                    curLevel.gridStr += line;
+                    curLevel.gridStr += "\n";
             }
             
             
