@@ -27,16 +27,43 @@
 
 #include <SDL/SDL.h>
 
+#include "blocks.h"
+
 class rtLevel {
     std::string m_title, m_subtitle, m_passcode;
     
-    vector<rtBlock *> m_userBlockList;
+    std::vector<rtBlock *> m_userBlockList;
     
-    vector<rtBlock *> m_grid;
+    std::vector<rtBlock *> m_grid;
      
 public:
     enum {GRID_WIDTH = 12, GRID_HEIGHT = 12};
     
+    rtLevel() {
+        m_title = m_subtitle = m_passcode = "";
+        m_userBlockList = std::vector<rtBlock *>();
+        m_grid = std::vector<rtBlock *>();
+    }
+    
+    void setTitle(std::string title) {
+        m_title = title;
+    }
+    
+    void setSubtitle(std::string stitle) {
+        m_subtitle = stitle;
+    }
+    
+    void setPasscode(std::string code) {
+        m_passcode = code;
+    }
+    
+    void addUserBlock(rtBlock * b) {
+        m_userBlockList.push_back(b);
+    }
+    
+    void addGridBlock(rtBlock * b) {
+        m_grid.push_back(b);
+    }
 };
 
 #endif
