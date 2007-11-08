@@ -30,12 +30,16 @@
 #include "blocks.h"
 
 class rtLevel {
+    public:
     std::string m_title, m_subtitle, m_passcode;
     
     std::vector<rtBlock *> m_userBlockList;
     
     std::vector<rtBlock *> m_grid;
      
+    rtBlock * m_b;
+    
+
 public:
     enum {GRID_WIDTH = 12, GRID_HEIGHT = 12};
     
@@ -58,12 +62,24 @@ public:
     }
     
     void addUserBlock(rtBlock * b) {
+        if(b == NULL) return;
         m_userBlockList.push_back(b);
     }
     
     void addGridBlock(rtBlock * b) {
+        if(b == NULL) return;
         m_grid.push_back(b);
     }
+    
+    void display(SDL_Surface *surf) {
+        for(int i = 0; i < m_userBlockList.size(); i++) {
+            (m_userBlockList[i])->display(surf);
+        }
+        
+        for(int i = 0; i < m_grid.size(); i++) {
+            (m_grid[i])->display(surf);
+        }
+    }    
 };
 
 #endif

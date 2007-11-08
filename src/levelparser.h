@@ -42,71 +42,59 @@ struct rtFakeLevel {
 
 static std::vector<rtFakeLevel> Levels;
 class rtLevelParser {
-    static rtBlock * getBlock(char type, char dir) {
-        rtBlock * block;
+    static rtBlock * getBlock(char type, char d, int x, int y) {
+        int dir = 0;
+        switch(d) {
+            case 'U':
+                dir = rtBlock::UP;
+                break;
+            case 'D':
+                dir = rtBlock::DOWN;
+                break;
+            case 'L':
+                dir = rtBlock::LEFT;
+                break;
+            case 'R':
+                dir = rtBlock::RIGHT;
+                break;
+        }
         
-        int ddir = rtBlock::UP;
+        std::cout<<"Recd x "<<x<<" y "<<y<<std::endl;
         switch(type) {
             case 'a':
-                block = new rtArrow(ddir, 0, 0);
-                break;
+                return(new rtArrow(dir, x, y));
+                
                 
             case 'b':
-                block = new rtBomb(ddir, 0, 0);
-                break;
+                return(new rtBomb(dir, x, y));
+                
                 
             case 'd':
-                block = new rtDeflector(ddir, 0, 0);
-                break;
+                return(new rtDeflector(dir, x, y));
+                
                 
             case 'l':
-                block = new rtLauncher(ddir, 0, 0);
-                break;
+                return(new rtLauncher(dir, x, y));
+                
                 
             case 'p':
-                block = new rtPrism(ddir, 0, 0);
-                break;
+                return(new rtPrism(dir, x, y));
+                
                 
             case 's':
-                block = new rtSwitch(ddir, 0, 0);
-                break;
+                return(new rtSwitch(dir, x, y));
+                
                 
             case 'w':
-                block = new rtWall(ddir, 0, 0);
-                break;
+                return(new rtWall(dir, x, y));
+                
                 
             case 'x':
-                block = new rtEnergiser(ddir, 0, 0);
-                break;
+                return(new rtEnergiser(dir, x, y));
                 
             default:
-                block = NULL;
+                return NULL;    
         }
-        
-        if(block == NULL) {
-            std::cerr<<"No such block with type "<<type<<std::endl;
-            return NULL;
-        }
-        
-        switch(dir) {
-            case 'U':
-                block->setDirection(rtBlock::UP);
-                break;
-                
-            case 'D':
-                block->setDirection(rtBlock::DOWN);
-                break;
-                
-            case 'L':
-                block->setDirection(rtBlock::LEFT);
-                break;
-                
-            case 'R':
-                block->setDirection(rtBlock::RIGHT);
-                break;
-        }
-        
-        return block;
     }
 public:
     static void init() {
@@ -188,10 +176,9 @@ public:
         level->setTitle(fake.title);
         level->setSubtitle(fake.subtitle);
         level->setPasscode(fake.passcode);
-        
         //user list
         for(int i = 0; i < fake.userListStr.length(); i+=2) {
-            level->addUserBlock(getBlock(fake.userListStr[i], fake.userListStr[i+1]));
+            level->addUserBlock(getBlock(fake.gridStr[i], fake.gridStr[i+1], 0, 0));
         }
         
         //grid list
@@ -201,12 +188,16 @@ public:
                 x = 0;
                 continue;
             }
+            if(fake.gridStr[i] == 'e') {
+                i++;
+                continue;
+            }
             
-            rtBlock * b = getBlock(fake.gridStr[i], fake.gridStr[i+1]);
-            b->setX(x);
-            b->setY(y);
-            level->addGridBlock(b);
+            level->addGridBlock(getBlock(fake.gridStr[i], fake.gridStr[i+1], x, y));
+            i++;
         }
+        
+        return level;
     }
 };
 
