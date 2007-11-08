@@ -71,13 +71,13 @@ public:
         m_grid.push_back(b);
     }
     
-    void display(SDL_Surface *surf) {
+    void display(SDL_Surface *surf, int offsetX, int offsetY) {
         for(int i = 0; i < m_userBlockList.size(); i++) {
-            (m_userBlockList[i])->display(surf);
+            (m_userBlockList[i])->display(surf, offsetX + i*rtBlock::WIDTH, offsetY + (i%2)*rtBlock::HEIGHT);
         }
         
         for(int i = 0; i < m_grid.size(); i++) {
-            (m_grid[i])->display(surf);
+            (m_grid[i])->display(surf, offsetX, offsetY);
         }
     }    
 };

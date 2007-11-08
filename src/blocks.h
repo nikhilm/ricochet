@@ -116,10 +116,10 @@ public:
         }
     }
     
-    virtual void display(SDL_Surface *surf) const {
+    virtual void display(SDL_Surface *surf, int offsetX, int offsetY) const {
         SDL_Rect r;
-        r.x = m_x * WIDTH;
-        r.y = m_y * HEIGHT;
+        r.x = offsetX + m_x * WIDTH;
+        r.y = offsetY + m_y * HEIGHT;
         SDL_BlitSurface(m_image, NULL, surf, &r);
     }
     
@@ -182,10 +182,10 @@ public:
         setY(y() + m_deltaY);
     }
     
-    void display(SDL_Surface * surf) {
+    void display(SDL_Surface * surf, int offsetX, int offsetY) {
         SDL_Rect r;
-        r.x = x()-m_image->w/2;
-        r.y = y()-m_image->h/2;
+        r.x = offsetX + x()-m_image->w/2;
+        r.y = offsetY + y()-m_image->h/2;
         r.w = m_image->w;
         r.h = m_image->h;
         SDL_FillRect(surf, &r, 0x0);
