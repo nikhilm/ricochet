@@ -29,7 +29,7 @@ int main() {
     rtLevelParser::init();
     rtPhoton p(rtBlock::DOWN, 325, 10);
     
-    rtLevel *lvl = rtLevelParser::getLevel(0);
+    rtLevel *lvl = rtLevelParser::getLevel(1);
     
     SDL_Event event;
     while(loopRunning)

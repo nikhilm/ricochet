@@ -72,8 +72,9 @@ public:
     }
     
     void display(SDL_Surface *surf, int offsetX, int offsetY) {
-        for(int i = 0; i < m_userBlockList.size(); i++) {
-            (m_userBlockList[i])->display(surf, offsetX + i*rtBlock::WIDTH, offsetY + (i%2)*rtBlock::HEIGHT);
+        for(int i = 0, k = 0; i < m_userBlockList.size(); i++) {
+            (m_userBlockList[i])->display(surf, offsetX + (i%2)*rtBlock::WIDTH, offsetY + (k*rtBlock::HEIGHT));
+            if(i%2 == 1) k++;
         }
         
         for(int i = 0; i < m_grid.size(); i++) {
