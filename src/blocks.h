@@ -73,8 +73,16 @@ public:
         setDraggable(false);
     }
     
-    int x() { return m_x; }
-    int y() { return m_y; }
+    rtBlock(const rtBlock & b) {
+        setDirection(b.direction());
+        setX(b.x());
+        setY(b.y());
+        setDraggable(b.draggable());
+        m_image = b.m_image;
+    }
+    
+    int x() const { return m_x; }
+    int y() const { return m_y; }
     
     virtual void setX(int x) {
 //         if(x < 0 || x > rtLevel::WIDTH) return;
@@ -90,15 +98,15 @@ public:
 //         m_level = lvl;
 //     }
     
-    bool draggable() { return m_draggable; }
+    bool draggable() const { return m_draggable; }
     
     virtual void setDirection(int dir) {
         m_direction = dir;
     }
     
-    int direction() { return m_direction; }
+    int direction() const { return m_direction; }
     
-    const char * directionToString() {
+    const char * directionToString() const {
         switch(direction()) {
             case UP: return "up";
             case DOWN: return "down";
@@ -108,14 +116,14 @@ public:
         }
     }
     
-    virtual void display(SDL_Surface *surf) {
+    virtual void display(SDL_Surface *surf) const {
         SDL_Rect r;
         r.x = m_x * WIDTH;
         r.y = m_y * HEIGHT;
         SDL_BlitSurface(m_image, NULL, surf, &r);
     }
     
-    virtual bool handlePhoton(rtPhoton &photon) {
+    virtual bool handlePhoton(rtPhoton &photon) const {
         return false;
     }
     
