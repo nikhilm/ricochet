@@ -178,7 +178,7 @@ public:
         level->setPasscode(fake.passcode);
         //user list
         for(int i = 0; i < fake.userListStr.length(); i+=2) {
-            level->addUserBlock(getBlock(fake.gridStr[i], fake.gridStr[i+1], 0, 0));
+            level->addUserBlock(getBlock(fake.userListStr[i], fake.userListStr[i+1], 0, 0));
         }
         
         //grid list
