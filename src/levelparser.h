@@ -29,16 +29,6 @@
 #include "level.h"
 #include "blocks.h"
 
-/*
- * In init levels are parsed and stored as a quick struct.
- * Its only when the level is requested in makeLevel that
- * the actual objects are generated.
- */
- 
-struct rtFakeLevel {
-    std::string title, subtitle, passcode, userListStr, gridStr;
-};
-
 
 static std::vector<rtFakeLevel> Levels;
 class rtLevelParser {
