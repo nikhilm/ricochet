@@ -116,6 +116,10 @@ class rtEditor {
         
     }
     
+    void deleteBlock() {
+        m_grid[getGridCoordX()][getGridCoordY()] = NULL;
+    }
+    
     void handleEvent(SDL_Event evt) {
         /* Left Ctrl+s -> Save level
          * Delete -> delete current block
