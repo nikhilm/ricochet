@@ -108,10 +108,10 @@ public:
     
     const char * directionToString() const {
         switch(direction()) {
-            case UP: return "up";
-            case DOWN: return "down";
-            case LEFT: return "left";
-            case RIGHT: return "right";
+            case UP: return "U";
+            case DOWN: return "D";
+            case LEFT: return "L";
+            case RIGHT: return "R";
             default: return "";
         }
     }
