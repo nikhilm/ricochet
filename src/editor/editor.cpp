@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <vector>
 
 #include <SDL/SDL.h>
@@ -117,7 +118,35 @@ class rtEditor {
     }
     
     void deleteBlock() {
+        delete m_grid[getGridCoordX()][getGridCoordY()].block;
         m_grid[getGridCoordX()][getGridCoordY()] = NULL;
+    }
+    
+    void saveLevel() {
+        ofstream out(fN, ios::app);
+        
+        out<<"\n> "<<m_levelData.title<<"\n< "<<m_levelData.subtitle<<"\n& "<<m_levelData.passcode<<"\n@ ";
+        
+        for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
+            for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
+                if(m_grid[i][j] == NULL)
+                    m_levelData.gridStr += "eU";
+                else if(m_grid[i][j].userControlled) {                    
+                    m_levelData.gridStr += "eU";
+                    m_levelData.userListStr += type;
+                    m_levelData.userListStr += m_grid[i][j].block->directionToString();
+                }
+                else {
+                    m_levelData.gridStr += type;
+                    m_levelData.gridStr += m_grid[i][j].block->directionToString();
+                }
+            }
+            m_levelData += "\n";
+        }
+        
+        out<<m_levelData.userListStr<<std::endl;
+        out<<m_levelData.gridStr<<"\n!\n";
+        out.close();
     }
     
     void handleEvent(SDL_Event evt) {
