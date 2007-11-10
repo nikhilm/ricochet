@@ -1,7 +1,7 @@
 /*
  * Copyright (C)      2007  Nikhil Marathe <nsm.nikhil@gmail.com>
  *               
- * This file is part of the Graphyte project.
+ * This file is part of the Ricochet project.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
