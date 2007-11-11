@@ -87,6 +87,7 @@ public:
     
     int x() const { return m_x; }
     int y() const { return m_y; }
+    char type() const { return m_type; }
     
     virtual void setX(int x) {
 //         if(x < 0 || x > rtLevel::WIDTH) return;
