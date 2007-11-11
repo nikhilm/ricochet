@@ -36,60 +36,18 @@ static std::map<std::string, SDL_Surface *> ImageCache;
 
 class rtResource {
 public:
-    static void init() {
-        ImageCache = std::map<std::string, SDL_Surface *>();    
-    }
+    static void init();
     
     /** 
      * tries to load image RT_DATA/images/prefix_root_suffix.png
      * If that fails tries RT_DATA/images/prefix_root.png
      * Otherwise returns NULL.
      */
-    static SDL_Surface * loadImage(std::string prefix, std::string root, std::string suffix = "") {
-        SDL_Surface * image;
-        
-        std::string file = RT_DATA + "images/" + prefix + "_" + root + "_" + suffix + RT_IMGEXT;
-        if(ImageCache.find(file) != ImageCache.end()) {
-            return ImageCache[file];
-        }
-        
-        image = IMG_Load(file.c_str());
-                
-        if(image == NULL) {
-            std::string file2 = RT_DATA + "images/" + prefix + "_" + root + RT_IMGEXT;
-            
-            if(ImageCache.find(file2) != ImageCache.end()) {
-                return ImageCache[file2];
-            }
-            
-            image = IMG_Load(file2.c_str());
-            
-            if(image == NULL) {
-                std::cerr<<"IMG_Load: "<<IMG_GetError()<<std::endl;
-                return NULL;
-            }
-            else {
-                ImageCache[file2] = image;
-                return ImageCache[file2];
-            }
-        }        
-        else {
-            ImageCache[file] = image;
-            return ImageCache[file];
-        }
-    }
+    static SDL_Surface * loadImage(std::string prefix, std::string root, std::string suffix = "");
     
-    static const char * getFile(const char * fileName) {
-        return (RT_DATA+fileName).c_str();
-    }
+    static const char * getFile(const char *);
     
-    static void cleanup() {
-        std::map<std::string, SDL_Surface *>::iterator it;
-        for(it = ImageCache.begin(); it != ImageCache.end(); it++) {
-            SDL_FreeSurface(it->second);
-            it->second = NULL;
-        }
-    }
+    static void cleanup();
 };
 
 #endif
