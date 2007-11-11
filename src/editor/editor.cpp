@@ -54,20 +54,21 @@ class rtEditor {
         
     void setBlockDirection(int direction) {
         int x = getGridCoordX(), y = getGridCoordY();
-        if(m_grid[x][y] == NULL) return;
-        m_grid[x][y]->setDirection(direction);
+        if(m_grid[y][x] == NULL) return;
+        m_grid[y][x]->setDirection(direction);
     }
     
     void setBlock(char type) {        
         int x = getGridCoordX(), y = getGridCoordY();
-        m_grid[x][y] = getBlock(type, 'U', x, y);
+        // y,x because y is the primary array index, and x is the sub array index
+        m_grid[y][x] = getBlock(type, 'U', x, y);
         
     }
     
     void deleteBlock() {
         int x = getGridCoordX(), y = getGridCoordY();
         delete m_grid[x][y];
-        m_grid[x][y] = NULL;
+        m_grid[y][x] = NULL;
     }
     
     void saveLevel() {
