@@ -117,7 +117,7 @@ class rtEditor {
         
         if(evt.type != SDL_KEYDOWN) return;
         
-        if(evt.key.keysym.mod == KMOD_LCTRL && evt.key.keysym.sym == SDLK_s) {
+        if(evt.key.keysym.mod & KMOD_LCTRL && evt.key.keysym.sym == SDLK_s) {
             saveLevel();
         }
         
