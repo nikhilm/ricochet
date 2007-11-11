@@ -38,6 +38,8 @@ protected:
     
     SDL_Surface * m_image;
     
+    char m_type;
+    
     int m_direction;
     
 //     Level * m_level;
@@ -48,8 +50,8 @@ protected:
         m_draggable = d;
     }
     
-    void setImage(const char * type, const char * suffix=NULL) {
-        m_image = rtResource::loadImage("block", type, (suffix == NULL ? directionToString() : suffix));
+    void setImage(char type='\0', const char * suffix=NULL) {
+        m_image = rtResource::loadImage("block", (type == '\0' ? m_type +"" : type+""), (suffix == NULL ? directionToString() : suffix));
         if(m_image == NULL) {
             std::cerr<<"Could not load block "<<type<<" image\n";
         }
@@ -59,14 +61,8 @@ public:
     enum Direction {UP, LEFT, DOWN, RIGHT};
     enum {WIDTH = 50, HEIGHT = 50};
     
-    rtBlock(int dir){
-        setDirection(dir);
-        setX(0);
-        setY(0);
-        setDraggable(false);
-    }
-    
-    rtBlock(int dir, int x, int y) {
+    rtBlock(char type, int dir, int x, int y) {
+        m_type = type;
         setDirection(dir);
         setX(x);
         setY(y);
@@ -74,11 +70,12 @@ public:
     }
     
     rtBlock(const rtBlock & b) {
-        setDirection(b.direction());
+        m_type = b.m_type;
         setX(b.x());
         setY(b.y());
         setDraggable(b.draggable());
         m_image = b.m_image;
+        setDirection(b.direction());
     }
     
     int x() const { return m_x; }
@@ -102,6 +99,7 @@ public:
     
     virtual void setDirection(int dir) {
         m_direction = dir;
+        setImage();
     }
     
     int direction() const { return m_direction; }
@@ -137,8 +135,7 @@ class rtPhoton : public rtBlock {
     
     int m_deltaX, m_deltaY;
 public:
-    rtPhoton(int dir, int x, int y) : rtBlock(dir, x, y) {
-        setImage("photon");
+    rtPhoton(int dir, int x, int y) : rtBlock('o', dir, x, y) {
         setHighEnergy(false);
         setDirection(dir);
     }
@@ -155,7 +152,7 @@ public:
     void setHighEnergy(bool he) {
         m_highEnergy = he;
         std::cout<<"High energy:"<<(highEnergy() ? "yes\n":"no\n");
-        setImage("photon", (highEnergy() ? "energised" : ""));
+        setImage('o', (highEnergy() ? "energised" : ""));
     }
     
     bool highEnergy() {
@@ -195,9 +192,7 @@ public:
 
 class rtLauncher : public rtBlock {
 public:
-    rtLauncher(int dir, int x, int y) : rtBlock(dir, x, y) {
-        setImage("launcher");
-    }
+    rtLauncher(int dir, int x, int y) : rtBlock('l', dir, x, y) {}
     
     bool clicked() {
         //m_level->registerPhoton();
@@ -211,11 +206,11 @@ class rtSwitch : public rtBlock {
     
     void toggleState() {
         m_on = !m_on;
-        setImage("switch", (m_on ? "on" : "off"));
+        setImage('s', (m_on ? "on" : "off"));
     }
     
 public:
-    rtSwitch(int dir, int x, int y) : rtBlock(dir, x, y) {
+    rtSwitch(int dir, int x, int y) : rtBlock('s', dir, x, y) {
         m_on = true;
         toggleState();
     }
@@ -230,9 +225,7 @@ public:
 
 class rtBomb : public rtBlock {
 public:
-    rtBomb(int dir, int x, int y) : rtBlock(dir, x, y) {
-        setImage("bomb");
-    }
+    rtBomb(int dir, int x, int y) : rtBlock('b', dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         //m_level->triggerGameOver();
@@ -242,9 +235,7 @@ public:
 
 class rtWall : public rtBlock {
 public:
-    rtWall(int dir, int x, int y) : rtBlock(dir, x, y) {
-        setImage("wall");
-    }
+    rtWall(int dir, int x, int y) : rtBlock('w', dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         /*switch(photon.direction()) {
@@ -261,9 +252,8 @@ public:
 
 class rtDeflector : public rtBlock {
 public:
-    rtDeflector(int dir, int x, int y) : rtBlock(dir, x, y) {
+    rtDeflector(int dir, int x, int y) : rtBlock('d', dir, x, y) {
         setDraggable(true);
-        setImage("def");
     }
     
     // you should take a look at the images to understand this
@@ -313,9 +303,8 @@ public:
 
 class rtPrism : public rtBlock {
 public:
-    rtPrism(int dir, int x, int y) : rtBlock(dir, x, y) {
+    rtPrism(int dir, int x, int y) : rtBlock('p', dir, x, y) {
         setDraggable(true);
-        setImage("prism");
     }
     
     bool handlePhoton(rtPhoton &photon) {
@@ -358,9 +347,8 @@ public:
 
 class rtArrow : public rtBlock {
 public:
-    rtArrow(int dir, int x, int y) : rtBlock(dir, x, y) {
+    rtArrow(int dir, int x, int y) : rtBlock('a', dir, x, y) {
         setDraggable(true);
-        setImage("arrow");
     }
     
     bool handlePhoton(rtPhoton &photon) {
@@ -370,9 +358,8 @@ public:
 
 class rtEnergiser : public rtBlock {
 public:
-    rtEnergiser(int dir, int x, int y) : rtBlock(dir, x, y) {
+    rtEnergiser(int dir, int x, int y) : rtBlock('x', dir, x, y) {
         setDraggable(true);
-        setImage("energy");
     }
     
     bool handlePhoton(rtPhoton &photon) {

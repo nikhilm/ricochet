@@ -56,15 +56,13 @@ class rtEditor {
         SDL_GetMouseState(NULL, &y);
         return y / rtBlock::HEIGHT;
     }
-    
-    rtBlkWrp & currentBlkWrp() {
-        return m_grid[getGridCoordX()][getGridCoordY()];
-    }
-    
+        
     void setBlockDirection(int direction) {
-        rtBlkWrp bw = currentBlkWrp();
-        if(bw == NULL) return;
-        bw.block->setDirection(direction);
+        int x = getGridCoordX(), y = getGridCoordY();
+        if(m_grid[x][y].block == NULL) return;
+        std::cout<<"Not null\n";
+        m_grid[x][y].block->setDirection(direction);
+        std::cout<<"Direction is "<<m_grid[x][y].block->directionToString()<<std::endl;
     }
     
     void setBlock(char type) {
@@ -118,35 +116,48 @@ class rtEditor {
     }
     
     void deleteBlock() {
-        delete m_grid[getGridCoordX()][getGridCoordY()].block;
-        m_grid[getGridCoordX()][getGridCoordY()] = NULL;
+        int x = getGridCoordX(), y = getGridCoordY();
+        m_grid[x][y].block = NULL;
+        m_grid[x][y].type = 'e';
+        m_grid[x][y].userControlled = false;
     }
     
     void saveLevel() {
-        ofstream out(fN, ios::app);
+        std::ofstream out(m_fileName, std::ios::app);
         
         out<<"\n> "<<m_levelData.title<<"\n< "<<m_levelData.subtitle<<"\n& "<<m_levelData.passcode<<"\n@ ";
         
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
-                if(m_grid[i][j] == NULL)
+                if(m_grid[i][j].userControlled) {                    
                     m_levelData.gridStr += "eU";
-                else if(m_grid[i][j].userControlled) {                    
-                    m_levelData.gridStr += "eU";
-                    m_levelData.userListStr += type;
+                    m_levelData.userListStr += m_grid[i][j].type;
                     m_levelData.userListStr += m_grid[i][j].block->directionToString();
                 }
                 else {
-                    m_levelData.gridStr += type;
-                    m_levelData.gridStr += m_grid[i][j].block->directionToString();
+                    m_levelData.gridStr += m_grid[i][j].type;
+                    if(m_grid[i][j].block == NULL)
+                        m_levelData.gridStr += "U";
+                    else
+                        m_levelData.gridStr += m_grid[i][j].block->directionToString();
+                    
                 }
             }
-            m_levelData += "\n";
+            m_levelData.gridStr += "\n";
         }
         
         out<<m_levelData.userListStr<<std::endl;
         out<<m_levelData.gridStr<<"\n!\n";
         out.close();
+    }
+    
+    void displayGrid(SDL_Surface * surf) {
+        for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
+            for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
+                if(m_grid[i][j].block != NULL)
+                    m_grid[i][j].block->display(surf, 0, 0);
+            }
+        }
     }
     
     void handleEvent(SDL_Event evt) {
@@ -156,19 +167,21 @@ class rtEditor {
          * Any valid letter -> create block of that type
          */
         
-        if(!evt.type == SDL_KEYDOWN) return;
+        if(evt.type != SDL_KEYDOWN) return;
         
-        if(evt.keysym.mod == KMOD_LCTRL && evt.keysym.sym == SDLK_s) {
+        if(evt.key.keysym.mod == KMOD_LCTRL && evt.key.keysym.sym == SDLK_s) {
             saveLevel();
         }
         
-        else if(evt.keysym.sym == SDLK_DELETE) {
+        else if(evt.key.keysym.sym == SDLK_DELETE) {
             deleteBlock();
         }
         
         else {
-            switch(evt.keysym.sym) {
+            std::cout<<"Else block\n";
+            switch(evt.key.keysym.sym) {
                 case SDLK_UP:
+                    std::cout<<"Setting direc\n";
                     setBlockDirection(rtBlock::UP);
                     break;
                 case SDLK_DOWN:
@@ -228,7 +241,10 @@ public:
         
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
-                m_grid[i][j] = NULL;
+                m_grid[i][j].block = NULL;
+                m_grid[i][j].type = 'e';
+                m_grid[i][j].userControlled = false;
+                
             }
         }
     }
@@ -243,21 +259,17 @@ public:
         }
         atexit(SDL_Quit);
 
-        screen = SDL_SetVideoMode(600, 500, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
+        screen = SDL_SetVideoMode(rtBlock::WIDTH * rtLevel::GRID_WIDTH, rtBlock::HEIGHT * rtLevel::GRID_HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
         if (screen == NULL) {
             std::cout<<"Unable to set video mode: "<<SDL_GetError()<<std::endl;
             exit(1);
         }
 
-        SDL_WM_SetCaption("Blocks Test", NULL);
+        SDL_WM_SetCaption("Level Editor", NULL);
 
         rtResource::init();
-        rtLevelParser::init();
-        rtPhoton p(rtBlock::DOWN, 325, 10);
-    
-        rtLevel *lvl = rtLevelParser::getLevel(1);
-    
+        
         SDL_Event event;
         while(loopRunning)
         {
@@ -284,8 +296,7 @@ int main(int argc, char ** argv) {
         return 0;
     }
     
-    rtEditor(argv[1], argv[2], argv[3], argv[4]);
-    rtEditor.run();
+    rtEditor(argv[1], argv[2], argv[3], argv[4]).run();
     return 0;
 }
 
