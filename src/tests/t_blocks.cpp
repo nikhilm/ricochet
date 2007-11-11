@@ -53,10 +53,10 @@ int main() {
                 std::cout<<"Photon handled\n";
                 blocks[i]->handlePhoton(p);
             }
-            blocks[i]->display(screen);
+            blocks[i]->display(screen, 0, 0);
         }
         p.move();
-        p.display(screen);
+        p.display(screen, 0, 0);
         SDL_Flip(screen);
         SDL_Delay(5);
     }

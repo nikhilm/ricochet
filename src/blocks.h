@@ -25,6 +25,9 @@
 
 #include <SDL/SDL.h>
 
+char charDirection(int);
+int intDirection(char);
+
 class rtResource;
 class rtLevel;
 class rtPhoton;
@@ -51,10 +54,14 @@ protected:
     }
     
     void setImage(char type='\0', const char * suffix=NULL) {
-        m_image = rtResource::loadImage("block", (type == '\0' ? m_type +"" : type+""), (suffix == NULL ? directionToString() : suffix));
-        if(m_image == NULL) {
+        char t = (type == '\0' ? m_type : type);
+        const char * s = (suffix == NULL ? (std::string("")+charDirection(direction())).c_str() : suffix);
+        SDL_Surface * image = rtResource::loadImage("block", (std::string("")+t).c_str(), s);
+        if(image == NULL) {
             std::cerr<<"Could not load block "<<type<<" image\n";
+            return;
         }
+        m_image = image;
     }
     
 public:
@@ -103,17 +110,7 @@ public:
     }
     
     int direction() const { return m_direction; }
-    
-    const char * directionToString() const {
-        switch(direction()) {
-            case UP: return "U";
-            case DOWN: return "D";
-            case LEFT: return "L";
-            case RIGHT: return "R";
-            default: return "";
-        }
-    }
-    
+        
     virtual void display(SDL_Surface *surf, int offsetX, int offsetY) const {
         SDL_Rect r;
         r.x = offsetX + m_x * WIDTH;
@@ -121,7 +118,7 @@ public:
         SDL_BlitSurface(m_image, NULL, surf, &r);
     }
     
-    virtual bool handlePhoton(rtPhoton &photon) const {
+    virtual bool handlePhoton(rtPhoton &photon) {
         return false;
     }
     
@@ -363,9 +360,69 @@ public:
     }
     
     bool handlePhoton(rtPhoton &photon) {
-        std::cout<<"Handle photon called\n";
         photon.setHighEnergy(true);
     }
 };
+
+rtBlock * getBlock(char type, char d, int x, int y) {
+    int dir = intDirection(d);    
+    
+    std::cout<<"Recd x "<<x<<" y "<<y<<std::endl;
+    switch(type) {
+        case 'a':
+            return(new rtArrow(dir, x, y));
+            
+            
+        case 'b':
+            return(new rtBomb(dir, x, y));
+            
+            
+        case 'd':
+            return(new rtDeflector(dir, x, y));
+            
+            
+        case 'l':
+            return(new rtLauncher(dir, x, y));
+            
+            
+        case 'p':
+            return(new rtPrism(dir, x, y));
+            
+            
+        case 's':
+            return(new rtSwitch(dir, x, y));
+            
+            
+        case 'w':
+            return(new rtWall(dir, x, y));
+            
+            
+        case 'x':
+            return(new rtEnergiser(dir, x, y));
+            
+        default:
+            return NULL;    
+    }
+}
+
+char charDirection(int dir) {
+    switch(dir) {
+        case rtBlock::UP: return 'U';
+        case rtBlock::DOWN: return 'D';
+        case rtBlock::LEFT: return 'L';
+        case rtBlock::RIGHT: return 'R';
+        default: return 'U';
+    }
+}
+
+int intDirection(char dir) {
+    switch(dir) {
+        case 'U':return rtBlock::UP;
+        case 'D':return rtBlock::DOWN;
+        case 'L':return rtBlock::LEFT;
+        case 'R':return rtBlock::RIGHT;
+        default: return rtBlock::UP;
+    }
+}
 
 #endif
