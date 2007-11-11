@@ -32,14 +32,9 @@
 #include "level.h"
 #include "blocks.h"
 
-struct rtBlkWrp {
-    rtBlock * block;
-    char type;
-    bool userControlled;
-};
 
 class rtEditor {
-    rtBlkWrp m_grid[rtLevel::GRID_WIDTH][rtLevel::GRID_HEIGHT];
+    rtBlock *m_grid[rtLevel::GRID_WIDTH][rtLevel::GRID_HEIGHT];
     
     rtFakeLevel m_levelData;
     
@@ -59,67 +54,20 @@ class rtEditor {
         
     void setBlockDirection(int direction) {
         int x = getGridCoordX(), y = getGridCoordY();
-        if(m_grid[x][y].block == NULL) return;
-        std::cout<<"Not null\n";
-        m_grid[x][y].block->setDirection(direction);
-        std::cout<<"Direction is "<<m_grid[x][y].block->directionToString()<<std::endl;
+        if(m_grid[x][y] == NULL) return;
+        m_grid[x][y]->setDirection(direction);
     }
     
-    void setBlock(char type) {
-        rtBlkWrp bw;
-        bw.type = type;
-        bw.userControlled = true;
-        
-        switch(type) {
-            case 'a':
-                bw.block = new rtArrow(rtBlock::UP, 0, 0);
-                bw.userControlled = true;
-                break;                
-                
-            case 'b':
-                bw.block = new rtBomb(rtBlock::UP, 0, 0);
-                break;                
-                
-            case 'd':
-                bw.block = new rtDeflector(rtBlock::UP, 0, 0);
-                bw.userControlled = true;
-                break;                
-                
-            case 'l':
-                bw.block = new rtLauncher(rtBlock::UP, 0, 0);
-                break;                
-                
-            case 'p':
-                bw.block = new rtPrism(rtBlock::UP, 0, 0);
-                bw.userControlled = true;
-                break;                
-                
-            case 's':
-                bw.block = new rtSwitch(rtBlock::UP, 0, 0);
-                break;                
-                
-            case 'w':
-                bw.block = new rtWall(rtBlock::UP, 0, 0);
-                break;
-                
-                
-            case 'x':
-                bw.block = new rtEnergiser(rtBlock::UP, 0, 0);
-                break;
-        }
-        
+    void setBlock(char type) {        
         int x = getGridCoordX(), y = getGridCoordY();
-        bw.block->setX(x);
-        bw.block->setY(y);
-        m_grid[x][y] = bw;
+        m_grid[x][y] = getBlock(type, 'U', x, y);
         
     }
     
     void deleteBlock() {
         int x = getGridCoordX(), y = getGridCoordY();
-        m_grid[x][y].block = NULL;
-        m_grid[x][y].type = 'e';
-        m_grid[x][y].userControlled = false;
+        delete m_grid[x][y];
+        m_grid[x][y] = NULL;
     }
     
     void saveLevel() {
@@ -129,17 +77,17 @@ class rtEditor {
         
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
-                if(m_grid[i][j].userControlled) {                    
+                if(m_grid[i][j] == NULL) {
                     m_levelData.gridStr += "eU";
-                    m_levelData.userListStr += m_grid[i][j].type;
-                    m_levelData.userListStr += m_grid[i][j].block->directionToString();
+                }
+                else if(m_grid[i][j]->draggable()) {
+                    m_levelData.gridStr += "eU";
+                    m_levelData.userListStr += m_grid[i][j]->type();
+                    m_levelData.userListStr += charDirection(m_grid[i][j]->direction());
                 }
                 else {
-                    m_levelData.gridStr += m_grid[i][j].type;
-                    if(m_grid[i][j].block == NULL)
-                        m_levelData.gridStr += "U";
-                    else
-                        m_levelData.gridStr += m_grid[i][j].block->directionToString();
+                    m_levelData.gridStr += m_grid[i][j]->type();
+                    m_levelData.gridStr += charDirection(m_grid[i][j]->direction());
                     
                 }
             }
@@ -154,8 +102,8 @@ class rtEditor {
     void displayGrid(SDL_Surface * surf) {
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
-                if(m_grid[i][j].block != NULL)
-                    m_grid[i][j].block->display(surf, 0, 0);
+                if(m_grid[i][j] != NULL)
+                    m_grid[i][j]->display(surf, 0, 0);
             }
         }
     }
@@ -241,9 +189,7 @@ public:
         
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
-                m_grid[i][j].block = NULL;
-                m_grid[i][j].type = 'e';
-                m_grid[i][j].userControlled = false;
+                m_grid[i][j] = NULL;
                 
             }
         }
