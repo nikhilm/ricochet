@@ -30,6 +30,7 @@
 
 char charDirection(int);
 int intDirection(char);
+rtBlock * getBlock(char type, char d, int x, int y);
 
 class rtPhoton;
 /*

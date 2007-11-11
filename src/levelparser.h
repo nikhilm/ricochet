@@ -32,8 +32,6 @@
 
 static std::vector<rtFakeLevel> Levels;
 class rtLevelParser {
-    static rtBlock * getBlock(char type, char d, int x, int y);
-    
 public:
     static void init();
     
