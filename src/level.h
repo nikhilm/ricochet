@@ -27,7 +27,7 @@
 
 #include <SDL/SDL.h>
 
-#include "blocks.h"
+class rtBlock;
 
 /*
  * In init levels are parsed and stored as a quick struct.
@@ -54,44 +54,19 @@ class rtLevel {
 public:
     enum {GRID_WIDTH = 12, GRID_HEIGHT = 12};
     
-    rtLevel() {
-        m_title = m_subtitle = m_passcode = "";
-        m_userBlockList = std::vector<rtBlock *>();
-        m_grid = std::vector<rtBlock *>();
-    }
+    rtLevel();
     
-    void setTitle(std::string title) {
-        m_title = title;
-    }
+    void setTitle(std::string title);
     
-    void setSubtitle(std::string stitle) {
-        m_subtitle = stitle;
-    }
+    void setSubtitle(std::string stitle);
     
-    void setPasscode(std::string code) {
-        m_passcode = code;
-    }
+    void setPasscode(std::string code);
     
-    void addUserBlock(rtBlock * b) {
-        if(b == NULL) return;
-        m_userBlockList.push_back(b);
-    }
+    void addUserBlock(rtBlock * b);
     
-    void addGridBlock(rtBlock * b) {
-        if(b == NULL) return;
-        m_grid.push_back(b);
-    }
+    void addGridBlock(rtBlock * b);
     
-    void display(SDL_Surface *surf, int offsetX, int offsetY) {
-        for(int i = 0, k = 0; i < m_userBlockList.size(); i++) {
-            (m_userBlockList[i])->display(surf, offsetX + (i%2)*rtBlock::WIDTH, offsetY + (k*rtBlock::HEIGHT));
-            if(i%2 == 1) k++;
-        }
-        
-        for(int i = 0; i < m_grid.size(); i++) {
-            (m_grid[i])->display(surf, offsetX, offsetY);
-        }
-    }    
+    void display(SDL_Surface *surf, int offsetX, int offsetY);
 };
 
 #endif

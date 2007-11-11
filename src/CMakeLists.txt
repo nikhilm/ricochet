@@ -4,8 +4,11 @@ SET ( RICOCHET_SRCS
 #    ${CMAKE_CURRENT_SOURCE_DIR}/menu.cpp
 #    ${CMAKE_CURRENT_SOURCE_DIR}/menu.h
     ${CMAKE_CURRENT_SOURCE_DIR}/blocks.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/blocks.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/resource.h
     ${CMAKE_CURRENT_SOURCE_DIR}/levelparser.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/level.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/level.cpp
 )
 INCLUDE_DIRECTORIES (.)
 SUBDIRS(tests editor)

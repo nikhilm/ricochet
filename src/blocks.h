@@ -25,11 +25,12 @@
 
 #include <SDL/SDL.h>
 
+#include "resource.h"
+#include "level.h"
+
 char charDirection(int);
 int intDirection(char);
 
-class rtResource;
-class rtLevel;
 class rtPhoton;
 /*
  * Main block class. See Trac wiki entry for more information
@@ -45,7 +46,7 @@ protected:
     
     int m_direction;
     
-//     Level * m_level;
+    rtLevel * m_level;
     
     bool m_draggable;
 
@@ -89,19 +90,21 @@ public:
     int y() const { return m_y; }
     char type() const { return m_type; }
     
+    void registerLevel(rtLevel * lvl) {
+        m_level = lvl;
+    }
+    
+    rtLevel * level() { return m_level; }
+    
     virtual void setX(int x) {
-//         if(x < 0 || x > rtLevel::WIDTH) return;
+        if(x < 0 || x > rtLevel::GRID_WIDTH) return;
         m_x = x;
     }
     
     virtual void setY(int y) {
-//         if(y < 0 || y > rtLevel::HEIGHT) return;
+        if(y < 0 || y > rtLevel::GRID_HEIGHT) return;
         m_y = y;
     }
-    
-//     void registerLevel(Level * lvl) {
-//         m_level = lvl;
-//     }
     
     bool draggable() const { return m_draggable; }
     
@@ -138,12 +141,12 @@ public:
         setDirection(dir);
     }
     void setX(int x) {
-//         if(x < 0 || x > rtLevel::WIDTH * WIDTH) return;
+        if(x < 0 || x > rtLevel::GRID_WIDTH * WIDTH) return;
         m_x = x;
     }
     
     void setY(int y) {
-//         if(y < 0 || y > rtLevel::HEIGHT * HEIGHT) return;
+        if(y < 0 || y > rtLevel::GRID_HEIGHT * HEIGHT) return;
         m_y = y;
     }
     
@@ -364,66 +367,5 @@ public:
         photon.setHighEnergy(true);
     }
 };
-
-rtBlock * getBlock(char type, char d, int x, int y) {
-    int dir = intDirection(d);    
-    
-    std::cout<<"Recd x "<<x<<" y "<<y<<std::endl;
-    switch(type) {
-        case 'a':
-            return(new rtArrow(dir, x, y));
-            
-            
-        case 'b':
-            return(new rtBomb(dir, x, y));
-            
-            
-        case 'd':
-            return(new rtDeflector(dir, x, y));
-            
-            
-        case 'l':
-            return(new rtLauncher(dir, x, y));
-            
-            
-        case 'p':
-            return(new rtPrism(dir, x, y));
-            
-            
-        case 's':
-            return(new rtSwitch(dir, x, y));
-            
-            
-        case 'w':
-            return(new rtWall(dir, x, y));
-            
-            
-        case 'x':
-            return(new rtEnergiser(dir, x, y));
-            
-        default:
-            return NULL;    
-    }
-}
-
-char charDirection(int dir) {
-    switch(dir) {
-        case rtBlock::UP: return 'U';
-        case rtBlock::DOWN: return 'D';
-        case rtBlock::LEFT: return 'L';
-        case rtBlock::RIGHT: return 'R';
-        default: return 'U';
-    }
-}
-
-int intDirection(char dir) {
-    switch(dir) {
-        case 'U':return rtBlock::UP;
-        case 'D':return rtBlock::DOWN;
-        case 'L':return rtBlock::LEFT;
-        case 'R':return rtBlock::RIGHT;
-        default: return rtBlock::UP;
-    }
-}
 
 #endif
