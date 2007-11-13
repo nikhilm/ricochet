@@ -30,7 +30,7 @@
 
 char charDirection(int);
 int intDirection(char);
-rtBlock * getBlock(char type, char d, int x, int y);
+rtBlock * getBlock(int type, char d, int x, int y);
 
 class rtPhoton;
 /*
@@ -67,7 +67,8 @@ protected:
     }
     
 public:
-    enum Direction {UP, LEFT, DOWN, RIGHT};
+    enum {ARROW='a', BOMB='b', DEFLECTOR='d', LAUNCHER='l', PRISM='p', SWITCH='s', WALL='w', ENERGISER='x'};
+    enum {UP, LEFT, DOWN, RIGHT};
     enum {WIDTH = 50, HEIGHT = 50};
     
     rtBlock(char type, int dir, int x, int y) {
@@ -194,10 +195,10 @@ public:
 
 class rtLauncher : public rtBlock {
 public:
-    rtLauncher(int dir, int x, int y) : rtBlock('l', dir, x, y) {}
+    rtLauncher(int dir, int x, int y) : rtBlock(LAUNCHER, dir, x, y) {}
     
     bool clicked() {
-        //m_level->registerPhoton();
+        m_level->registerPhoton(new rtPhoton(direction(), x(), y()));
         std::cout<<"Created photon\n";
         return true;
     }
@@ -212,7 +213,7 @@ class rtSwitch : public rtBlock {
     }
     
 public:
-    rtSwitch(int dir, int x, int y) : rtBlock('s', dir, x, y) {
+    rtSwitch(int dir, int x, int y) : rtBlock(SWITCH, dir, x, y) {
         m_on = true;
         toggleState();
     }
@@ -227,7 +228,7 @@ public:
 
 class rtBomb : public rtBlock {
 public:
-    rtBomb(int dir, int x, int y) : rtBlock('b', dir, x, y) {}
+    rtBomb(int dir, int x, int y) : rtBlock(BOMB, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         //m_level->triggerGameOver();
@@ -237,7 +238,7 @@ public:
 
 class rtWall : public rtBlock {
 public:
-    rtWall(int dir, int x, int y) : rtBlock('w', dir, x, y) {}
+    rtWall(int dir, int x, int y) : rtBlock(WALL, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         /*switch(photon.direction()) {
@@ -254,7 +255,7 @@ public:
 
 class rtDeflector : public rtBlock {
 public:
-    rtDeflector(int dir, int x, int y) : rtBlock('d', dir, x, y) {
+    rtDeflector(int dir, int x, int y) : rtBlock(DEFLECTOR, dir, x, y) {
         setDraggable(true);
     }
     
@@ -305,7 +306,7 @@ public:
 
 class rtPrism : public rtBlock {
 public:
-    rtPrism(int dir, int x, int y) : rtBlock('p', dir, x, y) {
+    rtPrism(int dir, int x, int y) : rtBlock(PRISM, dir, x, y) {
         setDraggable(true);
     }
     
@@ -349,7 +350,7 @@ public:
 
 class rtArrow : public rtBlock {
 public:
-    rtArrow(int dir, int x, int y) : rtBlock('a', dir, x, y) {
+    rtArrow(int dir, int x, int y) : rtBlock(ARROW, dir, x, y) {
         setDraggable(true);
     }
     
@@ -360,7 +361,7 @@ public:
 
 class rtEnergiser : public rtBlock {
 public:
-    rtEnergiser(int dir, int x, int y) : rtBlock('x', dir, x, y) {
+    rtEnergiser(int dir, int x, int y) : rtBlock(ENERGISER, dir, x, y) {
         setDraggable(true);
     }
     

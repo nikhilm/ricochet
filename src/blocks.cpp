@@ -20,40 +20,40 @@
 
 #include "blocks.h"
 
-rtBlock * getBlock(char type, char d, int x, int y) {
+rtBlock * getBlock(int type, char d, int x, int y) {
     int dir = intDirection(d);    
     
     std::cout<<"Recd x "<<x<<" y "<<y<<std::endl;
     switch(type) {
-        case 'a':
+        case rtBlock::ARROW:
             return(new rtArrow(dir, x, y));
             
             
-        case 'b':
+        case rtBlock::BOMB:
             return(new rtBomb(dir, x, y));
             
             
-        case 'd':
+        case rtBlock::DEFLECTOR:
             return(new rtDeflector(dir, x, y));
             
             
-        case 'l':
+        case rtBlock::LAUNCHER:
             return(new rtLauncher(dir, x, y));
             
             
-        case 'p':
+        case rtBlock::PRISM:
             return(new rtPrism(dir, x, y));
             
             
-        case 's':
+        case rtBlock::SWITCH:
             return(new rtSwitch(dir, x, y));
             
             
-        case 'w':
+        case rtBlock::WALL:
             return(new rtWall(dir, x, y));
             
             
-        case 'x':
+        case rtBlock::ENERGISER:
             return(new rtEnergiser(dir, x, y));
             
         default:
