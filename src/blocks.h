@@ -199,7 +199,6 @@ public:
     
     bool clicked() {
         m_level->registerPhoton(new rtPhoton(direction(), x(), y()));
-        std::cout<<"Created photon\n";
         return true;
     }
 };
