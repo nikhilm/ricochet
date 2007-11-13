@@ -72,6 +72,8 @@ public:
     void registerPhoton(rtPhoton *);
     
     void update();
+    
+    bool handleEvent(SDL_Event);
 };
 
 #endif

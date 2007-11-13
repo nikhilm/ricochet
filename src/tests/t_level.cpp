@@ -38,14 +38,14 @@ int main() {
         {
             if (SDL_QUIT == event.type) loopRunning = false;
             if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) loopRunning = false;
-            
+            lvl->handleEvent(event);
         }
         SDL_FillRect(screen, NULL, 0x0);
 
         lvl->display(screen, 0, 0);
         lvl->update();
         SDL_Flip(screen);
-        SDL_Delay(5);
+        SDL_Delay(10);
     }
     rtResource::cleanup();
 }

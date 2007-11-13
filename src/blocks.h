@@ -141,6 +141,8 @@ public:
     rtPhoton(int dir, int x, int y) : rtBlock('o', dir, x, y) {
         setHighEnergy(false);
         setDirection(dir);
+        setX(x*WIDTH+WIDTH/2);
+        setY(y*HEIGHT+HEIGHT/2);
     }
     void setX(int x) {
         if(x < 0 || x > rtLevel::GRID_WIDTH * WIDTH) return;

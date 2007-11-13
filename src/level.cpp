@@ -73,3 +73,15 @@ void rtLevel::update() {
     if(m_photon != NULL)
         m_photon->move();
 }
+
+bool rtLevel::handleEvent(SDL_Event evt) {
+    if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
+        int x = evt.button.x/rtBlock::WIDTH, y = evt.button.y/rtBlock::HEIGHT;
+        for(int i = 0; i < m_grid.size(); ++i) {
+            if(x == m_grid[i]->x() && y == m_grid[i]->y()) {
+                return m_grid[i]->clicked();
+            }
+        }
+    }
+    return false;
+}
