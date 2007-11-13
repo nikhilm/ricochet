@@ -43,6 +43,7 @@ int main() {
         SDL_FillRect(screen, NULL, 0x0);
 
         lvl->display(screen, 0, 0);
+        lvl->update();
         SDL_Flip(screen);
         SDL_Delay(5);
     }

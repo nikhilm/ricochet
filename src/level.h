@@ -70,6 +70,8 @@ public:
     void display(SDL_Surface *surf, int offsetX, int offsetY);
     
     void registerPhoton(rtPhoton *);
+    
+    void update();
 };
 
 #endif

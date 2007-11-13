@@ -68,3 +68,8 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
 void rtLevel::registerPhoton(rtPhoton * p) {
     m_photon = p;
 }
+
+void rtLevel::update() {
+    if(m_photon != NULL)
+        m_photon->move();
+}
