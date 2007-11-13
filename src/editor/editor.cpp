@@ -143,39 +143,7 @@ class rtEditor {
                     setBlockDirection(rtBlock::LEFT);
                     break;
                     
-                
-                // copied from rtLevelParser::getBlock and modified
-                case SDLK_a:
-                    setBlock('a');
-                    break;
-                
-                case SDLK_b:
-                    setBlock('b');
-                    break;
-                
-                case SDLK_d:
-                    setBlock('d');
-                    break;
-                
-                case SDLK_l:
-                    setBlock('l');
-                    break;
-                
-                case SDLK_p:
-                    setBlock('p');
-                    break;
-                
-                case SDLK_s:
-                    setBlock('s');
-                    break;
-                
-                case SDLK_w:
-                    setBlock('w');
-                    break;
-                
-                case SDLK_x:
-                    setBlock('x');
-                    break;
+                default:setBlock(evt.key.keysym.sym);
             }
         }
     }
