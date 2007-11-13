@@ -71,7 +71,7 @@ class rtEditor {
         // y,x because y is the primary array index, and x is the sub array index
         rtBlock * block = getBlock(type, 'U', x, y);
         if(block == NULL) return;
-        m_grid[x][y] = block;
+        m_grid[y][x] = block;
         
     }
     
