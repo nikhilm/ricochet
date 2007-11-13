@@ -23,7 +23,6 @@
 rtBlock * getBlock(int type, char d, int x, int y) {
     int dir = intDirection(d);    
     
-    std::cout<<"Recd x "<<x<<" y "<<y<<std::endl;
     switch(type) {
         case rtBlock::ARROW:
             return(new rtArrow(dir, x, y));

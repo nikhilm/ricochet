@@ -61,7 +61,9 @@ class rtEditor {
     void setBlock(char type) {        
         int x = getGridCoordX(), y = getGridCoordY();
         // y,x because y is the primary array index, and x is the sub array index
-        m_grid[y][x] = getBlock(type, 'U', x, y);
+        rtBlock * block = getBlock(type, 'U', x, y);
+        if(block == NULL) return;
+        m_grid[x][y] = block;
         
     }
     
@@ -127,10 +129,8 @@ class rtEditor {
         }
         
         else {
-            std::cout<<"Else block\n";
             switch(evt.key.keysym.sym) {
                 case SDLK_UP:
-                    std::cout<<"Setting direc\n";
                     setBlockDirection(rtBlock::UP);
                     break;
                 case SDLK_DOWN:
