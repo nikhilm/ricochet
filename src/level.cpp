@@ -53,8 +53,6 @@ void rtLevel::addGridBlock(rtBlock * b) {
 }
 
 void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
-    if(m_photon != NULL)
-        m_photon->display(surf, offsetX, offsetY);
     for(int i = 0, k = 0; i < m_userBlockList.size(); i++) {
         (m_userBlockList[i])->display(surf, offsetX + (i%2)*rtBlock::WIDTH, offsetY + (k*rtBlock::HEIGHT));
         if(i%2 == 1) k++;
@@ -63,6 +61,9 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     for(int i = 0; i < m_grid.size(); i++) {
         (m_grid[i])->display(surf, offsetX, offsetY);
     }
+    
+    if(m_photon != NULL)
+        m_photon->display(surf, offsetX, offsetY);
 }
 
 void rtLevel::registerPhoton(rtPhoton * p) {
