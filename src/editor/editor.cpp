@@ -40,6 +40,14 @@ class rtEditor {
     
     const char * m_fileName;
     
+    void resetFakeLevel() {
+        m_levelData.title = "";
+        m_levelData.subtitle = "";
+        m_levelData.passcode = "";
+        m_levelData.userListStr = "";
+        m_levelData.gridStr = "";
+    }
+    
     int getGridCoordX() const {
         int x;
         SDL_GetMouseState(&x, NULL);
@@ -100,6 +108,7 @@ class rtEditor {
         out<<m_levelData.userListStr<<std::endl;
         out<<m_levelData.gridStr<<"\n!\n";
         out.close();
+        resetFakeLevel();
     }
     
     void displayGrid(SDL_Surface * surf) {
@@ -150,11 +159,10 @@ class rtEditor {
 public:
     rtEditor(const char * fN, const char * t, char * st, char * code) {
         m_fileName = fN;
+        resetFakeLevel();
         m_levelData.title = t;
         m_levelData.subtitle = st;
         m_levelData.passcode = code;
-        m_levelData.userListStr = "";
-        m_levelData.gridStr = "";
         
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
