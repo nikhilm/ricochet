@@ -14,7 +14,7 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.45"
-   sodipodi:docbase="/home/nikhil/workspace/ricochet/images"
+   sodipodi:docbase="/home/nikhil/workspace/ricochet/data/images"
    sodipodi:docname="blocks.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/nikhil/workspace/ricochet/images/blocks.png"
@@ -340,7 +340,7 @@
   </defs>
   <sodipodi:namedview
      id="base"
-     pagecolor="#fffff0"
+     pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
      gridtolerance="10000"
@@ -1253,7 +1253,7 @@
        sodipodi:ry="4.5"
        d="M 59 844.86218 A 4.5 4.5 0 1 1  50,844.86218 A 4.5 4.5 0 1 1  59 844.86218 z"
        transform="translate(18.5,5.5)"
-       inkscape:export-filename="/home/nikhil/workspace/ricochet/images/block_photon.png"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_o.png"
        inkscape:export-xdpi="86.53846"
        inkscape:export-ydpi="86.53846" />
     <path
