@@ -25,6 +25,8 @@ rtLevel::rtLevel() {
     m_title = m_subtitle = m_passcode = "";
     m_userBlockList = std::vector<rtBlock *>();
     m_grid = std::vector<rtBlock *>();
+    
+    m_photon = NULL;
 }
 
 void rtLevel::setTitle(std::string title) {
@@ -58,4 +60,8 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     for(int i = 0; i < m_grid.size(); i++) {
         (m_grid[i])->display(surf, offsetX, offsetY);
     }
+}
+
+void rtLevel::registerPhoton(rtPhoton * p) {
+    m_photon = p;
 }

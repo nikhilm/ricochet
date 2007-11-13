@@ -28,6 +28,7 @@
 #include <SDL/SDL.h>
 
 class rtBlock;
+class rtPhoton;
 
 /*
  * In init levels are parsed and stored as a quick struct.
@@ -47,8 +48,8 @@ class rtLevel {
     std::vector<rtBlock *> m_userBlockList;
     
     std::vector<rtBlock *> m_grid;
-     
-    rtBlock * m_b;
+    
+    rtPhoton * m_photon;
     
 
 public:
@@ -67,6 +68,8 @@ public:
     void addGridBlock(rtBlock * b);
     
     void display(SDL_Surface *surf, int offsetX, int offsetY);
+    
+    void registerPhoton(rtPhoton *);
 };
 
 #endif
