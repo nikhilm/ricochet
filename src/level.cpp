@@ -27,6 +27,7 @@ rtLevel::rtLevel() {
     m_grid = std::vector<rtBlock *>();
     
     m_photon = NULL;
+    m_switchesAlive = 0;
 }
 
 void rtLevel::setTitle(std::string title) {
@@ -48,8 +49,12 @@ void rtLevel::addUserBlock(rtBlock * b) {
 
 void rtLevel::addGridBlock(rtBlock * b) {
     if(b == NULL) return;
-    b->registerLevel(this);
+    
+    b->registerLevel(this);    
     m_grid.push_back(b);
+    
+    if(b->type() == rtBlock::SWITCH)
+        m_switchesAlive++;
 }
 
 void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
@@ -73,8 +78,10 @@ void rtLevel::registerPhoton(rtPhoton * p) {
 void rtLevel::update() {
     if(m_photon != NULL) {
         for(int i = 0; i < m_grid.size(); ++i) {
-            if(m_photon->x() == m_grid[i]->x()*rtBlock::WIDTH+rtBlock::WIDTH/2 && m_photon->y() == m_grid[i]->y()*rtBlock::HEIGHT+rtBlock::HEIGHT/2)
+            if(m_photon->x() == m_grid[i]->x()*rtBlock::WIDTH+rtBlock::WIDTH/2 &&
+               m_photon->y() == m_grid[i]->y()*rtBlock::HEIGHT+rtBlock::HEIGHT/2)
                 m_grid[i]->handlePhoton(*m_photon);
+            
         }
         m_photon->move();
     }
@@ -90,4 +97,14 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         }
     }
     return false;
+}
+
+
+/***********
+ * SIGNALS *
+ **********/
+ 
+void rtLevel::switchToggled(rtSwitch *sw) {
+    ( sw->on() ? m_switchesAlive-- : m_switchesAlive++ );
+    std::cout<<"Switches alive = "<<m_switchesAlive<<std::endl;
 }

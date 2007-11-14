@@ -29,6 +29,7 @@
 
 class rtBlock;
 class rtPhoton;
+class rtSwitch;
 
 /*
  * In init levels are parsed and stored as a quick struct.
@@ -50,6 +51,8 @@ class rtLevel {
     std::vector<rtBlock *> m_grid;
     
     rtPhoton * m_photon;
+    
+    int m_switchesAlive;
     
 
 public:
@@ -74,6 +77,8 @@ public:
     void update();
     
     bool handleEvent(SDL_Event);
+    
+    void switchToggled(rtSwitch *);
 };
 
 #endif

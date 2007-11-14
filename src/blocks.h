@@ -156,7 +156,6 @@ public:
     
     void setHighEnergy(bool he) {
         m_highEnergy = he;
-        std::cout<<"High energy:"<<(highEnergy() ? "yes\n":"no\n");
         setImage('o', (highEnergy() ? "energised" : ""));
     }
     
@@ -210,7 +209,7 @@ class rtSwitch : public rtBlock {
     
     void toggleState() {
         m_on = !m_on;
-        setImage('s', (m_on ? "on" : "off"));
+        setImage('s', (m_on ? "on" : "off"));        
     }
     
 public:
@@ -221,6 +220,7 @@ public:
     bool handlePhoton(rtPhoton &photon) {
         photon.setHighEnergy(false);
         toggleState();
+        m_level->switchToggled(this);
         return true;
     }
     
