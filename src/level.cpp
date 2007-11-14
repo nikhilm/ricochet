@@ -58,9 +58,33 @@ void rtLevel::addGridBlock(rtBlock * b) {
 }
 
 void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
-    for(int i = 0, k = 0; i < m_userBlockList.size(); i++) {
-        (m_userBlockList[i])->display(surf, offsetX + (i%2)*rtBlock::WIDTH, offsetY + (k*rtBlock::HEIGHT));
-        if(i%2 == 1) k++;
+    // dock
+    static const int DOCK_OFFSET_X = DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH;
+    
+    SDL_Rect out;
+    out.x = DOCK_OFFSET_X;
+    out.y = DOCK_OFFSET_Y;
+    out.w = surf->w - out.x;
+    out.h = surf->h;
+    SDL_FillRect(surf, &out, 0x666666);
+    
+    SDL_Rect in;
+    in.x = DOCK_OFFSET_X + DOCK_PADDING;
+    in.y = DOCK_OFFSET_Y + DOCK_PADDING;
+    in.w = surf->w - in.x - DOCK_PADDING;
+    in.h = surf->h - 2 * DOCK_PADDING;
+    SDL_FillRect(surf, &in, 0x000000);
+    
+    for(int i = 0, k = 1, x = 0, y = 0; i < m_userBlockList.size(); i++) {
+        x = DOCK_OFFSET_X + 2 * DOCK_PADDING + k*(in.w/4 - rtBlock::WIDTH/2);
+        y = DOCK_OFFSET_Y + 5 * DOCK_PADDING + i * (rtBlock::HEIGHT + DOCK_PADDING * 5);
+        if( y+rtBlock::HEIGHT > surf->w ) {
+            std::cout<<"Greaets\n";
+            y -= i*(in.y+in.h);
+            k = 5;
+        }
+        (m_userBlockList[i])->display(surf, x, y);
+        
     }
     
     for(int i = 0; i < m_grid.size(); i++) {

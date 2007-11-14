@@ -56,7 +56,13 @@ class rtLevel {
     
 
 public:
-    enum {GRID_WIDTH = 12, GRID_HEIGHT = 12};
+    enum {GRID_WIDTH = 12,
+        GRID_HEIGHT = 12,
+        DOCK_OFFSET_X_LOGICAL=GRID_WIDTH,
+        DOCK_OFFSET_Y=0,
+        DOCK_PADDING=5,
+        DOCK_COLS=2
+    };
     
     rtLevel();
     

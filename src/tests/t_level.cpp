@@ -45,7 +45,6 @@ int main() {
         lvl->display(screen, 0, 0);
         lvl->update();
         SDL_Flip(screen);
-        SDL_Delay(10);
     }
     rtResource::cleanup();
 }
