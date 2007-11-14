@@ -232,7 +232,7 @@ public:
     rtBomb(int dir, int x, int y) : rtBlock(BOMB, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
-        //m_level->triggerGameOver();
+        m_level->gameOver(false);
         return true;
     }
 };

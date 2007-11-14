@@ -79,6 +79,8 @@ public:
     bool handleEvent(SDL_Event);
     
     void switchToggled(rtSwitch *);
+    
+    void gameOver(bool);
 };
 
 #endif
