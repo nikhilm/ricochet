@@ -21,7 +21,10 @@
 #include "level.h"
 #include "blocks.h"
 
-rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH) {
+rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH),
+                 DOCK_START_X(DOCK_OFFSET_X + 2 * DOCK_PADDING), //start coordinate for block drawing
+                 DOCK_START_Y(DOCK_OFFSET_Y + 2 * DOCK_PADDING)
+{
     m_title = m_subtitle = m_passcode = "";
     m_userBlockList = std::vector<rtBlock *>();
     m_grid = std::vector<rtBlock *>();
@@ -85,7 +88,7 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     SDL_FillRect(surf, &in, 0x000000);
     
     for(int i = 0; i < m_userBlockList.size(); i++) {
-        (m_userBlockList[i])->display(surf, offsetX, offsetY);
+        (m_userBlockList[i])->display(surf, offsetX+getDockX(i), offsetY+getDockY(i));
     }
     
     for(int i = 0; i < m_grid.size(); i++) {
@@ -143,6 +146,16 @@ rtBlock * rtLevel::getBlockAt(int x, int y) {
             return m_userBlockList[i];
     }
     return NULL;
+}
+
+// returns the position to draw the block at position pos in the list
+// the best way to understand the dock calculations is to draw it on paper.
+int rtLevel::getDockX(int pos) {
+    return DOCK_START_X + DOCK_PADDING + (pos%DOCK_COLS) * (rtBlock::WIDTH);
+}
+
+int rtLevel::getDockY(int pos) {
+    return DOCK_START_Y + DOCK_PADDING + (pos/DOCK_COLS) * (rtBlock::HEIGHT);
 }
 
 /***********

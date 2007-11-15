@@ -59,6 +59,9 @@ class rtLevel {
     bool m_dragInProgress, m_clicked;
 
 public:
+    
+    const int DOCK_OFFSET_X, DOCK_START_X, DOCK_START_Y;
+    
     enum {GRID_WIDTH = 12,
         GRID_HEIGHT = 12,
         DOCK_OFFSET_X_LOGICAL=GRID_WIDTH,
@@ -66,8 +69,6 @@ public:
         DOCK_PADDING=10,
         DOCK_COLS=2
     };
-    
-    const int DOCK_OFFSET_X;
     
     rtLevel();
     
@@ -94,6 +95,9 @@ public:
     void gameOver(bool);
     
     rtBlock * getBlockAt(int, int);
+    
+    int getDockX(int);
+    int getDockY(int);
 };
 
 #endif
