@@ -75,15 +75,16 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     in.h = surf->h - 2 * DOCK_PADDING;
     SDL_FillRect(surf, &in, 0x000000);
     
-    for(int i = 0, k = 1, x = 0, y = 0; i < m_userBlockList.size(); i++) {
-        x = DOCK_OFFSET_X + 2 * DOCK_PADDING + k*(in.w/4 - rtBlock::WIDTH/2);
-        y = DOCK_OFFSET_Y + 5 * DOCK_PADDING + i * (rtBlock::HEIGHT + DOCK_PADDING * 5);
-        if( y+rtBlock::HEIGHT > surf->w ) {
-            std::cout<<"Greaets\n";
-            y -= i*(in.y+in.h);
-            k = 5;
-        }
-        (m_userBlockList[i])->display(surf, x, y);
+    for(int i = 0,
+        x = in.x - rtBlock::WIDTH/2 +in.w/4,
+        y = in.y + 5*DOCK_PADDING;
+        
+        i < m_userBlockList.size(); i++) {
+            
+        (m_userBlockList[i])->display(surf, x + (i%DOCK_COLS)*(in.w/2), y);
+        
+        if(i%DOCK_COLS == 1)
+            y += rtBlock::HEIGHT + 2*DOCK_PADDING;
         
     }
     
