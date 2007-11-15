@@ -50,6 +50,8 @@ void rtLevel::setPasscode(std::string code) {
 void rtLevel::addUserBlock(rtBlock * b) {
     if(b == NULL) return;
     
+    b->setX(m_userBlockList.size()%2);
+    b->setY(m_userBlockList.size()/2);
     m_userBlockList.push_back(b);
 }
 
