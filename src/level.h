@@ -57,8 +57,6 @@ class rtLevel {
     rtBlock * m_activeBlock; //block which has the mouse over it
     
     bool m_dragInProgress, m_clicked;
-    
-    SDL_Rect m_dockOut, m_dockIn;
 
 public:
     enum {GRID_WIDTH = 12,

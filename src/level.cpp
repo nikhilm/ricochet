@@ -33,11 +33,6 @@ rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH) {
     m_dragInProgress = false;
     m_clicked = false;
     
-    m_dockOut.x = DOCK_OFFSET_X;
-    m_dockOut.y = DOCK_OFFSET_Y;
-    
-    m_dockIn.x = DOCK_OFFSET_X + DOCK_PADDING;
-    m_dockIn.y = DOCK_OFFSET_Y + DOCK_PADDING;
 }
 
 void rtLevel::setTitle(std::string title) {
@@ -54,6 +49,7 @@ void rtLevel::setPasscode(std::string code) {
 
 void rtLevel::addUserBlock(rtBlock * b) {
     if(b == NULL) return;
+    
     m_userBlockList.push_back(b);
 }
 
@@ -68,26 +64,26 @@ void rtLevel::addGridBlock(rtBlock * b) {
 }
 
 void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
-    // dock
-    m_dockOut.w = surf->w - m_dockOut.x;
-    m_dockOut.h = surf->h;
-    SDL_FillRect(surf, &m_dockOut, 0x666666);
+    // dock  
     
-    m_dockIn.w = surf->w - m_dockIn.x - DOCK_PADDING;
-    m_dockIn.h = surf->h - 2 * DOCK_PADDING;
-    SDL_FillRect(surf, &m_dockIn, 0x000000);
+    SDL_Rect out, in;
     
-    for(int i = 0,
-        x = m_dockIn.x - rtBlock::WIDTH/2 +m_dockIn.w/4,
-        y = m_dockIn.y + 5*DOCK_PADDING;
-        
-        i < m_userBlockList.size(); i++) {
-            
-        (m_userBlockList[i])->display(surf, x + (i%DOCK_COLS)*(m_dockIn.w/2), y);
-        
-        if(i%DOCK_COLS == 1)
-            y += rtBlock::HEIGHT + 2*DOCK_PADDING;
-        
+    //TODO:Replace 800/600 with the actual game resolution constants
+    out.x = DOCK_OFFSET_X;
+    out.y = DOCK_OFFSET_Y;
+    out.w = 800 - out.x;
+    out.h = 600;
+    
+    in.x = DOCK_OFFSET_X + DOCK_PADDING;
+    in.y = DOCK_OFFSET_Y + DOCK_PADDING;
+    in.w = 800 - in.x - DOCK_PADDING;
+    in.h = 600 - 2 * DOCK_PADDING;
+    
+    SDL_FillRect(surf, &out, 0x666666);    
+    SDL_FillRect(surf, &in, 0x000000);
+    
+    for(int i = 0; i < m_userBlockList.size(); i++) {
+        (m_userBlockList[i])->display(surf, offsetX, offsetY);
     }
     
     for(int i = 0; i < m_grid.size(); i++) {
