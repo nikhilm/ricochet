@@ -54,6 +54,11 @@ class rtLevel {
     
     int m_switchesAlive;
     
+    rtBlock * m_activeBlock; //block which has the mouse over it
+    
+    bool m_dragInProgress, m_clicked;
+    
+    SDL_Rect m_dockOut, m_dockIn;
 
 public:
     enum {GRID_WIDTH = 12,
@@ -63,6 +68,8 @@ public:
         DOCK_PADDING=5,
         DOCK_COLS=2
     };
+    
+    const int DOCK_OFFSET_X;
     
     rtLevel();
     
@@ -87,6 +94,8 @@ public:
     void switchToggled(rtSwitch *);
     
     void gameOver(bool);
+    
+    rtBlock * getBlockAt(int, int);
 };
 
 #endif

@@ -21,13 +21,23 @@
 #include "level.h"
 #include "blocks.h"
 
-rtLevel::rtLevel() {
+rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH) {
     m_title = m_subtitle = m_passcode = "";
     m_userBlockList = std::vector<rtBlock *>();
     m_grid = std::vector<rtBlock *>();
     
     m_photon = NULL;
     m_switchesAlive = 0;
+    
+    m_activeBlock = NULL;
+    m_dragInProgress = false;
+    m_clicked = false;
+    
+    m_dockOut.x = DOCK_OFFSET_X;
+    m_dockOut.y = DOCK_OFFSET_Y;
+    
+    m_dockIn.x = DOCK_OFFSET_X + DOCK_PADDING;
+    m_dockIn.y = DOCK_OFFSET_Y + DOCK_PADDING;
 }
 
 void rtLevel::setTitle(std::string title) {
@@ -59,29 +69,21 @@ void rtLevel::addGridBlock(rtBlock * b) {
 
 void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     // dock
-    static const int DOCK_OFFSET_X = DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH;
+    m_dockOut.w = surf->w - m_dockOut.x;
+    m_dockOut.h = surf->h;
+    SDL_FillRect(surf, &m_dockOut, 0x666666);
     
-    SDL_Rect out;
-    out.x = DOCK_OFFSET_X;
-    out.y = DOCK_OFFSET_Y;
-    out.w = surf->w - out.x;
-    out.h = surf->h;
-    SDL_FillRect(surf, &out, 0x666666);
-    
-    SDL_Rect in;
-    in.x = DOCK_OFFSET_X + DOCK_PADDING;
-    in.y = DOCK_OFFSET_Y + DOCK_PADDING;
-    in.w = surf->w - in.x - DOCK_PADDING;
-    in.h = surf->h - 2 * DOCK_PADDING;
-    SDL_FillRect(surf, &in, 0x000000);
+    m_dockIn.w = surf->w - m_dockIn.x - DOCK_PADDING;
+    m_dockIn.h = surf->h - 2 * DOCK_PADDING;
+    SDL_FillRect(surf, &m_dockIn, 0x000000);
     
     for(int i = 0,
-        x = in.x - rtBlock::WIDTH/2 +in.w/4,
-        y = in.y + 5*DOCK_PADDING;
+        x = m_dockIn.x - rtBlock::WIDTH/2 +m_dockIn.w/4,
+        y = m_dockIn.y + 5*DOCK_PADDING;
         
         i < m_userBlockList.size(); i++) {
             
-        (m_userBlockList[i])->display(surf, x + (i%DOCK_COLS)*(in.w/2), y);
+        (m_userBlockList[i])->display(surf, x + (i%DOCK_COLS)*(m_dockIn.w/2), y);
         
         if(i%DOCK_COLS == 1)
             y += rtBlock::HEIGHT + 2*DOCK_PADDING;
@@ -114,6 +116,13 @@ void rtLevel::update() {
 
 bool rtLevel::handleEvent(SDL_Event evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
+        m_clicked = true;
+        m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
+    }    
+    else if(evt.type = SDL_MOUSEMOTION) {
+        // react only if a drag is in progress
+        if(m_clicked) {}
+            
         int x = evt.button.x/rtBlock::WIDTH, y = evt.button.y/rtBlock::HEIGHT;
         for(int i = 0; i < m_grid.size(); ++i) {
             if(x == m_grid[i]->x() && y == m_grid[i]->y()) {
@@ -124,6 +133,19 @@ bool rtLevel::handleEvent(SDL_Event evt) {
     return false;
 }
 
+// scans both grid and user list to see if block is below mouse
+rtBlock * rtLevel::getBlockAt(int x, int y) {
+    for(int i = 0; i < m_grid.size(); ++i) {
+        if(x/rtBlock::WIDTH == m_grid[i]->x() && y/rtBlock::HEIGHT == m_grid[i]->y())
+            return m_grid[i];
+    }
+    
+    for(int i = 0; i < m_userBlockList.size(); ++i) {
+        if(x/rtBlock::WIDTH == m_grid[i]->x() && y/rtBlock::HEIGHT == m_grid[i]->y())
+            return m_userBlockList[i];
+    }
+    return NULL;
+}
 
 /***********
  * SIGNALS *
