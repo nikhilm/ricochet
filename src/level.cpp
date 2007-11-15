@@ -120,15 +120,26 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         m_clicked = true;
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
     }    
-    else if(evt.type = SDL_MOUSEMOTION) {
+    else if(evt.type == SDL_MOUSEMOTION) {
         // react only if a drag is in progress
-        if(m_clicked) {}
-            
-        int x = evt.button.x/rtBlock::WIDTH, y = evt.button.y/rtBlock::HEIGHT;
-        for(int i = 0; i < m_grid.size(); ++i) {
-            if(x == m_grid[i]->x() && y == m_grid[i]->y()) {
-                return m_grid[i]->clicked();
+        if(m_clicked) {
+            std::cout<<"Beginning drag with block : "<<(m_activeBlock == NULL ? '!' : (char)m_activeBlock->type())<<std::endl;
+            m_dragInProgress = true;
+        }
+    }
+    else if(evt.type == SDL_MOUSEBUTTONUP && evt.button.button == SDL_BUTTON_LEFT) {        
+        m_clicked = false;
+        
+        if(!m_dragInProgress) {            
+            int x = evt.button.x/rtBlock::WIDTH, y = evt.button.y/rtBlock::HEIGHT;
+            for(int i = 0; i < m_grid.size(); ++i) {
+                if(x == m_grid[i]->x() && y == m_grid[i]->y()) {
+                    return m_grid[i]->clicked();
+                }
             }
+        }
+        else {
+            std::cout<<"Drag over\n";
         }
     }
     return false;
@@ -142,7 +153,9 @@ rtBlock * rtLevel::getBlockAt(int x, int y) {
     }
     
     for(int i = 0; i < m_userBlockList.size(); ++i) {
-        if(x/rtBlock::WIDTH == m_grid[i]->x() && y/rtBlock::HEIGHT == m_grid[i]->y())
+        int bX = getDockX(i);
+        int bY = getDockY(i);
+        if(bX <= x && bX + rtBlock::WIDTH >= x && bY <= y && bY + rtBlock::HEIGHT >= y)
             return m_userBlockList[i];
     }
     return NULL;
