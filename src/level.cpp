@@ -120,12 +120,14 @@ void rtLevel::update() {
 
 bool rtLevel::handleEvent(SDL_Event evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-        m_clicked = true;
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
-        m_activeBlock->setX(0);
-        m_activeBlock->setY(0);
-        m_activeBlockX = evt.button.x;
-        m_activeBlockY = evt.button.y;
+        if(m_activeBlock != NULL) {            
+            m_clicked = true;
+            m_activeBlock->setX(0);
+            m_activeBlock->setY(0);
+            m_activeBlockX = evt.button.x;
+            m_activeBlockY = evt.button.y;
+        }
     }    
     else if(evt.type == SDL_MOUSEMOTION) {
         // react only if a drag is to be begun
@@ -152,6 +154,8 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         }
         else {
             std::cout<<"Drag over\n";
+            m_activeBlock == NULL;
+            m_dragInProgress = false;
         }
     }
     return false;
