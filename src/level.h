@@ -55,6 +55,7 @@ class rtLevel {
     int m_switchesAlive;
     
     rtBlock * m_activeBlock; //block which has the mouse over it
+    int m_activeBlockX, m_activeBlockY;
     
     bool m_dragInProgress, m_clicked;
 

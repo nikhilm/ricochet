@@ -97,6 +97,9 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     
     if(m_photon != NULL)
         m_photon->display(surf, offsetX, offsetY);
+    
+    if(m_activeBlock != NULL)
+        m_activeBlock->display(surf, offsetX+m_activeBlockX, offsetY+m_activeBlockY);
 }
 
 void rtLevel::registerPhoton(rtPhoton * p) {
@@ -119,13 +122,22 @@ bool rtLevel::handleEvent(SDL_Event evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
         m_clicked = true;
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
+        m_activeBlock->setX(0);
+        m_activeBlock->setY(0);
+        m_activeBlockX = evt.button.x;
+        m_activeBlockY = evt.button.y;
     }    
     else if(evt.type == SDL_MOUSEMOTION) {
-        // react only if a drag is in progress
+        // react only if a drag is to be begun
         if(m_clicked) {
-            //std::cout<<"Beginning drag with block : "<<(m_activeBlock == NULL ? '!' : (char)m_activeBlock->type())<<std::endl;
-            m_dragInProgress = true;
+            m_dragInProgress = true;            
         }
+        
+        if(m_dragInProgress) {            
+            m_activeBlockX = evt.motion.x;
+            m_activeBlockY = evt.motion.y;
+        }
+        
     }
     else if(evt.type == SDL_MOUSEBUTTONUP && evt.button.button == SDL_BUTTON_LEFT) {        
         m_clicked = false;
@@ -148,16 +160,21 @@ bool rtLevel::handleEvent(SDL_Event evt) {
 // scans both grid and user list to see if block is below mouse
 rtBlock * rtLevel::getBlockAt(int x, int y) {
     for(int i = 0; i < m_grid.size(); ++i) {
-        if(x/rtBlock::WIDTH == m_grid[i]->x() && y/rtBlock::HEIGHT == m_grid[i]->y())
-            return m_grid[i];
+        if(x/rtBlock::WIDTH == m_grid[i]->x() && y/rtBlock::HEIGHT == m_grid[i]->y()) {
+            rtBlock *tmp = m_grid[i];
+            m_grid.erase(m_grid.begin()+i);
+            return tmp;
+        }
     }
     
     for(int i = 0; i < m_userBlockList.size(); ++i) {
         int bX = getDockX(i) + m_userBlockList[i]->x()*rtBlock::WIDTH;
         int bY = getDockY(i) + m_userBlockList[i]->y()*rtBlock::HEIGHT;
+        
         if(bX <= x && bX + rtBlock::WIDTH >= x && bY <= y && bY + rtBlock::HEIGHT >= y) {
-            std::cout<<"Intersected with "<<m_userBlockList[i]->type()<<std::endl;
-            return m_userBlockList[i];
+            rtBlock *tmp = m_userBlockList[i];
+            m_userBlockList.erase(m_userBlockList.begin()+i);
+            return tmp;
         }
     }
     return NULL;
