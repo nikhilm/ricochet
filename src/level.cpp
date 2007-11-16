@@ -123,7 +123,7 @@ bool rtLevel::handleEvent(SDL_Event evt) {
     else if(evt.type == SDL_MOUSEMOTION) {
         // react only if a drag is in progress
         if(m_clicked) {
-            std::cout<<"Beginning drag with block : "<<(m_activeBlock == NULL ? '!' : (char)m_activeBlock->type())<<std::endl;
+            //std::cout<<"Beginning drag with block : "<<(m_activeBlock == NULL ? '!' : (char)m_activeBlock->type())<<std::endl;
             m_dragInProgress = true;
         }
     }
@@ -153,10 +153,12 @@ rtBlock * rtLevel::getBlockAt(int x, int y) {
     }
     
     for(int i = 0; i < m_userBlockList.size(); ++i) {
-        int bX = getDockX(i);
-        int bY = getDockY(i);
-        if(bX <= x && bX + rtBlock::WIDTH >= x && bY <= y && bY + rtBlock::HEIGHT >= y)
+        int bX = getDockX(i) + m_userBlockList[i]->x()*rtBlock::WIDTH;
+        int bY = getDockY(i) + m_userBlockList[i]->y()*rtBlock::HEIGHT;
+        if(bX <= x && bX + rtBlock::WIDTH >= x && bY <= y && bY + rtBlock::HEIGHT >= y) {
+            std::cout<<"Intersected with "<<m_userBlockList[i]->type()<<std::endl;
             return m_userBlockList[i];
+        }
     }
     return NULL;
 }
