@@ -123,10 +123,10 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
         if(m_activeBlock != NULL) {            
             m_clicked = true;
+            m_activeBlockX = evt.button.x - rtBlock::WIDTH/2;
+            m_activeBlockY = evt.button.y - rtBlock::HEIGHT/2;
             m_activeBlock->setX(0);
             m_activeBlock->setY(0);
-            m_activeBlockX = evt.button.x;
-            m_activeBlockY = evt.button.y;
         }
     }    
     else if(evt.type == SDL_MOUSEMOTION) {
@@ -136,8 +136,8 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         }
         
         if(m_dragInProgress) {            
-            m_activeBlockX = evt.motion.x;
-            m_activeBlockY = evt.motion.y;
+            m_activeBlockX = evt.motion.x - rtBlock::WIDTH/2;
+            m_activeBlockY = evt.motion.y - rtBlock::HEIGHT/2;
         }
         
     }
@@ -152,8 +152,7 @@ bool rtLevel::handleEvent(SDL_Event evt) {
                 }
             }
         }
-        else {
-            std::cout<<"Drag over\n";
+        else {            
             m_activeBlock == NULL;
             m_dragInProgress = false;
         }
