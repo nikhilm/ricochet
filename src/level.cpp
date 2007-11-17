@@ -99,7 +99,7 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
         m_photon->display(surf, offsetX, offsetY);
     
     if(m_activeBlock != NULL)
-        m_activeBlock->display(surf, offsetX+m_activeBlockX, offsetY+m_activeBlockY);
+        m_activeBlock->display(surf, offsetX, offsetY);
 }
 
 void rtLevel::registerPhoton(rtPhoton * p) {
@@ -123,10 +123,6 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
         if(m_activeBlock != NULL && m_activeBlock->draggable()) {            
             m_clicked = true;
-            m_activeBlockX = evt.button.x - rtBlock::WIDTH/2;
-            m_activeBlockY = evt.button.y - rtBlock::HEIGHT/2;
-            m_activeBlock->setX(0);
-            m_activeBlock->setY(0);
         }
     }    
     else if(evt.type == SDL_MOUSEMOTION) {
@@ -135,9 +131,9 @@ bool rtLevel::handleEvent(SDL_Event evt) {
             m_dragInProgress = true;            
         }
         
-        if(m_dragInProgress) {            
-            m_activeBlockX = evt.motion.x - rtBlock::WIDTH/2;
-            m_activeBlockY = evt.motion.y - rtBlock::HEIGHT/2;
+        if(m_dragInProgress) {    
+            m_activeBlock->setX(evt.button.x - rtBlock::WIDTH/2);
+            m_activeBlock->setY(evt.button.y - rtBlock::HEIGHT/2);
         }
         
     }
