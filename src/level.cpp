@@ -121,7 +121,7 @@ void rtLevel::update() {
 bool rtLevel::handleEvent(SDL_Event evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
-        if(m_activeBlock != NULL) {            
+        if(m_activeBlock != NULL && m_activeBlock->draggable()) {            
             m_clicked = true;
             m_activeBlockX = evt.button.x - rtBlock::WIDTH/2;
             m_activeBlockY = evt.button.y - rtBlock::HEIGHT/2;
