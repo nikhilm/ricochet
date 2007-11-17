@@ -123,6 +123,7 @@ bool rtLevel::handleEvent(SDL_Event evt) {
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
         if(m_activeBlock != NULL) {
             if(!m_activeBlock->draggable()) {
+                // non draggable blocks are only present in the grid
                 m_grid.push_back(m_activeBlock);
                 m_activeBlock = false;
             }
@@ -154,7 +155,8 @@ bool rtLevel::handleEvent(SDL_Event evt) {
                 }
             }
         }
-        else {            
+        else {
+            resolveDrop(m_activeBlock);
             m_activeBlock == NULL;
             m_dragInProgress = false;
         }
@@ -181,10 +183,30 @@ rtBlock * rtLevel::getBlockAt(int x, int y) {
         if(pointBlockIntersection(m_userBlockList[i], x, y)) {
             rtBlock *tmp = m_userBlockList[i];
             m_userBlockList.erase(m_userBlockList.begin()+i);
+            resetDockBlocks();
             return tmp;
         }
     }
     return NULL;
+}
+
+void rtLevel::resetDockBlocks() {
+    for(int i = 0; i < m_userBlockList.size(); ++i) {
+        m_userBlockList[i]->setX(getDockX(i));
+        m_userBlockList[i]->setY(getDockY(i));
+    }
+}
+        
+void rtLevel::resolveDrop(rtBlock *b) {
+    if(b->x() <= GRID_WIDTH * rtBlock::WIDTH && b->y() <= GRID_HEIGHT * rtBlock::HEIGHT) {
+        //integer division truncation helps
+        b->setX(b->x()/rtBlock::WIDTH * rtBlock::WIDTH);
+        b->setY(b->y()/rtBlock::HEIGHT * rtBlock::HEIGHT);
+        m_grid.push_back(b);
+    }
+    else {
+        addUserBlock(b);
+    }
 }
 
 // returns the position to draw the block at position pos in the list
