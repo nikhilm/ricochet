@@ -99,12 +99,10 @@ public:
     rtLevel * level() { return m_level; }
     
     virtual void setX(int x) {
-        if(x < 0 || x > rtLevel::GRID_WIDTH) return;
         m_x = x;
     }
     
     virtual void setY(int y) {
-        if(y < 0 || y > rtLevel::GRID_HEIGHT) return;
         m_y = y;
     }
     
@@ -119,8 +117,8 @@ public:
         
     virtual void display(SDL_Surface *surf, int offsetX, int offsetY) const {
         SDL_Rect r;
-        r.x = offsetX + m_x * WIDTH;
-        r.y = offsetY + m_y * HEIGHT;
+        r.x = offsetX + m_x;
+        r.y = offsetY + m_y;
         SDL_BlitSurface(m_image, NULL, surf, &r);
     }
     
@@ -141,17 +139,8 @@ public:
     rtPhoton(int dir, int x, int y) : rtBlock('o', dir, x, y) {
         setHighEnergy(false);
         setDirection(dir);
-        setX(x*WIDTH+WIDTH/2);
-        setY(y*HEIGHT+HEIGHT/2);
-    }
-    void setX(int x) {
-        if(x < 0 || x > rtLevel::GRID_WIDTH * WIDTH) return;
-        m_x = x;
-    }
-    
-    void setY(int y) {
-        if(y < 0 || y > rtLevel::GRID_HEIGHT * HEIGHT) return;
-        m_y = y;
+        setX(x+WIDTH/2);
+        setY(y+HEIGHT/2);
     }
     
     void setHighEnergy(bool he) {
