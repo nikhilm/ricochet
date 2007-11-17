@@ -121,8 +121,14 @@ void rtLevel::update() {
 bool rtLevel::handleEvent(SDL_Event evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
-        if(m_activeBlock != NULL && m_activeBlock->draggable()) {            
-            m_clicked = true;
+        if(m_activeBlock != NULL) {
+            if(!m_activeBlock->draggable()) {
+                m_grid.push_back(m_activeBlock);
+                m_activeBlock = false;
+            }
+            else {
+                m_clicked = true;
+            }
         }
     }    
     else if(evt.type == SDL_MOUSEMOTION) {
@@ -156,10 +162,15 @@ bool rtLevel::handleEvent(SDL_Event evt) {
     return false;
 }
 
+bool rtLevel::pointBlockIntersection(rtBlock *b, int x, int y) {
+    return x >= b->x() && x <= b->x() + rtBlock::WIDTH &&
+            y >= b->y() && y <= b->y() + rtBlock::HEIGHT;
+}
+
 // scans both grid and user list to see if block is below mouse
 rtBlock * rtLevel::getBlockAt(int x, int y) {
     for(int i = 0; i < m_grid.size(); ++i) {
-        if(x/rtBlock::WIDTH == m_grid[i]->x() && y/rtBlock::HEIGHT == m_grid[i]->y()) {
+        if(pointBlockIntersection(m_grid[i], x, y)) {
             rtBlock *tmp = m_grid[i];
             m_grid.erase(m_grid.begin()+i);
             return tmp;
@@ -167,10 +178,7 @@ rtBlock * rtLevel::getBlockAt(int x, int y) {
     }
     
     for(int i = 0; i < m_userBlockList.size(); ++i) {
-        int bX = getDockX(i) + m_userBlockList[i]->x()*rtBlock::WIDTH;
-        int bY = getDockY(i) + m_userBlockList[i]->y()*rtBlock::HEIGHT;
-        
-        if(bX <= x && bX + rtBlock::WIDTH >= x && bY <= y && bY + rtBlock::HEIGHT >= y) {
+        if(pointBlockIntersection(m_userBlockList[i], x, y)) {
             rtBlock *tmp = m_userBlockList[i];
             m_userBlockList.erase(m_userBlockList.begin()+i);
             return tmp;

@@ -94,6 +94,8 @@ public:
     
     void gameOver(bool);
     
+    bool pointBlockIntersection(rtBlock *b, int x, int y);
+    
     rtBlock * getBlockAt(int, int);
     
     int getDockX(int);
