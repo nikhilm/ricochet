@@ -69,7 +69,7 @@ class rtEditor {
     void setBlock(char type) {        
         int x = getGridCoordX(), y = getGridCoordY();
         // y,x because y is the primary array index, and x is the sub array index
-        rtBlock * block = getBlock(type, 'U', x, y);
+        rtBlock * block = getBlock(type, 'U', x*rtBlock::WIDTH, y*rtBlock::HEIGHT);
         if(block == NULL) return;
         m_grid[y][x] = block;
         
