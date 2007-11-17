@@ -200,8 +200,8 @@ void rtLevel::resetDockBlocks() {
 void rtLevel::resolveDrop(rtBlock *b) {
     if(b->x() <= GRID_WIDTH * rtBlock::WIDTH && b->y() <= GRID_HEIGHT * rtBlock::HEIGHT) {
         //integer division truncation helps
-        b->setX(b->x()/rtBlock::WIDTH * rtBlock::WIDTH);
-        b->setY(b->y()/rtBlock::HEIGHT * rtBlock::HEIGHT);
+        b->setX((b->x()+rtBlock::WIDTH/2)/rtBlock::WIDTH * rtBlock::WIDTH);
+        b->setY((b->y()+rtBlock::HEIGHT/2)/rtBlock::HEIGHT * rtBlock::HEIGHT);
         m_grid.push_back(b);
     }
     else {
