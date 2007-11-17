@@ -53,8 +53,8 @@ void rtLevel::setPasscode(std::string code) {
 void rtLevel::addUserBlock(rtBlock * b) {
     if(b == NULL) return;
     
-    b->setX(m_userBlockList.size()%2);
-    b->setY(m_userBlockList.size()/2);
+    b->setX(getDockX(m_userBlockList.size()));
+    b->setY(getDockY(m_userBlockList.size()));
     m_userBlockList.push_back(b);
 }
 
@@ -88,7 +88,7 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     SDL_FillRect(surf, &in, 0x000000);
     
     for(int i = 0; i < m_userBlockList.size(); i++) {
-        (m_userBlockList[i])->display(surf, offsetX+getDockX(i), offsetY+getDockY(i));
+        (m_userBlockList[i])->display(surf, offsetX, offsetY);
     }
     
     for(int i = 0; i < m_grid.size(); i++) {
@@ -186,11 +186,11 @@ rtBlock * rtLevel::getBlockAt(int x, int y) {
 // returns the position to draw the block at position pos in the list
 // the best way to understand the dock calculations is to draw it on paper.
 int rtLevel::getDockX(int pos) {
-    return DOCK_START_X + DOCK_PADDING + (pos%DOCK_COLS) * (rtBlock::WIDTH);
+    return DOCK_START_X + DOCK_PADDING + (pos%DOCK_COLS) * (DOCK_PADDING*3 + rtBlock::WIDTH);
 }
 
 int rtLevel::getDockY(int pos) {
-    return DOCK_START_Y + DOCK_PADDING + (pos/DOCK_COLS) * (rtBlock::HEIGHT);
+    return DOCK_START_Y + DOCK_PADDING + (pos/DOCK_COLS) * (DOCK_PADDING*3 + rtBlock::HEIGHT);
 }
 
 /***********

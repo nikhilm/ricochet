@@ -116,7 +116,7 @@ rtLevel * rtLevelParser::getLevel(int num) {
             continue;
         }
         
-        level->addGridBlock(getBlock(fake.gridStr[i], fake.gridStr[i+1], x, y));
+        level->addGridBlock(getBlock(fake.gridStr[i], fake.gridStr[i+1], x*rtBlock::WIDTH, y*rtBlock::HEIGHT));
         i++;
     }
     
