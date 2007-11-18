@@ -147,10 +147,9 @@ bool rtLevel::handleEvent(SDL_Event evt) {
     else if(evt.type == SDL_MOUSEBUTTONUP && evt.button.button == SDL_BUTTON_LEFT) {        
         m_clicked = false;
         
-        if(!m_dragInProgress) {            
-            int x = evt.button.x/rtBlock::WIDTH, y = evt.button.y/rtBlock::HEIGHT;
+        if(!m_dragInProgress) {
             for(int i = 0; i < m_grid.size(); ++i) {
-                if(x == m_grid[i]->x() && y == m_grid[i]->y()) {
+                if(pointBlockIntersection(m_grid[i], evt.button.x, evt.button.y)) {
                     return m_grid[i]->clicked();
                 }
             }
