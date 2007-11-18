@@ -20,13 +20,14 @@
 
 #include "levelparser.h"
 
-void rtLevelParser::init() {
+bool rtLevelParser::init() {
     Levels = std::vector<rtFakeLevel>();
     
     std::ifstream levelFile(rtResource::getFile("levels.txt"));
     
     if(levelFile == NULL || levelFile.bad()) {
         std::cerr<<"Error opening levels file."<<rtResource::getFile("levels.txt")<<std::endl;
+        return false;
     }
     
     rtFakeLevel curLevel;
@@ -84,6 +85,8 @@ void rtLevelParser::init() {
         std::cout<<"\tuserList:"<<tmp.userListStr<<std::endl;
         std::cout<<"\tgridStr:"<<tmp.gridStr<<std::endl;
     }
+    
+    return true;
 }
 
 rtLevel * rtLevelParser::getLevel(int num) {

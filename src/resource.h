@@ -36,7 +36,7 @@ static std::map<std::string, SDL_Surface *> ImageCache;
 
 class rtResource {
 public:
-    static void init();
+    static bool init();
     
     /** 
      * tries to load image RT_DATA/images/prefix_root_suffix.png

@@ -33,7 +33,7 @@
 static std::vector<rtFakeLevel> Levels;
 class rtLevelParser {
 public:
-    static void init();
+    static bool init();
     
     static rtLevel * getLevel(int num);
 };

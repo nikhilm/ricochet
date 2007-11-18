@@ -20,8 +20,9 @@
  
 #include "resource.h"
 
-void rtResource::init() {
-    ImageCache = std::map<std::string, SDL_Surface *>();    
+bool rtResource::init() {
+    ImageCache = std::map<std::string, SDL_Surface *>();
+    return true;
 }
 
 /** 
