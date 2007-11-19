@@ -11,6 +11,7 @@ SET ( RICOCHET_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/levelparser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/level.h
     ${CMAKE_CURRENT_SOURCE_DIR}/level.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/textutil.h
 )
 INCLUDE_DIRECTORIES (.)
 SUBDIRS(tests editor)
