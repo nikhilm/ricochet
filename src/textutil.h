@@ -63,12 +63,35 @@ public:
         
         TTF_SetFontStyle(font, ( bold ? TTF_STYLE_BOLD : TTF_STYLE_NORMAL ) | ( italic ? TTF_STYLE_ITALIC : TTF_STYLE_NORMAL ));
         
+        // TODO: Implement newline handling and stuff
         if(!(text_surface=TTF_RenderText_Blended(font, text, color))) {
             return NULL;
         }
         else {
             return text_surface;
         }
+    }
+    
+    static void renderOn(const char * text,
+                         SDL_Color color,
+                         TTF_Font * font,
+                         SDL_Surface * dest,
+                         int x,
+                         int y,
+                         bool bold=false,
+                         bool italic=false) {
+        SDL_Surface * txtSurf = render(text, color, font, bold, italic);
+        if(txtSurf == NULL) {
+            std::cerr<<"Error rendering text: "<<TTF_GetError()<<std::endl;
+            return;
+        }
+        
+        SDL_Rect r;
+        r.x = x;
+        r.y = y;
+        
+        SDL_BlitSurface(txtSurf, NULL, dest, &r);
+        SDL_FreeSurface(txtSurf);
     }
     
     static void cleanup() {

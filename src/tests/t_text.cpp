@@ -46,6 +46,8 @@ int main() {
         pos.x = 200;
         pos.y = 20;
         SDL_BlitSurface(rtTextUtil::render("hello world!", c, RT_LARGE_FONT), NULL, screen, &pos);
+        
+        rtTextUtil::renderOn("hello world!", c, RT_LARGE_FONT, screen, 400, 400);
 
         SDL_Flip(screen);
     }
