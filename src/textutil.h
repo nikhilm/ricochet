@@ -28,7 +28,7 @@
 
 #include "resource.h"
 
-static const char * RT_STD_FONT = "MgOpenModataRegular.ttf";
+static const char * RT_STD_FONT = "DejaVuSans.ttf";
 
 static TTF_Font * RT_LARGE_FONT;
 static TTF_Font * RT_SMALL_FONT;
