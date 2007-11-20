@@ -49,7 +49,29 @@ class rtTextUtil {
         }
     }
     
+    //splits string everytime it is called
+    //original string is modified!
+    static std::string splitString(std::string & str, char delim='\n') {
+        if(str.empty()) return str;
+        
+        int pos = str.find_first_of(delim);
+        
+        if(pos == std::string::npos) {
+            std::string copy = str;
+            str = "";
+            return copy;
+        }
+        
+        std::string ret = str.substr(0, pos);
+        
+        str = str.substr(pos+1);
+        
+        return ret;
+    }
+    
 public:
+    
+    enum {ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT};
     
     static bool init() {
         if(TTF_Init()==-1) {
@@ -79,22 +101,47 @@ public:
                          SDL_Surface * dest,
                          int x,
                          int y,
+                         int align=ALIGN_LEFT,
                          bool bold=false,
-                         bool italic=false) {
+                         bool italic=false,
+                         int yPadding=5) {
                              
         //split by newlines and generate new surfaces for each
-        SDL_Surface * txtSurf = render(text, color, font, bold, italic);
-        if(txtSurf == NULL) {
-            std::cerr<<"Error rendering text: "<<TTF_GetError()<<std::endl;
-            return;
-        }
+        std::string txt = text;
+        std::string token;
+        SDL_Surface *txtSurf;
         
         SDL_Rect r;
-        r.x = x;
-        r.y = y;
+        r.y = y;  
         
-        SDL_BlitSurface(txtSurf, NULL, dest, &r);
-        SDL_FreeSurface(txtSurf);
+        while(!txt.empty()) {
+            token = splitString(txt);
+            if(token.empty())
+                break;
+            txtSurf = render(token.c_str(), color, font, bold, italic);
+            
+            if(txtSurf == NULL) {
+                std::cerr<<"Error rendering text: "<<TTF_GetError()<<std::endl;
+                return;
+            }
+            
+            switch(align) {
+                case ALIGN_LEFT:
+                    r.x = x;
+                    break;
+                case ALIGN_RIGHT:
+                    r.x = x - txtSurf->w;
+                    break;
+                case ALIGN_CENTER:
+                    r.x = x - txtSurf->w/2;
+                    break;
+            }
+            SDL_BlitSurface(txtSurf, NULL, dest, &r);
+            SDL_FreeSurface(txtSurf);
+           
+            r.y += TTF_FontHeight(font) + yPadding;
+            //std::cout<<"Y is now "<<y<<std::endl;
+        }
     }
     
     static void cleanup() {
