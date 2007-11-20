@@ -95,6 +95,21 @@ public:
         
     }
     
+    /**
+     * Renders given text on the surface.
+     * NOTE: Avoid calling in a loop. Blended rendering is slow
+     * 
+     * @param text The text to render
+     * @param color Color to render text in
+     * @param font Choose from RT_LARGE_FONT, RT_SMALL_FONT
+     * @param dest The destination surface to blit to
+     * @param x The x coordinate of destination where text will be blitted
+     * @param y The y coordinate of destination where text will be blitted
+     * @param align How to align the text. Valid values are rtTextUtil::ALIGN_LEFT (default), rtTextUtil::ALIGN_CENTER, rtTextUtil::ALIGN_RIGHT. The x, y coordinates are relative to position.
+     * @param bold Render bold text (Default false)
+     * @param italic Render italic text (Default false)
+     * @param yPadding The distance between two consecutive lines.
+     */
     static void render(const char * text,
                          SDL_Color color,
                          TTF_Font * font,

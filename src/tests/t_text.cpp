@@ -33,6 +33,9 @@ int main() {
     }
     atexit(rtTextUtil::cleanup);
 
+    SDL_Color c = {255, 0, 0};
+    rtTextUtil::render("hello\nworld!", c, RT_LARGE_FONT, screen, 400, 400);
+    rtTextUtil::render("These are some instructions on the\navailabitlit\n of disgutsting'n\ncurnchies", c, RT_SMALL_FONT, screen, 220, 20, rtTextUtil::ALIGN_RIGHT);
     SDL_Event event;
     while(loopRunning)
     {
@@ -41,9 +44,6 @@ int main() {
             if (SDL_QUIT == event.type) loopRunning = false;
             if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) loopRunning = false;
         }
-        SDL_Color c = {255, 0, 0};
-        rtTextUtil::render("hello\nworld!", c, RT_LARGE_FONT, screen, 400, 400);
-        rtTextUtil::render("These are some instructions on the\navailabitlit\n of disgutsting'n\ncurnchies", c, RT_SMALL_FONT, screen, 220, 20, rtTextUtil::ALIGN_RIGHT);
 
         SDL_Flip(screen);
     }
