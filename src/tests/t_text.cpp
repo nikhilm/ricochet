@@ -42,12 +42,7 @@ int main() {
             if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) loopRunning = false;
         }
         SDL_Color c = {255, 0, 0};
-        SDL_Rect pos;
-        pos.x = 200;
-        pos.y = 20;
-        SDL_BlitSurface(rtTextUtil::render("hello world!", c, RT_LARGE_FONT), NULL, screen, &pos);
-        
-        rtTextUtil::renderOn("hello world!", c, RT_LARGE_FONT, screen, 400, 400);
+        rtTextUtil::render("hello world!", c, RT_LARGE_FONT, screen, 400, 400);
 
         SDL_Flip(screen);
     }

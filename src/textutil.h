@@ -34,6 +34,21 @@ static TTF_Font * RT_LARGE_FONT;
 static TTF_Font * RT_SMALL_FONT;
 
 class rtTextUtil {
+    
+    static SDL_Surface * render(const char * text, SDL_Color color, TTF_Font * font, bool bold=false, bool italic=false) {
+        SDL_Surface *text_surface;
+        
+        TTF_SetFontStyle(font, ( bold ? TTF_STYLE_BOLD : TTF_STYLE_NORMAL ) | ( italic ? TTF_STYLE_ITALIC : TTF_STYLE_NORMAL ));
+        
+        // TODO: Implement newline handling and stuff
+        if(!(text_surface=TTF_RenderText_Blended(font, text, color))) {
+            return NULL;
+        }
+        else {
+            return text_surface;
+        }
+    }
+    
 public:
     
     static bool init() {
@@ -58,21 +73,7 @@ public:
         
     }
     
-    static SDL_Surface * render(const char * text, SDL_Color color, TTF_Font * font, bool bold=false, bool italic=false) {
-        SDL_Surface *text_surface;
-        
-        TTF_SetFontStyle(font, ( bold ? TTF_STYLE_BOLD : TTF_STYLE_NORMAL ) | ( italic ? TTF_STYLE_ITALIC : TTF_STYLE_NORMAL ));
-        
-        // TODO: Implement newline handling and stuff
-        if(!(text_surface=TTF_RenderText_Blended(font, text, color))) {
-            return NULL;
-        }
-        else {
-            return text_surface;
-        }
-    }
-    
-    static void renderOn(const char * text,
+    static void render(const char * text,
                          SDL_Color color,
                          TTF_Font * font,
                          SDL_Surface * dest,
@@ -80,6 +81,8 @@ public:
                          int y,
                          bool bold=false,
                          bool italic=false) {
+                             
+        //split by newlines and generate new surfaces for each
         SDL_Surface * txtSurf = render(text, color, font, bold, italic);
         if(txtSurf == NULL) {
             std::cerr<<"Error rendering text: "<<TTF_GetError()<<std::endl;
