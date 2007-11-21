@@ -22,23 +22,61 @@
 #define RT_STATE_H
 
 #include <iostream>
+#include <string>
 
 #include <SDL/SDL.h>
 
 #include "resource.h"
+#include "textutil.h"
+
+class rtGame;
 
 class rtState {
+protected:
     rtGame * game;
 public:
-    State(rtGame *g) { game = g; }
+    rtState(rtGame *g) { game = g; }
     
-    void firstDisplay(SDL_Surface *) {}
+    virtual void firstDisplay(SDL_Surface *) {}
     
-    void display(SDL_Surface *) {}
+    virtual void display(SDL_Surface *) {}
     
-    void update() {}
+    virtual void update() {}
     
-    bool handleEvent(SDL_Event &) {};
+    virtual bool handleEvent(SDL_Event &) {};
+};
+
+class rtStartState : public rtState {
+public:
+    rtStartState(rtGame * game) : rtState(game) {}
+    void firstDisplay(SDL_Surface *);
+    bool handleEvent(SDL_Event &);
+};
+
+/* A general state to display text.
+ * Subclasses should just provide their own text */
+class rtPausedState : public rtState {    
+    SDL_Color color;
+protected:    
+    std::string largeText; //title and stuff
+    std::string smallText;
+    
+public:
+    
+    rtPausedState(rtGame * game) : rtState(game) {
+        largeText = smallText = "";
+        
+        color.r = 255;
+        color.g = 0;
+        color.b = 0;
+    }
+    
+    void firstDisplay(SDL_Surface *);
+};
+
+class rtGameOver : public rtPausedState {
+public:
+    rtGameOver(rtGame * game, bool success);
 };
 
 #endif
