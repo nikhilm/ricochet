@@ -43,7 +43,6 @@ bool rtLevelParser::init() {
         //empty or length less than 2 but not a '!'
         if(strlen(line) > 0  && line[0] == '!') {
             Levels.push_back(curLevel);
-            std::cout<<Levels.size()<<std::endl;
             curLevel.gridStr = "";
             continue;
         }
@@ -77,15 +76,6 @@ bool rtLevelParser::init() {
         
         
     }
-    
-    for(int i = 0; i < Levels.size(); ++i) {
-        rtFakeLevel tmp = Levels[i];
-        std::cout<<"Level:"<<tmp.title<<std::endl;
-        std::cout<<"\tSubtitle:"<<tmp.subtitle<<std::endl;
-        std::cout<<"\tuserList:"<<tmp.userListStr<<std::endl;
-        std::cout<<"\tgridStr:"<<tmp.gridStr<<std::endl;
-    }
-    
     return true;
 }
 
