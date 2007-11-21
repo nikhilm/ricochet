@@ -18,24 +18,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef RT_LEVELPARSER_H
-#define RT_LEVELPARSER_H
+#ifndef RT_STATE_H
+#define RT_STATE_H
 
 #include <iostream>
-#include <string>
-#include <vector>
+
+#include <SDL/SDL.h>
 
 #include "resource.h"
-#include "level.h"
-#include "blocks.h"
 
-
-static std::vector<rtFakeLevel> Levels;
-class rtLevelParser {
+class rtState {
+    rtGame * game;
 public:
-    static bool init();
+    State(rtGame *g) { game = g; }
     
-    static rtLevel * getLevel(int num);    
+    void firstDisplay(SDL_Surface *) {}
+    
+    void display(SDL_Surface *) {}
+    
+    void update() {}
+    
+    bool handleEvent(SDL_Event &) {};
 };
 
 #endif

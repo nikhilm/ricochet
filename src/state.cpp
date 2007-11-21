@@ -18,24 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef RT_LEVELPARSER_H
-#define RT_LEVELPARSER_H
+#include "state.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
-
-#include "resource.h"
-#include "level.h"
-#include "blocks.h"
-
-
-static std::vector<rtFakeLevel> Levels;
-class rtLevelParser {
-public:
-    static bool init();
-    
-    static rtLevel * getLevel(int num);    
-};
-
-#endif
+class rtStartState : public rtState {
