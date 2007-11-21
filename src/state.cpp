@@ -44,6 +44,7 @@ bool rtStartState::handleEvent(SDL_Event &evt) {
  * Subclasses should just provide their own text */
 void rtPausedState::firstDisplay(SDL_Surface * surf) {
     SDL_FillRect(surf, NULL, 0x000000);
+    std::cout<<largeText<<std::endl;
     rtTextUtil::render(largeText.c_str(), color, RT_LARGE_FONT, surf, 400, 100, rtTextUtil::ALIGN_CENTER);
     rtTextUtil::render(smallText.c_str(), color, RT_SMALL_FONT, surf, 50, 200);
 }

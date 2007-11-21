@@ -32,7 +32,6 @@ rtGame::rtGame() {
     currentState = NULL;
     screen = NULL;
     gameRunning = false;
-    stateChanged = false;
 }
     
 void rtGame::run() {
@@ -72,7 +71,7 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(new rtStartState(this));
+    changeState(new rtGameOver(this, true));
     
     SDL_Event event;
     while(gameRunning)
@@ -85,11 +84,6 @@ void rtGame::run() {
             else if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) gameRunning = false;
         }
         
-        if(stateChanged) {
-            currentState->firstDisplay(screen);
-            stateChanged = false;
-        }
-
         currentState->update();
         currentState->display(screen);
         
@@ -101,7 +95,7 @@ void rtGame::changeState(rtState * s) {
     if(currentState != NULL)
         delete currentState;
     currentState = s;
-    stateChanged = true;
+    currentState->firstDisplay(screen);
 }
 
 int main() {
