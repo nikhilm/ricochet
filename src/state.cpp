@@ -19,38 +19,6 @@
  */
 
 #include "state.h"
-#include "game.h"
-
-/***************
- * Start state *
- **************/
-
-void rtStartState::firstDisplay(SDL_Surface * surf) {
-    //SDL_BlitSurface(rtResource::loadImage("intro", "bg"), NULL, surf, NULL);
-}
-
-bool rtStartState::handleEvent(SDL_Event &evt) {
-    if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-        //game->changeState(new rtGameOver(game, false));
-        return true;
-    }
-    return false;
-}
-
-/*************** **
- * Paused states *
- ****************/
-/* A general state to display text.
- * Subclasses should just provide their own text */
-void rtPausedState::firstDisplay(SDL_Surface * surf) {
-    SDL_FillRect(surf, NULL, 0x000000);
-    std::cout<<largeText<<std::endl;
-    rtTextUtil::render(largeText.c_str(), color, RT_LARGE_FONT, surf, 400, 100, rtTextUtil::ALIGN_CENTER);
-    rtTextUtil::render(smallText.c_str(), color, RT_SMALL_FONT, surf, 50, 200);
-}
 
 
-rtGameOver::rtGameOver(rtGame * game, bool success) : rtPausedState(game) {
-    largeText = (success ? "Amazing!" : "Oh no!");
-    smallText = (success ? "You've won the game!" : "Sorry you lost! Try again");
-}
+

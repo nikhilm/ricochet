@@ -50,6 +50,7 @@ void rtGame::run() {
     }
 
     SDL_WM_SetCaption("Ricochet", NULL);
+    SDL_EnableUNICODE(SDL_DISABLE);
     
     //initialize resources, levels and text
     if(!rtResource::init()) {
@@ -71,7 +72,7 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(new rtGameOver(this, true));
+    changeState(new rtStartState(this));    
     
     SDL_Event event;
     while(gameRunning)
@@ -83,7 +84,6 @@ void rtGame::run() {
             else if (SDL_QUIT == event.type) gameRunning = false;
             else if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) gameRunning = false;
         }
-        
         currentState->update();
         currentState->display(screen);
         

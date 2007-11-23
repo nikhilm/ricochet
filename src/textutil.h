@@ -40,8 +40,7 @@ class rtTextUtil {
         
         TTF_SetFontStyle(font, ( bold ? TTF_STYLE_BOLD : TTF_STYLE_NORMAL ) | ( italic ? TTF_STYLE_ITALIC : TTF_STYLE_NORMAL ));
         
-        // TODO: Implement newline handling and stuff
-        if(!(text_surface=TTF_RenderText_Blended(font, text, color))) {
+        if(!(text_surface=TTF_RenderText_Solid(font, text, color))) {
             return NULL;
         }
         else {
@@ -89,8 +88,7 @@ public:
         if(RT_SMALL_FONT == NULL) {
             std::cout<<"TTF_OpenFont: "<<TTF_GetError()<<std::endl;
             return false;
-        }       
-        
+        }
         return true;
         
     }

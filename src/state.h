@@ -25,6 +25,7 @@
 #include <string>
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 
 #include "resource.h"
 #include "textutil.h"
@@ -37,7 +38,7 @@ protected:
 public:
     rtState(rtGame *g) { game = g; }
     
-    virtual void firstDisplay(SDL_Surface *) {}
+    virtual void firstDisplay(SDL_Surface *surf) {}
     
     virtual void display(SDL_Surface *) {}
     
@@ -48,35 +49,12 @@ public:
 
 class rtStartState : public rtState {
 public:
-    rtStartState(rtGame * game) : rtState(game) {}
-    void firstDisplay(SDL_Surface *);
-    bool handleEvent(SDL_Event &);
-};
+    rtStartState(rtGame * g) : rtState(g) {}
+    void firstDisplay(SDL_Surface * surf) {
+        SDL_BlitSurface(rtResource::loadImage("intro", "bg"), NULL, surf, NULL);
 
-/* A general state to display text.
- * Subclasses should just provide their own text */
-class rtPausedState : public rtState {    
-    SDL_Color color;
-protected:    
-    std::string largeText; //title and stuff
-    std::string smallText;
-    
-public:
-    
-    rtPausedState(rtGame * game) : rtState(game) {
-        largeText = smallText = "";
-        
-        color.r = 255;
-        color.g = 0;
-        color.b = 0;
+        SDL_Color c = {255, 0, 0};
+        rtTextUtil::render("Start state", c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
     }
-    
-    void firstDisplay(SDL_Surface *);
 };
-
-class rtGameOver : public rtPausedState {
-public:
-    rtGameOver(rtGame * game, bool success);
-};
-
 #endif
