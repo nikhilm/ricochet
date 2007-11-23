@@ -29,8 +29,7 @@
 
 #include "resource.h"
 #include "textutil.h"
-
-class rtGame;
+#include "game.h"
 
 class rtState {
 protected:
@@ -52,22 +51,34 @@ public:
     rtStartState(rtGame * g) : rtState(g) {}
     void firstDisplay(SDL_Surface * surf) {
         SDL_BlitSurface(rtResource::loadImage("intro", "bg"), NULL, surf, NULL);
-
     }
 };
 
+/*
+ * Simple paused state which displays text and moves to nextState when clicked
+ */
 class rtPaused : public rtState {
 protected:
     std::string title, text;
+    rtState * nextState;
 public:
     rtPaused(rtGame * g) : rtState(g) {
         title = text = "";
+        nextState = NULL;
     }
     
     void firstDisplay(SDL_Surface * surf) {
         SDL_Color c = {255, 0, 0};
         rtTextUtil::render(title.c_str(), c, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
         rtTextUtil::render(text.c_str(), c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+    }
+    
+    bool handleEvent(SDL_Event &evt) {
+        if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
+            game->changeState(nextState);
+            return true;
+        }
+        return false;
     }
 };
 
@@ -82,6 +93,9 @@ public:
             title = "Oops!";
             text = "You've lost. Better luck next time.";
         }
+        nextState = new rtStartState(game);
     }
+    
 };
+
 #endif
