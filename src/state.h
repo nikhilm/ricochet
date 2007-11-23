@@ -53,8 +53,35 @@ public:
     void firstDisplay(SDL_Surface * surf) {
         SDL_BlitSurface(rtResource::loadImage("intro", "bg"), NULL, surf, NULL);
 
+    }
+};
+
+class rtPaused : public rtState {
+protected:
+    std::string title, text;
+public:
+    rtPaused(rtGame * g) : rtState(g) {
+        title = text = "";
+    }
+    
+    void firstDisplay(SDL_Surface * surf) {
         SDL_Color c = {255, 0, 0};
-        rtTextUtil::render("Start state", c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(title.c_str(), c, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(text.c_str(), c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+    }
+};
+
+class rtGameOver : public rtPaused {
+public:
+    rtGameOver(rtGame * g, bool success) : rtPaused(g) {
+        if(success) {
+            title = "Superb!";
+            text = "You've won the game";
+        }
+        else {
+            title = "Oops!";
+            text = "You've lost. Better luck next time.";
+        }
     }
 };
 #endif

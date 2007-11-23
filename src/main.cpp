@@ -72,7 +72,7 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(new rtStartState(this));    
+    changeState(new rtGameOver(this, true));
     
     SDL_Event event;
     while(gameRunning)
