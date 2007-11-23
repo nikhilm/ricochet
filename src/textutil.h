@@ -31,6 +31,7 @@
 static const char * RT_STD_FONT = "DejaVuSans.ttf";
 
 static TTF_Font * RT_LARGE_FONT;
+static TTF_Font * RT_MEDIUM_FONT;
 static TTF_Font * RT_SMALL_FONT;
 
 class rtTextUtil {
@@ -78,13 +79,19 @@ public:
             return false;
         }
         //load default fonts
-        RT_LARGE_FONT = TTF_OpenFont(rtResource::getFile(RT_STD_FONT), 40);
+        RT_LARGE_FONT = TTF_OpenFont(rtResource::getFile(RT_STD_FONT), 50);
         if(RT_LARGE_FONT == NULL) {
             std::cout<<"TTF_OpenFont: "<<TTF_GetError()<<std::endl;
             return false;
         }
         
-        RT_SMALL_FONT = TTF_OpenFont(rtResource::getFile(RT_STD_FONT), 14);
+        RT_MEDIUM_FONT = TTF_OpenFont(rtResource::getFile(RT_STD_FONT), 30);
+        if(RT_MEDIUM_FONT == NULL) {
+            std::cout<<"TTF_OpenFont: "<<TTF_GetError()<<std::endl;
+            return false;
+        }
+        
+        RT_SMALL_FONT = TTF_OpenFont(rtResource::getFile(RT_STD_FONT), 20);
         if(RT_SMALL_FONT == NULL) {
             std::cout<<"TTF_OpenFont: "<<TTF_GetError()<<std::endl;
             return false;
@@ -99,7 +106,7 @@ public:
      * 
      * @param text The text to render
      * @param color Color to render text in
-     * @param font Choose from RT_LARGE_FONT, RT_SMALL_FONT
+     * @param font Choose from RT_LARGE_FONT, RT_MEDIUM_FONT and RT_SMALL_FONT
      * @param dest The destination surface to blit to
      * @param x The x coordinate of destination where text will be blitted
      * @param y The y coordinate of destination where text will be blitted
@@ -159,6 +166,7 @@ public:
     
     static void cleanup() {
         TTF_CloseFont(RT_LARGE_FONT);
+        TTF_CloseFont(RT_MEDIUM_FONT);
         TTF_CloseFont(RT_SMALL_FONT);
     }
 };
