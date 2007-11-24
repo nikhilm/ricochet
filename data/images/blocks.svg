@@ -1598,9 +1598,9 @@
     </g>
     <rect
        ry="0"
-       inkscape:export-ydpi="100"
-       inkscape:export-xdpi="100"
-       inkscape:export-filename="/home/nikhil/workspace/ricochet/images/blocks.png"
+       inkscape:export-ydpi="86.53846"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_c_R.png"
        y="480.73718"
        x="-686.125"
        height="50"
@@ -1611,7 +1611,10 @@
     <g
        style="stroke:url(#radialGradient9288)"
        id="g9278"
-       transform="matrix(-1,0,0,1,1322.25,60.000065)">
+       transform="matrix(-1,0,0,1,1322.25,60.000065)"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_c_R.png"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-ydpi="86.53846">
       <path
          style="fill:none;fill-rule:evenodd;stroke:url(#radialGradient9290);stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="M 656.80298,466.95506 C 657.49137,453.60044 655.59144,448.4238 640.2818,449.77303 L 647.33084,456.05108"

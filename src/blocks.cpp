@@ -55,6 +55,12 @@ rtBlock * getBlock(int type, char d, int x, int y) {
         case rtBlock::ENERGISER:
             return(new rtEnergiser(dir, x, y));
             
+        case rtBlock::CYCLOTRON:
+            return(new rtCyclotron(dir, x, y));
+            
+        case rtBlock::MULTI_SWITCH:
+            return(new rtMultiSwitch(dir, x, y));
+            
         default:
             return NULL;    
     }

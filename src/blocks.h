@@ -67,7 +67,7 @@ protected:
     }
     
 public:
-    enum {ARROW='a', BOMB='b', DEFLECTOR='d', LAUNCHER='l', PRISM='p', SWITCH='s', WALL='w', ENERGISER='x'};
+    enum {ARROW='a', BOMB='b', DEFLECTOR='d', LAUNCHER='l', PRISM='p', SWITCH='s', WALL='w', ENERGISER='x', MULTI_SWITCH='m', CYCLOTRON='c'};
     enum {UP, LEFT, DOWN, RIGHT};
     enum {WIDTH = 50, HEIGHT = 50};
     
@@ -196,9 +196,10 @@ public:
 class rtSwitch : public rtBlock {
     bool m_on;
     
+protected:
     void toggleState() {
         m_on = !m_on;
-        setImage('s', (m_on ? "on" : "off"));        
+        setImage(m_type, (m_on ? "on" : "off"));        
     }
     
 public:
@@ -218,6 +219,61 @@ public:
     bool on() { return m_on; }
 };
 
+class rtMultiSwitch : public rtSwitch {
+public:
+    rtMultiSwitch(int dir, int x, int y) : rtSwitch(dir, x, y) {
+        m_type = MULTI_SWITCH;
+        //toggle state once to undo switch's toggle and then once more to get the right image
+        toggleState();
+        toggleState();
+    }
+    
+    bool handlePhoton(rtPhoton &photon) {
+        photon.setHighEnergy(false);
+        //always toggle
+        //if(!on()) {
+        toggleState();
+        m_level->switchToggled(this);
+        //}
+        return true;
+    }
+};
+
+class rtCyclotron : public rtBlock {
+    int getRotation(int dirToGo, int photonDir) {
+        switch(dirToGo) {
+            case LEFT:
+                switch(photonDir) {
+                    case UP: return LEFT;
+                    case LEFT: return DOWN;
+                    case DOWN: return RIGHT;
+                    case RIGHT: return UP;
+                }
+                break;
+                
+            case RIGHT:
+                switch(photonDir) {
+                    case UP: return RIGHT;
+                    case LEFT: return UP;
+                    case DOWN: return LEFT;
+                    case RIGHT: return DOWN;
+                }
+        }
+    }
+    
+public:
+    rtCyclotron(int dir, int x, int y) : rtBlock(CYCLOTRON, dir, x, y) {}
+    
+    bool handlePhoton(rtPhoton &photon) {
+        if(direction() == UP || direction() == LEFT) {
+            photon.setDirection(getRotation(LEFT, photon.direction()));
+        }
+        else {
+            photon.setDirection(getRotation(RIGHT, photon.direction()));
+        }
+    }
+};
+    
 class rtBomb : public rtBlock {
 public:
     rtBomb(int dir, int x, int y) : rtBlock(BOMB, dir, x, y) {}
