@@ -208,8 +208,10 @@ public:
     }
     bool handlePhoton(rtPhoton &photon) {
         photon.setHighEnergy(false);
-        toggleState();
-        m_level->switchToggled(this);
+        if(!on()) {
+            toggleState();
+            m_level->switchToggled(this);
+        }
         return true;
     }
     
