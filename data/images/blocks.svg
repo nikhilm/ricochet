@@ -20,7 +20,7 @@
    inkscape:export-filename="/home/nikhil/workspace/ricochet/images/blocks.png"
    inkscape:export-xdpi="89.889999"
    inkscape:export-ydpi="89.889999"
-   sodipodi:modified="true">
+   sodipodi:modified="TRUE">
   <defs
      id="defs4">
     <linearGradient
@@ -1565,13 +1565,16 @@
        height="50"
        x="636.125"
        y="420.73715"
-       inkscape:export-filename="/home/nikhil/workspace/ricochet/images/blocks.png"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_c_L.png"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-ydpi="86.53846"
        ry="0" />
     <g
        id="g9254"
-       style="stroke:url(#radialGradient9274)">
+       style="stroke:url(#radialGradient9274)"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_c_L.png"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-ydpi="86.53846">
       <path
          sodipodi:nodetypes="cc"
          id="path4332"
@@ -1642,9 +1645,9 @@
          y="443.36218">Cyclotron</tspan></text>
     <rect
        ry="0"
-       inkscape:export-ydpi="100"
-       inkscape:export-xdpi="100"
-       inkscape:export-filename="/home/nikhil/workspace/ricochet/images/blocks.png"
+       inkscape:export-ydpi="86.53846"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_m_off.png"
        y="609.36218"
        x="641.79858"
        height="50"
@@ -1666,7 +1669,10 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="M 679.40287,634.45119 L 655,634.45119 L 630.59713,634.45119 L 642.79857,613.31768 L 655,592.18418 L 667.20143,613.31768 L 679.40287,634.45119 z "
-       transform="matrix(0.9053133,0,0,0.9053133,73.818349,79.117529)" />
+       transform="matrix(0.9053133,0,0,0.9053133,73.818349,79.117529)"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_m_off.png"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-ydpi="86.53846" />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect10289"
@@ -1674,9 +1680,9 @@
        height="50"
        x="640.79858"
        y="680.36218"
-       inkscape:export-filename="/home/nikhil/workspace/ricochet/images/blocks.png"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_m_on.png"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-ydpi="86.53846"
        ry="0" />
     <path
        transform="matrix(0.9053133,0,0,0.9053133,72.818349,150.11753)"
@@ -1693,7 +1699,10 @@
        sodipodi:sides="3"
        id="path10291"
        style="opacity:1;fill:url(#radialGradient10293);fill-opacity:1.0;fill-rule:nonzero;stroke:#66d230;stroke-width:2.20917988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       sodipodi:type="star" />
+       sodipodi:type="star"
+       inkscape:export-filename="/home/nikhil/workspace/ricochet/data/images/block_m_on.png"
+       inkscape:export-xdpi="86.53846"
+       inkscape:export-ydpi="86.53846" />
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
