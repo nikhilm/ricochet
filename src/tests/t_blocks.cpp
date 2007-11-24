@@ -25,17 +25,17 @@ int main() {
     SDL_WM_SetCaption("Blocks Test", NULL);
 
     rtResource::init();
-    rtPhoton p(rtBlock::DOWN, 325, 10);
+    rtPhoton p(rtBlock::DOWN, 100, 10);
     
-    rtBlock *blocks[9] = {new rtLauncher(rtBlock::UP, 9, 9),
-                          new rtSwitch(rtBlock::UP, 5, 5),
-                          new rtBomb(rtBlock::LEFT, 3, 4),
-                          new rtPrism(rtBlock::RIGHT, 2, 5),
-                          new rtArrow(rtBlock::LEFT, 6, 5),
-                          new rtDeflector(rtBlock::LEFT, 6, 7),
-                          new rtPrism(rtBlock::UP, 2, 7),
-                          new rtArrow(rtBlock::LEFT, 5, 9),
-                          new rtEnergiser(rtBlock::UP, 6, 1)};
+    rtBlock *blocks[9] = {new rtLauncher(rtBlock::UP, 9*rtBlock::WIDTH, 9*rtBlock::HEIGHT),
+                          new rtSwitch(rtBlock::UP, 5*rtBlock::WIDTH, 5*rtBlock::HEIGHT),
+                          new rtBomb(rtBlock::LEFT, 3*rtBlock::WIDTH, 4*rtBlock::HEIGHT),
+                          new rtPrism(rtBlock::RIGHT, 2*rtBlock::WIDTH, 5*rtBlock::HEIGHT),
+                          new rtArrow(rtBlock::LEFT, 6*rtBlock::WIDTH, 5*rtBlock::HEIGHT),
+                          new rtDeflector(rtBlock::LEFT, 6*rtBlock::WIDTH, 7*rtBlock::HEIGHT),
+                          new rtPrism(rtBlock::UP, 2*rtBlock::WIDTH, 7*rtBlock::HEIGHT),
+                          new rtArrow(rtBlock::LEFT, 5*rtBlock::WIDTH, 9*rtBlock::HEIGHT),
+                          new rtEnergiser(rtBlock::UP, 6*rtBlock::WIDTH, 1*rtBlock::HEIGHT)};
 
     SDL_Event event;
     while(loopRunning)
@@ -49,7 +49,7 @@ int main() {
         SDL_FillRect(screen, NULL, 0x0);
 
         for(int i = 0; i < 9; ++i) {
-            if(p.x() == blocks[i]->x()*rtBlock::WIDTH+rtBlock::WIDTH/2 && p.y() == blocks[i]->y()*rtBlock::HEIGHT+rtBlock::HEIGHT/2) {
+            if(p.x() == blocks[i]->x()+rtBlock::WIDTH/2 && p.y() == blocks[i]->y()+rtBlock::HEIGHT/2) {
                 std::cout<<"Photon handled\n";
                 blocks[i]->handlePhoton(p);
             }
