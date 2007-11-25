@@ -76,8 +76,8 @@ TTF_Font * rtMenuItem::loadFont(char * file, int size) {
     return f;
 }
 
-void rtMenuItem::setAction(void (*callback)(SDL_Event &)) {
-    actionCallback = callback;
+void rtMenuItem::setAction(const rtMenuAction& callback) {
+    actionaction = callback;
 }
 
 void rtMenuItem::setDimensions(int w, int h) {
@@ -101,7 +101,7 @@ bool rtMenuItem::pointInsideThis(int pX, int pY) {
 void rtMenuItem::handle(SDL_Event &event) {
     if(event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT
             && pointInsideThis(event.button.x, event.button.y)) {
-        actionCallback(event);
+        action->trigger(event);
     }
     else if(event.type == SDL_MOUSEMOTION) {
         if(pointInsideThis(event.motion.x, event.motion.y)) {

@@ -17,6 +17,17 @@
 #include<SDL/SDL.h>
 
 /**
+ * Menu action class
+ * rtMenuItem accepts this as a click action
+ * You should subclass and create specific situation handlers
+ * by overloading trigger
+ */
+class rtMenuAction {
+public:
+    void trigger(const SDL_Event&);
+};
+
+/**
 * rtMenuItem is a class implementing a menu item in SDL.
 * It requires the SDL and SDL_ttf libraries to be installed.
 *
@@ -205,7 +216,7 @@ public:
         y = Y;
     };
 
-    void addItem(const std::string &text, void (*callback)(SDL_Event &)) {
+    void addItem(const std::string &text, const rtMenuAction& callback) {
         addItem(rtMenuItem(0, 0, text, callback));
     };
 
