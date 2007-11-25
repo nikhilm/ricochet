@@ -144,6 +144,9 @@ void rtLevel::update() {
 }
 
 bool rtLevel::handleEvent(SDL_Event evt) {
+    //if a photon is active then nothing works
+    if(m_photon) return false;
+    
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
         m_activeBlock = getBlockAt(evt.button.x, evt.button.y);
         if(m_activeBlock != NULL) {

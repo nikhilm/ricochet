@@ -294,7 +294,7 @@ class rtWall : public rtBlock {
 public:
     rtWall(int dir, int x, int y) : rtBlock(WALL, dir, x, y) {}
     
-    bool handlePhoton(rtPhoton &photon) {
+    bool handlePhotonEdge(rtPhoton &photon) {
         switch(photon.direction()) {
             case UP:photon.setDirection(DOWN); break;
             case DOWN:photon.setDirection(UP); break;
