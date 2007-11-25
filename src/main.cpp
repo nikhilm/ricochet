@@ -29,9 +29,10 @@
 #include "game.h"
 
 rtGame::rtGame() {
-    currentState = NULL;
+    currentState = nextState = NULL;
     screen = NULL;
     gameRunning = false;
+    stateChanged = false;
 }
     
 void rtGame::run() {
@@ -72,11 +73,20 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(new rtGameOver(this, true));
+    changeState(new rtPasscodeState);
     
     SDL_Event event;
     while(gameRunning)
     {
+        if(stateChanged) {
+            currentState = nextState;
+            nextState = NULL;
+            stateChanged = false;
+            
+            currentState->firstDisplay(screen);
+            continue;
+        }
+            
         while(SDL_PollEvent(&event))
         {
             if(currentState->handleEvent(event))
@@ -84,7 +94,7 @@ void rtGame::run() {
             else if (SDL_QUIT == event.type) gameRunning = false;
             else if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) gameRunning = false;
         }
-        currentState->update();
+        currentState->update(this);
         currentState->display(screen);
         
         SDL_Flip(screen);
@@ -92,10 +102,12 @@ void rtGame::run() {
 }
 
 void rtGame::changeState(rtState * s) {
+    nextState = s;
+    stateChanged = true;/*
     if(currentState != NULL)
         delete currentState;
     currentState = s;
-    currentState->firstDisplay(screen);
+    currentState->firstDisplay(screen);*/
 }
 
 int main() {

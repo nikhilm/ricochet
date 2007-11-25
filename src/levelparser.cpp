@@ -116,7 +116,7 @@ rtLevel * rtLevelParser::getLevel(int num) {
     return level;
 }
 
-rtLevel * rtLevelParser::getLevelFromPasscode(std::string &code) {
+rtLevel * rtLevelParser::getLevelFromPasscode(const std::string &code) {
     for(int i = 0; i < Levels.size(); ++i) {
         if(code == Levels[i].passcode)
             return getLevel(i);

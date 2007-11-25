@@ -36,7 +36,7 @@ public:
     static bool init();
     
     static rtLevel * getLevel(int num);
-    static rtLevel * getLevelFromPasscode(std::string &);
+    static rtLevel * getLevelFromPasscode(const std::string &);
 };
 
 #endif

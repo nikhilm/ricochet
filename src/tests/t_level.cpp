@@ -29,7 +29,7 @@ int main() {
     rtLevelParser::init();
     rtPhoton p(rtBlock::DOWN, 325, 10);
     
-    rtLevel *lvl = rtLevelParser::getLevel(5);
+    rtLevel *lvl = rtLevelParser::getLevelFromPasscode(std::string("bicycle"));
     
     SDL_Event event;
     while(loopRunning)
