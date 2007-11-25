@@ -291,14 +291,12 @@ public:
     rtWall(int dir, int x, int y) : rtBlock(WALL, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
-        /*switch(photon.direction()) {
+        switch(photon.direction()) {
             case UP:photon.setDirection(DOWN); break;
             case DOWN:photon.setDirection(UP); break;
-            case LEFT:photon.setDirection(RIGHT): break;
-            case RIGHT:photon,setDirection(LEFT): break;
+            case LEFT:photon.setDirection(RIGHT); break;
+            case RIGHT:photon.setDirection(LEFT); break;
         }
-        return true;*/
-        //m_level->triggerKillPhoton();
         return true;
     }
 };
