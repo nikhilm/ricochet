@@ -1,51 +1,15 @@
+
 > Getting Started
-< This is just the beginning
-# A comment
-& newbie
-@ dUpDaL
+< Really Dumb
+& toddler
+@ 
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUlReUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUsUxUeUeUeUeUeUeUeU
+eUlReUeUeUeUeUeUeUsUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-!
-> Round 2
-< A second chance
-& dos
-@ aRdUpLaDpRdL
-
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUbUeUlDeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUsUxUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-!
-
-> Level 3
-< Time for reflection
-& mirroronthewall
-@ pRdDdUdLaLpUdRpRdDdUdLaLpUdR
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUlDeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUsUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
@@ -54,19 +18,95 @@ eUeUeUeUeUeUeUeUeUeUeUeU
 
 !
 
-> New blocks
-< Sounds like fun
-& cyclops
-@ dRdDdUpU
+> Introducing the Deflector
+< 90 degrees
+& mirror
+@ dU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUlDeUeUeUeUeUeU
+eUeUeUlDeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUmUeUeUcReUeUeUeUeUeU
-eUeUeUeUeUsUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
-eUeUeUeUeUcUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUsUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+
+!
+
+> Prisom Song
+< Triangles
+& prism
+@ pDpL
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUlReUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUsUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+
+!
+
+> Around the bend
+< Use 'em all
+& wall
+@ dRdLpU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUlDeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUwUeUeUeUeUeUeUeUeU
+eUeUeUsUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+
+!
+
+> Guide
+< one way only
+& arrow
+@ aRaU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUwUsUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUlUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+
+!
+
+> Cyclotron
+< needs bouncing
+& bicycle
+@ cL
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUwUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUwUeUeUeUsUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUlUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
