@@ -262,7 +262,9 @@ class rtCyclotron : public rtBlock {
     }
     
 public:
-    rtCyclotron(int dir, int x, int y) : rtBlock(CYCLOTRON, dir, x, y) {}
+    rtCyclotron(int dir, int x, int y) : rtBlock(CYCLOTRON, dir, x, y) {
+        setDraggable(true);
+    }
     
     bool handlePhoton(rtPhoton &photon) {
         if(direction() == UP || direction() == LEFT) {
