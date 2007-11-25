@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include <string>
+#include <ctype.h>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
@@ -31,24 +32,27 @@
 #include "textutil.h"
 #include "game.h"
 
+//TODO: Move this to global settings
+SDL_Color RT_TEXT_COLOR = {255, 0, 0};
+
 class rtState {
 protected:
     rtGame * game;
 public:
-    rtState(rtGame *g) { game = g; }
+    //rtState(rtGame *g) { game = g; }
     
     virtual void firstDisplay(SDL_Surface *surf) {}
     
     virtual void display(SDL_Surface *) {}
     
-    virtual void update() {}
+    virtual void update(rtGame *) {}
     
     virtual bool handleEvent(SDL_Event &) {};
 };
 
 class rtStartState : public rtState {
 public:
-    rtStartState(rtGame * g) : rtState(g) {}
+    //rtStartState(rtGame * g) : rtState(g) {}
     void firstDisplay(SDL_Surface * surf) {
         SDL_BlitSurface(rtResource::loadImage("intro", "bg"), NULL, surf, NULL);
     }
@@ -61,30 +65,36 @@ class rtPaused : public rtState {
 protected:
     std::string title, text;
     rtState * nextState;
+    bool change;
 public:
-    rtPaused(rtGame * g) : rtState(g) {
+    rtPaused(/*rtGame * g) : rtState(g*/) {
         title = text = "";
         nextState = NULL;
+        change = false;
     }
     
     void firstDisplay(SDL_Surface * surf) {
-        SDL_Color c = {255, 0, 0};
-        rtTextUtil::render(title.c_str(), c, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
-        rtTextUtil::render(text.c_str(), c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(title.c_str(), RT_TEXT_COLOR, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(text.c_str(), RT_TEXT_COLOR, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
     }
     
     bool handleEvent(SDL_Event &evt) {
         if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-            game->changeState(nextState);
+            change = true;
             return true;
         }
         return false;
+    }
+    
+    void update(rtGame * g) {
+        if(change)
+            game->changeState(nextState);
     }
 };
 
 class rtGameOver : public rtPaused {
 public:
-    rtGameOver(rtGame * g, bool success) : rtPaused(g) {
+    rtGameOver(/*rtGame * g, */bool success)/* : rtPaused(g)*/ {
         if(success) {
             title = "Superb!";
             text = "You've won the game";
@@ -93,9 +103,49 @@ public:
             title = "Oops!";
             text = "You've lost. Better luck next time.";
         }
-        nextState = new rtStartState(game);
+        nextState = new rtStartState;
     }
     
+};
+
+/****************************
+ * Load level from passcode *
+ ***************************/
+class rtPasscodeState : public rtPaused {
+    std::string code;
+public:
+    rtPasscodeState() {
+        code = "";
+        title = "Enter Passcode";
+        text = "_";
+    }
+    
+    bool handleEvent(SDL_Event &evt) {
+        if(evt.type == SDL_KEYDOWN) {
+            if(isalnum(evt.key.keysym.sym)) {
+                code += evt.key.keysym.sym;
+                return true;
+            }
+            
+            else if(evt.key.keysym.sym == SDLK_BACKSPACE && !code.empty()) {
+                code = code.substr(0, code.length() - 1);
+                return true;
+            }
+            
+            else if(evt.key.keysym.sym == SDLK_RETURN) {
+                //rtLevelParser::getLevelFromPasscode(code);
+                std::cout<<"Getting level from passcode\n";
+                return true;
+            }
+        }
+        return rtPaused::handleEvent(evt);
+    }
+    
+    void display(SDL_Surface *surf) {
+        text = code + '_';
+        SDL_FillRect(surf, NULL, 0x000000);
+        firstDisplay(surf);
+    }
 };
 
 #endif
