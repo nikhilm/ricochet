@@ -126,6 +126,10 @@ public:
         return false;
     }
     
+    virtual bool handlePhotonEdge(rtPhoton &photon) {
+        return false;
+    }
+    
     virtual bool clicked() {
         return false;
     }

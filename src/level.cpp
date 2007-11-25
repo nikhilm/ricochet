@@ -32,7 +32,7 @@ rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH),
     m_photon = NULL;
     m_switchesAlive = 0;
     
-    m_activeBlock = NULL;
+    m_activeBlock = m_currentHandlingBlock = NULL;
     m_dragInProgress = false;
     m_clicked = false;
     
@@ -109,12 +109,26 @@ void rtLevel::registerPhoton(rtPhoton * p) {
 void rtLevel::update() {
     if(m_photon != NULL) {
         for(int i = 0; i < m_grid.size(); ++i) {
-            //if(pointBlockIntersection(m_grid[i], m_photon->x(), m_photon->y()))
-            if(m_photon->x() == m_grid[i]->x() + rtBlock::WIDTH/2 &&
-               m_photon->y() == m_grid[i]->y() + rtBlock::HEIGHT/2)
-                m_grid[i]->handlePhoton(*m_photon);
-            
+            if(pointBlockIntersection(m_grid[i], m_photon->x(), m_photon->y())) {
+                if(m_currentHandlingBlock != m_grid[i]) {
+                    m_currentHandlingBlock = m_grid[i];
+                }
+                
+            }
         }
+        if(m_currentHandlingBlock) {
+            //center
+            if(m_photon->x() == m_currentHandlingBlock->x() + rtBlock::WIDTH/2 &&
+               m_photon->y() == m_currentHandlingBlock->y() + rtBlock::HEIGHT/2)
+                m_currentHandlingBlock->handlePhoton(*m_photon);
+            else
+                m_currentHandlingBlock->handlePhotonEdge(*m_photon);
+                        
+            m_photon->move();
+            return; // this is important, if we don't return the current handling block will become NULL
+        }
+        //std::cout<<"Setting to null\n";
+        m_currentHandlingBlock = NULL;
         m_photon->move();
     }
 }
