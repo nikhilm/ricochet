@@ -109,6 +109,13 @@ void rtLevel::registerPhoton(rtPhoton * p) {
 
 void rtLevel::update() {    
     if(m_photon != NULL) {
+        // level edge collisions
+        if(m_photon->x() < 0 || m_photon->x() > GRID_WIDTH * rtBlock::WIDTH ||
+           m_photon->y() < 0 || m_photon->y() > GRID_HEIGHT * rtBlock::HEIGHT) {
+            m_photon = NULL;
+            return;
+        }
+        
         for(int i = 0; i < m_grid.size(); ++i) {
             // if it intersected the current block handling the photon is now m_grid[i]
             if(pointBlockIntersection(m_grid[i], m_photon->x(), m_photon->y())) {
