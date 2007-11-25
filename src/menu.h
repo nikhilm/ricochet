@@ -9,8 +9,8 @@
  * Licensed under the GNU GPL
  */
 
-#ifndef RT_rtMenuItem_H
-#define RT__rtMenuItem_H
+#ifndef RT_MENU_H
+#define RT_MENU_H
 
 #include<iostream>
 #include<vector>
@@ -24,7 +24,7 @@
  */
 class rtMenuAction {
 public:
-    void trigger(const SDL_Event&);
+    virtual void trigger(const SDL_Event&) {};
 };
 
 /**
@@ -79,7 +79,7 @@ private:
     
     std::string itemText;
     
-    rtMenuAction action;
+    rtMenuAction * action;
 
     //colours
     SDL_Color foregroundNormal, backgroundNormal, borderNormal, foregroundHover, backgroundHover, borderHover;
@@ -91,45 +91,63 @@ private:
     int oX, oY;
     SDL_Surface * surf;
 
-    Uint32 getMappedColor(SDL_Color);
+    SDL_Rect getBackgroundRect() {
+        return createRect(oX + borderWidth, oY + borderWidth, width - 2*borderWidth, height - 2*borderWidth);
+    }
 
-    SDL_Rect getBackgroundRect();
-
+    Uint32 getMappedColor(SDL_Color col) {
+        return SDL_MapRGB(surf->format, col.r, col.g, col.b);
+    }
 protected:
     /**
-    * Draws the border around the rtMenuItem
-    */
-    void drawBorder();
-    /**
-    * Draws the text
-    */
-    void drawText();
-    /**
-    * Draws the menu item in the 'normal' state when the mouse is not over it.
-    */
-    void displayNormal();
-    /**
-    * Draws the menu item in the 'hover' state when the mouse is over it.
-    */
-    void displayHover();
+     * Draws the border around the rtMenuItem
+     */
+    virtual void drawBorder() {
+        SDL_FillRect(surf, &createRect(oX, oY, width, height), getMappedColor((currentState == NORMAL ? borderNormal : borderHover)));
+    //fill in the remaining with black
+        SDL_FillRect(surf, &getBackgroundRect(), getMappedColor(createColor(0, 0, 0)));
 
-public:
-    rtMenuItem(int, int, const std::string&, void (*callback)(SDL_Event &));
+    }
 
-    static SDL_Color createColor(int r, int g, int b);
-    static SDL_Rect createRect(int, int, int, int);
+    /**
+     * Draws the menu item in the 'normal' state when the mouse is not over it.
+     */
+    virtual void displayNormal() {
+        drawBorder();
+        SDL_FillRect(surf, &getBackgroundRect(), getMappedColor(backgroundNormal));
+        drawText();
+    }
+    /**
+     * Draws the menu item in the 'hover' state when the mouse is over it.
+    */
+    virtual void displayHover() {
+        drawBorder();
+        SDL_FillRect(surf, &getBackgroundRect(), getMappedColor(backgroundHover));
+        drawText();
+    }
+
     
-    void setAction(void (*callback)(SDL_Event &));
-    void setDimensions(int, int);
-
-    void display(SDL_Surface *);
-
-    void handle(SDL_Event&);
-
-    bool pointInsideThis(int, int);
+    virtual void drawText() {
+    //calculate the centre
+        rtTextUtil::render(itemText.c_str(), (currentState == HOVER ? foregroundHover : foregroundNormal), RT_MEDIUM_FONT, surf, oX + width/2, oY + height/2, rtTextUtil::ALIGN_CENTER, (currentState == HOVER ? true : false)); //last argument is bold
+    }
+public:
+//     rtMenuItem(int, int, const std::string&, rtMenuAction *);
+// 
+//     static SDL_Color createColor(int r, int g, int b);
+//     static SDL_Rect createRect(int, int, int, int);
+//     
+//     void setAction(rtMenuAction*);
+//     void setDimensions(int, int);
+// 
+//     void display(SDL_Surface *screen);
+// 
+//     void handle(SDL_Event &event);
+// 
+//     bool pointInsideThis(int pX, int pY);
 
     //setters    
-    void rtMenuItem::setText(const std::string) {
+    void setText(const std::string text) {
         itemText = text;
     }
     
@@ -185,24 +203,102 @@ public:
         return height;
     };
 
+    rtMenuItem(int x, int y, const std::string& text, rtMenuAction * callback) {
+        itemText = text;
+        action = callback;
+        currentState = NORMAL;
+
+        setX(x);
+        setY(y);
+        setDimensions(300, 75);
+        setBorderWidth(5);
+
+        //default white and black theme
+        SDL_Color white = createColor(255, 255, 255);
+        SDL_Color black = createColor(0, 0, 0);
+        SDL_Color red = createColor(255, 0, 0);
+        setForeground(white);
+        setBackground(black);
+        setBorder(black);
+
+        setForegroundHover(red);
+        setBackgroundHover(black);
+        setBorderHover(black);
+
+
+    }
+
+    SDL_Color createColor(int r, int g, int b) {
+        SDL_Color col;
+        col.r = r;
+        col.g = g;
+        col.b = b;
+        return col;
+    }
+
+    SDL_Rect createRect(int x, int y, int w, int h) {
+        SDL_Rect r;
+        r.x = x;
+        r.y = y;
+        r.w = w;
+        r.h = h;
+        return r;
+    }
+
+    void setAction(rtMenuAction * callback) {
+        action = callback;
+    }
+
+    void setDimensions(int w, int h) {
+        width = w;
+        height = h;
+    }
+
+    void display(SDL_Surface *screen) {
+        surf = screen;
+
+        if(currentState == NORMAL)
+            displayNormal();
+        else if(currentState == HOVER)
+            displayHover();
+    }
+
+    bool pointInsideThis(int pX, int pY) {
+        return ( pX >= oX && pX <= (oX + width) && pY >= oY && pY <= (oY + height) );
+    }
+
+    void handle(SDL_Event &event) {
+        if(event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT
+           && pointInsideThis(event.button.x, event.button.y)) {
+            action->trigger(event);
+           }
+           else if(event.type == SDL_MOUSEMOTION) {
+               if(pointInsideThis(event.motion.x, event.motion.y)) {
+                   currentState = HOVER;
+               }
+               else {
+                   currentState = NORMAL;
+               }
+           }
+    }
 };
 
 
-class Menu {
+class rtMenu {
 private:
-    vector<rtMenuItem> rtMenuItems;
+    std::vector<rtMenuItem> rtMenuItems;
     int x, y;
 
     int paddingY;
 
 public:
-    Menu(int X, int Y) {
+    rtMenu(int X, int Y) {
         x = X;
         y = Y;
         paddingY = 10;
     };
 
-    Menu() {
+    rtMenu() {
         x = 0;
         y = 0;
         paddingY = 10;
@@ -216,11 +312,12 @@ public:
         y = Y;
     };
 
-    void addItem(const std::string &text, const rtMenuAction& callback) {
-        addItem(rtMenuItem(0, 0, text, callback));
+    void addItem(const std::string &text, rtMenuAction * callback) {
+        rtMenuItem item = rtMenuItem(0, 0, text, callback);
+        addItem(item);
     };
 
-    void addItem(rtMenuItem m) {
+    void addItem(rtMenuItem& m) {
         m.setX(x);
         rtMenuItems.push_back(m);
     };

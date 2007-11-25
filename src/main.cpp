@@ -73,7 +73,7 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(new rtPasscodeState);
+    changeState(new rtStartState);
     
     SDL_Event event;
     while(gameRunning)

@@ -31,6 +31,7 @@
 #include "resource.h"
 #include "textutil.h"
 #include "game.h"
+#include "menu.h"
 
 //TODO: Move this to global settings
 SDL_Color RT_TEXT_COLOR = {255, 0, 0};
@@ -50,11 +51,56 @@ public:
     virtual bool handleEvent(SDL_Event &) {};
 };
 
-class rtStartState : public rtState {
+/*******************************
+ * Start state related actions *
+ *******************************/
+
+class rtNewGameAction : public rtMenuAction {
 public:
-    //rtStartState(rtGame * g) : rtState(g) {}
+    void trigger(const SDL_Event& evt) {
+        std::cout<<"Starting new game\n";
+    }
+};
+
+class rtPasscodeAction : public rtMenuAction {
+public:
+    void trigger(const SDL_Event& evt) {
+        std::cout<<"Going to passcode\n";
+    }
+};
+
+class rtQuitAction : public rtMenuAction {
+public:
+    void trigger(const SDL_Event& evt) {
+        exit(0);
+    }
+};
+
+/***************
+ * Start state *
+ ***************/
+ 
+class rtStartState : public rtState {
+    rtMenu * menu;
+public:
+    rtStartState() {
+        menu = new rtMenu(250, 250);
+        menu->addItem("New Game", new rtNewGameAction);
+        menu->addItem("Enter Passcode", new rtPasscodeAction);
+        menu->addItem("Quit", new rtQuitAction);
+    }
+    
     void firstDisplay(SDL_Surface * surf) {
+        display(surf);
+    }
+    
+    void display(SDL_Surface * surf) {        
         SDL_BlitSurface(rtResource::loadImage("intro", "bg"), NULL, surf, NULL);
+        menu->display(surf);
+    }
+    
+    bool handleEvent(SDL_Event &evt) {
+        menu->handle(evt);
     }
 };
 
