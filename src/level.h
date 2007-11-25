@@ -57,7 +57,7 @@ class rtLevel {
     rtBlock * m_activeBlock; //block which has the mouse over it
     rtBlock * m_currentHandlingBlock; // block which is currently handling the photon;
     
-    bool m_dragInProgress, m_clicked;
+    bool m_dragInProgress, m_clicked, m_currentHandlingBlockHandled;
 
 public:
     

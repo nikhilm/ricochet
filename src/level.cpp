@@ -35,6 +35,7 @@ rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH),
     m_activeBlock = m_currentHandlingBlock = NULL;
     m_dragInProgress = false;
     m_clicked = false;
+    m_currentHandlingBlockHandled = false;
     
 }
 
@@ -112,17 +113,22 @@ void rtLevel::update() {
             if(pointBlockIntersection(m_grid[i], m_photon->x(), m_photon->y())) {
                 if(m_currentHandlingBlock != m_grid[i]) {
                     m_currentHandlingBlock = m_grid[i];
+                    m_currentHandlingBlockHandled = false;
                 }
                 
             }
         }
-        if(m_currentHandlingBlock) {
+        if(m_currentHandlingBlock && !m_currentHandlingBlockHandled) {
             //center
             if(m_photon->x() == m_currentHandlingBlock->x() + rtBlock::WIDTH/2 &&
-               m_photon->y() == m_currentHandlingBlock->y() + rtBlock::HEIGHT/2)
-                m_currentHandlingBlock->handlePhoton(*m_photon);
-            else
-                m_currentHandlingBlock->handlePhotonEdge(*m_photon);
+               m_photon->y() == m_currentHandlingBlock->y() + rtBlock::HEIGHT/2) {
+                if(m_currentHandlingBlock->handlePhoton(*m_photon))
+                    m_currentHandlingBlockHandled = true;
+            }
+            else {
+                if(m_currentHandlingBlock->handlePhotonEdge(*m_photon))
+                    m_currentHandlingBlockHandled = true;
+            }
                         
             m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL
