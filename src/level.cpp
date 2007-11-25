@@ -107,9 +107,10 @@ void rtLevel::registerPhoton(rtPhoton * p) {
     m_photon = p;
 }
 
-void rtLevel::update() {
+void rtLevel::update() {    
     if(m_photon != NULL) {
         for(int i = 0; i < m_grid.size(); ++i) {
+            // if it intersected the current block handling the photon is now m_grid[i]
             if(pointBlockIntersection(m_grid[i], m_photon->x(), m_photon->y())) {
                 if(m_currentHandlingBlock != m_grid[i]) {
                     m_currentHandlingBlock = m_grid[i];
@@ -118,6 +119,10 @@ void rtLevel::update() {
                 
             }
         }
+        
+        //if there is a block handling the photon and if it hasn't handled it already
+        // (determined by the return value of the handlePhoton* methods)
+        // then let it handle
         if(m_currentHandlingBlock && !m_currentHandlingBlockHandled) {
             //center
             if(m_photon->x() == m_currentHandlingBlock->x() + rtBlock::WIDTH/2 &&
@@ -133,7 +138,6 @@ void rtLevel::update() {
             m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL
         }
-        //std::cout<<"Setting to null\n";
         m_currentHandlingBlock = NULL;
         m_photon->move();
     }
