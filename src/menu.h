@@ -67,7 +67,8 @@ private:
     State currentState;
     
     std::string itemText;
-    void (*actionCallback)(SDL_Event &);
+    
+    rtMenuAction action;
 
     //colours
     SDL_Color foregroundNormal, backgroundNormal, borderNormal, foregroundHover, backgroundHover, borderHover;
@@ -102,12 +103,11 @@ protected:
     void displayHover();
 
 public:
-    rtMenuItem(int x, int y, char * , void (*callback)(SDL_Event &));
+    rtMenuItem(int, int, const std::string&, void (*callback)(SDL_Event &));
 
     static SDL_Color createColor(int r, int g, int b);
     static SDL_Rect createRect(int, int, int, int);
-
-    void setText(std::string text);
+    
     void setAction(void (*callback)(SDL_Event &));
     void setDimensions(int, int);
 
@@ -117,7 +117,11 @@ public:
 
     bool pointInsideThis(int, int);
 
-    //setters
+    //setters    
+    void rtMenuItem::setText(const std::string) {
+        itemText = text;
+    }
+    
     void setBackground(SDL_Color col) {
         backgroundNormal = col;
     };
@@ -201,7 +205,7 @@ public:
         y = Y;
     };
 
-    void addItem(char * text, void (*callback)(SDL_Event &)) {
+    void addItem(const std::string &text, void (*callback)(SDL_Event &)) {
         addItem(rtMenuItem(0, 0, text, callback));
     };
 

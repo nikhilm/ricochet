@@ -76,10 +76,6 @@ TTF_Font * rtMenuItem::loadFont(char * file, int size) {
     return f;
 }
 
-void rtMenuItem::setText(char *text) {
-    itemText = text;
-}
-
 void rtMenuItem::setAction(void (*callback)(SDL_Event &)) {
     actionCallback = callback;
 }
