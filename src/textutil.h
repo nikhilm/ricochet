@@ -132,7 +132,7 @@ public:
         SDL_Surface *txtSurf;
         
         SDL_Rect r;
-        r.y = y;  
+        r.y = y-TTF_FontHeight(font)/2;  
         
         while(!txt.empty()) {
             token = splitString(txt);
