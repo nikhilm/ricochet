@@ -38,7 +38,6 @@ SDL_Color RT_TEXT_COLOR = {255, 0, 0};
 
 class rtState {
 protected:
-    rtGame * game;
 public:
     //rtState(rtGame *g) { game = g; }
     
@@ -46,7 +45,7 @@ public:
     
     virtual void display(SDL_Surface *) {}
     
-    virtual void update(rtGame *) {}
+    virtual void update() {}
     
     virtual bool handleEvent(SDL_Event &) {};
 };
@@ -126,16 +125,12 @@ public:
     
     bool handleEvent(SDL_Event &evt) {
         if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-            change = true;
+            rtGame::changeState(nextState);
             return true;
         }
         return false;
     }
     
-    void update(rtGame * g) {
-        if(change)
-            game->changeState(nextState);
-    }
 };
 
 class rtGameOver : public rtPaused {

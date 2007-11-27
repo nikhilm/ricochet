@@ -28,11 +28,11 @@
 #include "levelparser.h"
 #include "game.h"
 
-rtGame::rtGame() {
+void rtGame::init() {
     currentState = nextState = NULL;
-    screen = NULL;
-    gameRunning = false;
-    stateChanged = false;
+    rtGame::screen = NULL;
+    rtGame::gameRunning = false;
+    rtGame::stateChanged = false;
 }
     
 void rtGame::run() {
@@ -73,7 +73,7 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(new rtStartState);
+    changeState(new rtGameOver(true));
     
     SDL_Event event;
     while(gameRunning)
@@ -94,7 +94,7 @@ void rtGame::run() {
             else if (SDL_QUIT == event.type) gameRunning = false;
             else if (SDL_KEYDOWN == event.type && SDLK_ESCAPE == event.key.keysym.sym) gameRunning = false;
         }
-        currentState->update(this);
+        currentState->update();
         currentState->display(screen);
         
         SDL_Flip(screen);
@@ -111,5 +111,6 @@ void rtGame::changeState(rtState * s) {
 }
 
 int main() {
-    rtGame().run();
+    rtGame::init();
+    rtGame::run();
 }
