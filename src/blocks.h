@@ -413,9 +413,7 @@ public:
 
 class rtEnergiser : public rtBlock {
 public:
-    rtEnergiser(int dir, int x, int y) : rtBlock(ENERGISER, dir, x, y) {
-        setDraggable(true);
-    }
+    rtEnergiser(int dir, int x, int y) : rtBlock(ENERGISER, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         photon.setHighEnergy(true);
