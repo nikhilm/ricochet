@@ -217,7 +217,7 @@ public:
         SDL_Color white = createColor(255, 255, 255);
         SDL_Color black = createColor(0, 0, 0);
         SDL_Color red = createColor(255, 0, 0);
-        setForeground(white);
+        setForeground(red);
         setBackground(black);
         setBorder(black);
 
