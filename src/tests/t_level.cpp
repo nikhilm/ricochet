@@ -1,4 +1,5 @@
 #include<iostream>
+#include<stdio.h>
 
 #include<SDL/SDL.h>
 
@@ -6,7 +7,12 @@
 #include "level.h"
 #include "levelparser.h"
 
-int main() {
+int main(int argc, char ** argv) {
+    if(argc < 2) {
+        std::cout<<"Usage: t_level <levelnum>\n";
+        return 0;
+    }
+    
     SDL_Surface *screen;
     bool loopRunning = true;
 
@@ -29,7 +35,7 @@ int main() {
     rtLevelParser::init();
     rtPhoton p(rtBlock::DOWN, 325, 10);
     
-    rtLevel *lvl = rtLevelParser::getLevelFromPasscode(std::string("bicycle"));
+    rtLevel *lvl = rtLevelParser::getLevel(argv[1][0]-'0');
     
     SDL_Event event;
     while(loopRunning)
