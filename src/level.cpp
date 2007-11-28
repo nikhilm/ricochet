@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "level.h"
 #include "blocks.h"
 
 rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH),
@@ -69,7 +68,7 @@ void rtLevel::addGridBlock(rtBlock * b) {
         m_switchesAlive++;
 }
 
-void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
+void rtLevel::display(SDL_Surface *surf) {
     // dock  
     
     SDL_Rect out, in;
@@ -89,18 +88,18 @@ void rtLevel::display(SDL_Surface *surf, int offsetX, int offsetY) {
     SDL_FillRect(surf, &in, 0x000000);
     
     for(int i = 0; i < m_userBlockList.size(); i++) {
-        (m_userBlockList[i])->display(surf, offsetX, offsetY);
+        (m_userBlockList[i])->display(surf, 0, 0);
     }
     
     for(int i = 0; i < m_grid.size(); i++) {
-        (m_grid[i])->display(surf, offsetX, offsetY);
+        (m_grid[i])->display(surf, 0, 0);
     }
     
     if(m_photon != NULL)
-        m_photon->display(surf, offsetX, offsetY);
+        m_photon->display(surf, 0, 0);
     
     if(m_activeBlock != NULL)
-        m_activeBlock->display(surf, offsetX, offsetY);
+        m_activeBlock->display(surf, 0, 0);
 }
 
 void rtLevel::registerPhoton(rtPhoton * p) {
@@ -150,7 +149,7 @@ void rtLevel::update() {
     }
 }
 
-bool rtLevel::handleEvent(SDL_Event evt) {
+bool rtLevel::handleEvent(SDL_Event &evt) {
     //if a photon is active then nothing works
     if(m_photon) return false;
     

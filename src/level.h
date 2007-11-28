@@ -27,6 +27,8 @@
 
 #include <SDL/SDL.h>
 
+#include "state.h"
+
 class rtBlock;
 class rtPhoton;
 class rtSwitch;
@@ -42,8 +44,8 @@ struct rtFakeLevel {
 };
 
 
-class rtLevel {
-    public:
+class rtLevel : public rtState {
+public:
     std::string m_title, m_subtitle, m_passcode;
     
     std::vector<rtBlock *> m_userBlockList;
@@ -83,13 +85,13 @@ public:
     
     void addGridBlock(rtBlock * b);
     
-    void display(SDL_Surface *surf, int offsetX, int offsetY);
+    void display(SDL_Surface *surf);
     
     void registerPhoton(rtPhoton *);
     
     void update();
     
-    bool handleEvent(SDL_Event);
+    bool handleEvent(SDL_Event &);
     
     void switchToggled(rtSwitch *);
     
