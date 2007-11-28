@@ -65,7 +65,7 @@ void rtLevel::addGridBlock(rtBlock * b) {
     b->registerLevel(this);    
     m_grid.push_back(b);
     
-    if(b->type() == rtBlock::SWITCH)
+    if(b->type() == rtBlock::SWITCH || b->type() == rtBlock::MULTI_SWITCH)
         m_switchesAlive++;
 }
 
