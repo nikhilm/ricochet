@@ -26,9 +26,52 @@ void rtNewGameAction::trigger(const SDL_Event& evt) {
 }
 
 void rtPasscodeAction::trigger(const SDL_Event& evt) {
-    std::cout<<"Going to passcode\n";
+    rtGame::changeState(new rtPasscodeState);
 }
 
 void rtQuitAction::trigger(const SDL_Event& evt) {
     exit(0);
+}
+
+bool rtPaused::handleEvent(SDL_Event &evt) {
+    if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
+        rtGame::changeState(nextState);
+        return true;
+    }
+    return false;
+}
+/******************
+ * Passcode state *
+ *****************/
+rtPasscodeState::rtPasscodeState() {
+    code = "";
+    title = "Enter Passcode";
+    text = "_";
+}
+
+bool rtPasscodeState::handleEvent(SDL_Event &evt) {
+    if(evt.type == SDL_KEYDOWN) {
+        if(isalnum(evt.key.keysym.sym)) {
+            code += evt.key.keysym.sym;
+            return true;
+        }
+    
+        else if(evt.key.keysym.sym == SDLK_BACKSPACE && !code.empty()) {
+            code = code.substr(0, code.length() - 1);
+            return true;
+        }
+    
+        else if(evt.key.keysym.sym == SDLK_RETURN) {
+            rtLevelParser::getLevelFromPasscode(code);
+            std::cout<<"Getting level from passcode\n";
+            return true;
+        }
+    }
+    return rtPaused::handleEvent(evt);
+}
+
+void rtPasscodeState::display(SDL_Surface *surf) {
+    text = code + '_';
+    SDL_FillRect(surf, NULL, 0x000000);
+    firstDisplay(surf);
 }

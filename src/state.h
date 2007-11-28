@@ -90,91 +90,60 @@ public:
         menu->handle(evt);
     }
 };
-// 
-// /*
-//  * Simple paused state which displays text and moves to nextState when clicked
-//  */
-// class rtPaused : public rtState {
-// protected:
-//     std::string title, text;
-//     rtState * nextState;
-//     bool change;
-// public:
-//     rtPaused(/*rtGame * g) : rtState(g*/) {
-//         title = text = "";
-//         nextState = NULL;
-//         change = false;
-//     }
-//     
-//     void firstDisplay(SDL_Surface * surf) {
-//         rtTextUtil::render(title.c_str(), RT_TEXT_COLOR, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
-//         rtTextUtil::render(text.c_str(), RT_TEXT_COLOR, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
-//     }
-//     
-//     bool handleEvent(SDL_Event &evt) {
-//         if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-//             rtGame::changeState(nextState);
-//             return true;
-//         }
-//         return false;
-//     }
-//     
-// };
-// 
-// class rtGameOver : public rtPaused {
-// public:
-//     rtGameOver(/*rtGame * g, */bool success)/* : rtPaused(g)*/ {
-//         if(success) {
-//             title = "Superb!";
-//             text = "You've won the game";
-//         }
-//         else {
-//             title = "Oops!";
-//             text = "You've lost. Better luck next time.";
-//         }
-//         nextState = new rtStartState;
-//     }
-//     
-// };
-// 
-// /****************************
-//  * Load level from passcode *
-//  ***************************/
-// class rtPasscodeState : public rtPaused {
-//     std::string code;
-// public:
-//     rtPasscodeState() {
-//         code = "";
-//         title = "Enter Passcode";
-//         text = "_";
-//     }
-//     
-//     bool handleEvent(SDL_Event &evt) {
-//         if(evt.type == SDL_KEYDOWN) {
-//             if(isalnum(evt.key.keysym.sym)) {
-//                 code += evt.key.keysym.sym;
-//                 return true;
-//             }
-//             
-//             else if(evt.key.keysym.sym == SDLK_BACKSPACE && !code.empty()) {
-//                 code = code.substr(0, code.length() - 1);
-//                 return true;
-//             }
-//             
-//             else if(evt.key.keysym.sym == SDLK_RETURN) {
-//                 rtLevelParser::getLevelFromPasscode(code);
-//                 std::cout<<"Getting level from passcode\n";
-//                 return true;
-//             }
-//         }
-//         return rtPaused::handleEvent(evt);
-//     }
-//     
-//     void display(SDL_Surface *surf) {
-//         text = code + '_';
-//         SDL_FillRect(surf, NULL, 0x000000);
-//         firstDisplay(surf);
-//     }
-// };
+
+/*
+ * Simple paused state which displays text and moves to nextState when clicked
+ */
+class rtPaused : public rtState {
+protected:
+    std::string title, text;
+    rtState * nextState;
+    bool change;
+public:
+    rtPaused() {
+        title = text = "";
+        nextState = NULL;
+        change = false;
+    }
+    
+    void firstDisplay(SDL_Surface * surf) {
+        SDL_Color c = {255, 0, 0};
+        std::cout<<"Title: "<<title<<std::endl;
+        std::cout<<"Text: "<<text<<std::endl;
+        //rtTextUtil::render(title.c_str(), c, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
+        //rtTextUtil::render(text.c_str(), c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+    }
+
+    bool handleEvent(SDL_Event &);
+};
+
+class rtGameOver : public rtPaused {
+public:
+    rtGameOver(bool success) {
+        if(success) {
+            title = "Superb!";
+            text = "You've won the game";
+        }
+        else {
+            title = "Oops!";
+            text = "You've lost. Better luck next time.";
+        }
+        nextState = new rtStartState;
+    }
+    
+};
+
+/****************************
+ * Load level from passcode *
+ ***************************/
+class rtPasscodeState : public rtPaused {
+    std::string code;
+public:
+    rtPasscodeState();
+    
+    bool handleEvent(SDL_Event &evt);
+    
+    void display(SDL_Surface *surf);
+};
 
 #endif
