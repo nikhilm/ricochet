@@ -29,11 +29,9 @@
 #include "game.h"
 
 rtState * rtGame::currentState = NULL;
-rtState * rtGame::nextState = NULL;
 SDL_Surface * rtGame::screen = NULL;
 
 bool rtGame::gameRunning = true;
-bool rtGame::stateChanged = false;
 
 SDL_Color rtGame::RT_TEXT_COLOR = {255, 0, 0};
     
@@ -79,16 +77,7 @@ void rtGame::run() {
     
     SDL_Event event;
     while(gameRunning)
-    {
-        if(stateChanged) {
-            currentState = nextState;
-            nextState = NULL;
-            stateChanged = false;
-            
-            currentState->firstDisplay(screen);
-            continue;
-        }
-            
+    {            
         while(SDL_PollEvent(&event))
         {
             if(currentState->handleEvent(event))
@@ -104,12 +93,10 @@ void rtGame::run() {
 }
 
 void rtGame::changeState(rtState * s) {
-    nextState = s;
-    stateChanged = true;/*
     if(currentState != NULL)
         delete currentState;
     currentState = s;
-    currentState->firstDisplay(screen);*/
+    currentState->firstDisplay(screen);
 }
 
 int main() {

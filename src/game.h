@@ -29,12 +29,10 @@ class rtState;
 
 class rtGame {
     static rtState * currentState;
-    static rtState * nextState;
-    
+        
     static SDL_Surface * screen;
     
     static bool gameRunning;
-    static bool stateChanged;
     
 public:
     
