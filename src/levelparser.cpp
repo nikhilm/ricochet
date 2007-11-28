@@ -123,3 +123,7 @@ rtLevel * rtLevelParser::getLevelFromPasscode(const std::string &code) {
     }
     return NULL;
 }
+
+int rtLevelParser::levelCount() {
+    return Levels.size();
+}

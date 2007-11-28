@@ -37,6 +37,8 @@ public:
     
     static rtLevel * getLevel(int num);
     static rtLevel * getLevelFromPasscode(const std::string &);
+    
+    static int levelCount();
 };
 
 #endif
