@@ -146,4 +146,12 @@ public:
     void display(SDL_Surface *surf);
 };
 
+/****************************************
+ * Transition from one level to another *
+ ***************************************/
+class rtTransitionState : public rtPaused {
+public:
+    rtTransitionState(int);
+};
+        
 #endif

@@ -75,3 +75,24 @@ void rtPasscodeState::display(SDL_Surface *surf) {
     SDL_FillRect(surf, NULL, 0x000000);
     firstDisplay(surf);
 }
+
+/**************
+ * Transition *
+ *************/
+rtTransitionState::rtTransitionState(int levelDone) {
+    if(levelDone + 1 >= rtLevelParser::levelCount()) {
+        title = "Congratulations!";
+        text = "You've finished Ricochet\n";
+        nextState = new rtStartState;
+    }
+    else {
+        nextState = rtLevelParser::getLevel(levelDone + 1);
+        rtLevel * lvl = (rtLevel *)nextState;
+        
+        title = lvl->m_title;
+        
+        text = lvl->m_subtitle;
+        text += "\n\nPasscode: " + lvl->m_passcode;
+    }
+}
+        
