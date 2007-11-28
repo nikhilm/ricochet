@@ -28,12 +28,14 @@
 #include "levelparser.h"
 #include "game.h"
 
-void rtGame::init() {
-    currentState = nextState = NULL;
-    rtGame::screen = NULL;
-    rtGame::gameRunning = false;
-    rtGame::stateChanged = false;
-}
+rtState * rtGame::currentState = NULL;
+rtState * rtGame::nextState = NULL;
+SDL_Surface * rtGame::screen = NULL;
+
+bool rtGame::gameRunning = true;
+bool rtGame::stateChanged = false;
+
+SDL_Color rtGame::RT_TEXT_COLOR = {255, 0, 0};
     
 void rtGame::run() {
     //initialize SDL
@@ -73,7 +75,7 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(rtLevelParser::getLevel(3));
+    changeState(new rtStartState);
     
     SDL_Event event;
     while(gameRunning)
@@ -111,6 +113,5 @@ void rtGame::changeState(rtState * s) {
 }
 
 int main() {
-    rtGame::init();
     rtGame::run();
 }
