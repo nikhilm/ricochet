@@ -32,8 +32,6 @@ rtState * rtGame::currentState = NULL;
 SDL_Surface * rtGame::screen = NULL;
 
 bool rtGame::gameRunning = true;
-
-SDL_Color rtGame::RT_TEXT_COLOR = {255, 0, 0};
     
 void rtGame::run() {
     //initialize SDL
