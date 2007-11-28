@@ -94,6 +94,8 @@ void rtGame::changeState(rtState * s) {
     if(currentState != NULL)
         delete currentState;
     currentState = s;
+    
+    SDL_FillRect(screen, NULL, 0x0);
     currentState->firstDisplay(screen);
 }
 
