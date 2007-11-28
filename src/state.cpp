@@ -18,3 +18,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "levelparser.h"
+#include "game.h"
+
+void rtNewGameAction::trigger(const SDL_Event& evt) {
+    rtGame::changeState(rtLevelParser::getLevel(0));
+}
+
+void rtPasscodeAction::trigger(const SDL_Event& evt) {
+    std::cout<<"Going to passcode\n";
+}
+
+void rtQuitAction::trigger(const SDL_Event& evt) {
+    exit(0);
+}
