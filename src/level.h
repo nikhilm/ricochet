@@ -105,6 +105,8 @@ public:
     
     int getDockX(int);
     int getDockY(int);
+    
+    void killPhoton();
 };
 
 #endif

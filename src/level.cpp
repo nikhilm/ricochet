@@ -112,7 +112,7 @@ void rtLevel::update() {
         // level edge collisions
         if(m_photon->x() < 0 || m_photon->x() > GRID_WIDTH * rtBlock::WIDTH ||
            m_photon->y() < 0 || m_photon->y() > GRID_HEIGHT * rtBlock::HEIGHT) {
-            m_photon = NULL;
+            killPhoton();
             return;
         }
         
@@ -274,5 +274,17 @@ void rtLevel::gameOver(bool success) {
     else {
         std::cout<<"~~~~ You lost ~~~~\n";
         //loser code
+    }
+}
+
+// kills the photon and resets all switches to off
+void rtLevel::killPhoton() {
+    m_photon = NULL;
+    for(int i = 0; i < m_grid.size(); ++i) {
+        if(m_grid[i]->type() == rtBlock::SWITCH || m_grid[i]->type() == rtBlock::MULTI_SWITCH) {
+            rtSwitch *sw = (rtSwitch *) m_grid[i];
+            if(sw->on())
+                sw->toggleState();
+        }
     }
 }
