@@ -200,13 +200,12 @@ public:
 class rtSwitch : public rtBlock {
     bool m_on;
     
-protected:
+public:
     void toggleState() {
         m_on = !m_on;
         setImage(m_type, (m_on ? "on" : "off"));        
     }
     
-public:
     rtSwitch(int dir, int x, int y) : rtBlock(SWITCH, dir, x, y) {
         m_on = true;
         toggleState();
