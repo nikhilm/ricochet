@@ -268,7 +268,6 @@ void rtLevel::switchToggled(rtSwitch *sw) {
 // ends game
 // if game over because player won success should be true
 void rtLevel::levelDone() {
-    std::cout<<"~~~~ You won ~~~~\n";
     rtGame::changeState(new rtTransitionState(m_levelNumber));    
 }
 
