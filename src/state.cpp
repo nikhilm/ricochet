@@ -90,7 +90,7 @@ rtTransitionState::rtTransitionState(int levelDone) {
         nextState = rtLevelParser::getLevel(levelDone + 1);
         rtLevel * lvl = (rtLevel *)nextState;
         
-        title = lvl->m_title;
+        title = "Next level\n" + lvl->m_title;
         
         text = lvl->m_subtitle;
         text += "\n\nPasscode: " + lvl->m_passcode;
