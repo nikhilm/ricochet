@@ -92,6 +92,7 @@ rtLevel * rtLevelParser::getLevel(int num) {
     level->setTitle(fake.title);
     level->setSubtitle(fake.subtitle);
     level->setPasscode(fake.passcode);
+    level->m_levelNumber = num;
     //user list
     for(int i = 0; i < fake.userListStr.length(); i+=2) {
         level->addUserBlock(getBlock(fake.userListStr[i], fake.userListStr[i+1], 0, 0));

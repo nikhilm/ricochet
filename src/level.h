@@ -47,6 +47,9 @@ struct rtFakeLevel {
 class rtLevel : public rtState {
 public:
     std::string m_title, m_subtitle, m_passcode;
+    int m_levelNumber;
+
+private:
     
     std::vector<rtBlock *> m_userBlockList;
     

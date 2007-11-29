@@ -48,7 +48,7 @@ int main(int argc, char ** argv) {
         }
         SDL_FillRect(screen, NULL, 0x0);
 
-        lvl->display(screen, 0, 0);
+        lvl->display(screen);
         lvl->update();
         SDL_Flip(screen);
     }
