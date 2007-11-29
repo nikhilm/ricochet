@@ -98,7 +98,7 @@ public:
     
     void switchToggled(rtSwitch *);
     
-    void gameOver(bool);
+    void levelDone();
     
     bool pointBlockIntersection(rtBlock *, int, int);
     

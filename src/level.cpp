@@ -19,6 +19,7 @@
  */
 
 #include "blocks.h"
+#include "game.h"
 
 rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH),
                  DOCK_START_X(DOCK_OFFSET_X + 2 * DOCK_PADDING), //start coordinate for block drawing
@@ -261,20 +262,14 @@ void rtLevel::switchToggled(rtSwitch *sw) {
     ( sw->on() ? m_switchesAlive-- : m_switchesAlive++ );
     std::cout<<"Switches alive = "<<m_switchesAlive<<std::endl;
     if(m_switchesAlive == 0)
-        gameOver(true);
+        levelDone();
 }
 
 // ends game
 // if game over because player won success should be true
-void rtLevel::gameOver(bool success) {
-    if(success) {
-        std::cout<<"~~~~ You won ~~~~\n";
-        //winning code
-    }
-    else {
-        std::cout<<"~~~~ You lost ~~~~\n";
-        //loser code
-    }
+void rtLevel::levelDone() {
+    std::cout<<"~~~~ You won ~~~~\n";
+    rtGame::changeState(new rtTransitionState(m_levelNumber));    
 }
 
 // kills the photon and resets all switches to off
