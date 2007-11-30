@@ -344,8 +344,7 @@ public:
                 break;
         }
         if(!deflected) {
-            ;//m_level->triggerKillPhoton();
-            photon.setHighEnergy(false);
+            m_level->killPhoton();
         }
         return true;
     }

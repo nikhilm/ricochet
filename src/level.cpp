@@ -56,6 +56,7 @@ void rtLevel::addUserBlock(rtBlock * b) {
     
     b->setX(getDockX(m_userBlockList.size()));
     b->setY(getDockY(m_userBlockList.size()));
+    b->setDraggable(true);
     m_userBlockList.push_back(b);
 }
 
@@ -143,11 +144,13 @@ void rtLevel::update() {
                     m_currentHandlingBlockHandled = true;
             }
                         
-            m_photon->move();
+            if(m_photon)
+                m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL
         }
         m_currentHandlingBlock = NULL;
-        m_photon->move();
+        if(m_photon)
+            m_photon->move();
     }
 }
 
@@ -272,7 +275,10 @@ void rtLevel::levelDone() {
 }
 
 // kills the photon and resets all switches to off
+// TODO:segfault bug
 void rtLevel::killPhoton() {
+    std::cout<<m_photon->type()<<std::endl;
+    delete m_photon;
     m_photon = NULL;
     for(int i = 0; i < m_grid.size(); ++i) {
         if(m_grid[i]->type() == rtBlock::SWITCH || m_grid[i]->type() == rtBlock::MULTI_SWITCH) {
