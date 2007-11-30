@@ -2,7 +2,7 @@ ADD_EXECUTABLE(test_hs ${RICOCHET_SRCS} test_hs.cpp)
 ADD_EXECUTABLE(t_resrc ${RICOCHET_SRCS} t_resrc.cpp)
 ADD_EXECUTABLE(t_blocks ${RICOCHET_SRCS} t_blocks.cpp)
 ADD_EXECUTABLE(t_lparser ${RICOCHET_SRCS} t_lparser.cpp)
-ADD_EXECUTABLE(t_level ${RICOCHET_SRCS} t_level.cpp)
+ADD_EXECUTABLE(t_level ${RICOCHET_SRCS} ${RICOCHET_X_SRCS} t_level.cpp)
 ADD_EXECUTABLE(t_text ../textutil.h ../resource.h ../resource.cpp t_text.cpp)
 
 ADD_TEST (test_hs test_hs)
