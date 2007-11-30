@@ -76,16 +76,15 @@ void rtLevel::display(SDL_Surface *surf) {
     
     SDL_Rect out, in;
     
-    //TODO:Replace 800/600 with the actual game resolution constants
     out.x = DOCK_OFFSET_X;
     out.y = DOCK_OFFSET_Y;
-    out.w = 800 - out.x;
-    out.h = 600;
+    out.w = rtGame::SCREEN_WIDTH - out.x;
+    out.h = rtGame::SCREEN_HEIGHT;
     
     in.x = DOCK_OFFSET_X + DOCK_PADDING;
     in.y = DOCK_OFFSET_Y + DOCK_PADDING;
-    in.w = 800 - in.x - DOCK_PADDING;
-    in.h = 600 - 2 * DOCK_PADDING;
+    in.w = rtGame::SCREEN_WIDTH - in.x - DOCK_PADDING;
+    in.h = rtGame::SCREEN_HEIGHT - 2 * DOCK_PADDING;
     
     SDL_FillRect(surf, &out, 0x666666);    
     SDL_FillRect(surf, &in, 0x000000);
