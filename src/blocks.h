@@ -51,10 +51,6 @@ protected:
     
     bool m_draggable;
 
-    void setDraggable(bool d) {
-        m_draggable = d;
-    }
-    
     void setImage(char type='\0', const char * suffix=NULL) {
         char t = (type == '\0' ? m_type : type);
         const char * s = (suffix == NULL ? (std::string("")+charDirection(direction())).c_str() : suffix);
@@ -107,6 +103,10 @@ public:
     }
     
     bool draggable() const { return m_draggable; }
+    
+    void setDraggable(bool d) {
+        m_draggable = d;
+    }      
     
     virtual void setDirection(int dir) {
         m_direction = dir;
@@ -265,9 +265,7 @@ class rtCyclotron : public rtBlock {
     }
     
 public:
-    rtCyclotron(int dir, int x, int y) : rtBlock(CYCLOTRON, dir, x, y) {
-        setDraggable(true);
-    }
+    rtCyclotron(int dir, int x, int y) : rtBlock(CYCLOTRON, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         if(direction() == UP || direction() == LEFT) {
@@ -306,9 +304,7 @@ public:
 
 class rtDeflector : public rtBlock {
 public:
-    rtDeflector(int dir, int x, int y) : rtBlock(DEFLECTOR, dir, x, y) {
-        setDraggable(true);
-    }
+    rtDeflector(int dir, int x, int y) : rtBlock(DEFLECTOR, dir, x, y) {}
     
     // you should take a look at the images to understand this
     bool handlePhoton(rtPhoton &photon) {
@@ -357,9 +353,7 @@ public:
 
 class rtPrism : public rtBlock {
 public:
-    rtPrism(int dir, int x, int y) : rtBlock(PRISM, dir, x, y) {
-        setDraggable(true);
-    }
+    rtPrism(int dir, int x, int y) : rtBlock(PRISM, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         switch(direction()) {
@@ -401,9 +395,7 @@ public:
 
 class rtArrow : public rtBlock {
 public:
-    rtArrow(int dir, int x, int y) : rtBlock(ARROW, dir, x, y) {
-        setDraggable(true);
-    }
+    rtArrow(int dir, int x, int y) : rtBlock(ARROW, dir, x, y) {}
     
     bool handlePhoton(rtPhoton &photon) {
         photon.setDirection(direction());
