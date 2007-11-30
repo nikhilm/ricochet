@@ -1,1 +1,1 @@
-ADD_EXECUTABLE(editor ${RICOCHET_SRCS} editor.cpp)
+ADD_EXECUTABLE(editor ${RICOCHET_SRCS} ${RICOCHET_X_SRCS} editor.cpp)

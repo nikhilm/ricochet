@@ -66,6 +66,12 @@ class rtEditor {
         m_grid[y][x]->setDirection(direction);
     }
     
+    void setDraggable() {
+        rtBlock * b = m_grid[getGridCoordY()][getGridCoordX()];
+        if(b)
+            b->setDraggable(!b->draggable());
+    }
+    
     void setBlock(char type) {        
         int x = getGridCoordX(), y = getGridCoordY();
         // y,x because y is the primary array index, and x is the sub array index
@@ -114,8 +120,13 @@ class rtEditor {
     void displayGrid(SDL_Surface * surf) {
         for(int i = 0; i < rtLevel::GRID_WIDTH; ++i) {
             for(int j = 0; j < rtLevel::GRID_HEIGHT; ++j) {
-                if(m_grid[i][j] != NULL)
+                if(m_grid[i][j] != NULL) {
                     m_grid[i][j]->display(surf, 0, 0);
+                    if(m_grid[i][j]->draggable()) {
+                        SDL_Rect r = {m_grid[i][j]->x(), m_grid[i][j]->y(), 10, 10};
+                        SDL_FillRect(surf, &r, 0x0000ff);
+                    }
+                }
             }
         }
     }
@@ -123,6 +134,7 @@ class rtEditor {
     void handleEvent(SDL_Event evt) {
         /* Left Ctrl+s -> Save level
          * Delete -> delete current block
+         * Space -> Make current block draggable
          * Arrow keys -> Set direction of current block
          * Any valid letter -> create block of that type
          */
@@ -150,6 +162,10 @@ class rtEditor {
                     break;
                 case SDLK_LEFT:
                     setBlockDirection(rtBlock::LEFT);
+                    break;
+                    
+                case SDLK_SPACE:
+                    setDraggable();
                     break;
                     
                 default:setBlock(evt.key.keysym.sym);
