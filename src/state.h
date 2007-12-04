@@ -108,10 +108,9 @@ public:
     
     void firstDisplay(SDL_Surface * surf) {
         SDL_Color c = {255, 0, 0};
-        std::cout<<"Title: "<<title<<std::endl;
-        std::cout<<"Text: "<<text<<std::endl;
-        //rtTextUtil::render(title.c_str(), c, RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
-        //rtTextUtil::render(text.c_str(), c, RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(title.c_str(), c, rtTextUtil::RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(text.c_str(), c, rtTextUtil::RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+        
     }
 
     bool handleEvent(SDL_Event &);

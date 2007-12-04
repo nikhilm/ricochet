@@ -129,7 +129,7 @@ protected:
     
     virtual void drawText() {
     //calculate the centre
-        rtTextUtil::render(itemText.c_str(), (currentState == HOVER ? foregroundHover : foregroundNormal), RT_MEDIUM_FONT, surf, oX + width/2, oY + height/2, rtTextUtil::ALIGN_CENTER, (currentState == HOVER ? true : false)); //last argument is bold
+        rtTextUtil::render(itemText.c_str(), (currentState == HOVER ? foregroundHover : foregroundNormal), rtTextUtil::RT_MEDIUM_FONT, surf, oX + width/2, oY + height/2, rtTextUtil::ALIGN_CENTER, (currentState == HOVER ? true : false)); //last argument is bold
     }
 public:
 //     rtMenuItem(int, int, const std::string&, rtMenuAction *);

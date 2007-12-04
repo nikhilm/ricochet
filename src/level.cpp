@@ -140,10 +140,12 @@ void rtLevel::update() {
                     m_currentHandlingBlockHandled = true;
             }
             else {
-                if(m_currentHandlingBlock->handlePhotonEdge(*m_photon))
+                std::cout<<"Handling sent to "<<m_currentHandlingBlock->type()<<std::endl;
+                if(m_currentHandlingBlock->handlePhotonEdge(*m_photon)) {
                     m_currentHandlingBlockHandled = true;
+                    std::cout<<"--Handled\n";
+                }
             }
-                        
             if(m_photon)
                 m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL

@@ -16,6 +16,7 @@ SET ( RICOCHET_X_SRCS
 #    ${CMAKE_CURRENT_SOURCE_DIR}/menu.cpp
 #    ${CMAKE_CURRENT_SOURCE_DIR}/menu.h
     ${CMAKE_CURRENT_SOURCE_DIR}/textutil.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/textutil.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/state.h
     ${CMAKE_CURRENT_SOURCE_DIR}/state.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/game.h
