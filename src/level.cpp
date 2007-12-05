@@ -125,7 +125,6 @@ void rtLevel::update() {
                     m_currentHandlingBlock = m_grid[i];
                     m_currentHandlingBlockHandled = false;
                 }
-                
             }
         }
         
@@ -136,21 +135,18 @@ void rtLevel::update() {
             //center
             if(m_photon->x() == m_currentHandlingBlock->x() + rtBlock::WIDTH/2 &&
                m_photon->y() == m_currentHandlingBlock->y() + rtBlock::HEIGHT/2) {
-                if(m_currentHandlingBlock->handlePhoton(*m_photon))
-                    m_currentHandlingBlockHandled = true;
+                m_currentHandlingBlockHandled = m_currentHandlingBlock->handlePhoton(*m_photon);
             }
             else {
-                std::cout<<"Handling sent to "<<m_currentHandlingBlock->type()<<std::endl;
-                if(m_currentHandlingBlock->handlePhotonEdge(*m_photon)) {
-                    m_currentHandlingBlockHandled = true;
-                    std::cout<<"--Handled\n";
-                }
+                m_currentHandlingBlockHandled = m_currentHandlingBlock->handlePhotonEdge(*m_photon);
             }
             if(m_photon)
                 m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL
         }
-        m_currentHandlingBlock = NULL;
+        if(!m_currentHandlingBlockHandled)
+            m_currentHandlingBlockPos = NULL;
+        
         if(m_photon)
             m_photon->move();
     }
@@ -205,8 +201,8 @@ bool rtLevel::handleEvent(SDL_Event &evt) {
 }
 
 bool rtLevel::pointBlockIntersection(rtBlock *b, int x, int y) {
-    return x >= b->x() && x <= b->x() + rtBlock::WIDTH &&
-            y >= b->y() && y <= b->y() + rtBlock::HEIGHT;
+    return x > b->x() && x < b->x() + rtBlock::WIDTH &&
+            y > b->y() && y < b->y() + rtBlock::HEIGHT;
 }
 
 // scans both grid and user list to see if block is below mouse
