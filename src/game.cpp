@@ -65,7 +65,10 @@ void rtGame::run() {
                 std::cout<<":: Changed state\n";
                 delete currentState;
                 currentState = NULL;
-                currentState = tmp;                
+                currentState = tmp;
+                
+                SDL_FillRect(screen, NULL, 0x0);
+                currentState->firstDisplay(screen);
             }
             stateChange = false;
         }
