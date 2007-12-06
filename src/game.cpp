@@ -12,6 +12,7 @@ rtState * rtGame::currentState = NULL;
 SDL_Surface * rtGame::screen = NULL;
 
 bool rtGame::gameRunning = true;
+bool rtGame::stateChange = false;
     
 void rtGame::run() {
     //initialize SDL
@@ -51,11 +52,21 @@ void rtGame::run() {
 
     //begin game
     gameRunning = true;
-    changeState(rtLevelParser::getLevel(5));
+    
+    currentState = new rtStartState;
     
     SDL_Event event;
     while(gameRunning)
-    {            
+    {
+        if(stateChange) {
+            rtState * tmp = currentState->nextState;
+            if(tmp) {
+                delete currentState;
+                currentState = NULL;
+                currentState = tmp;
+            }
+        }
+        
         while(SDL_PollEvent(&event))
         {
             if(currentState->handleEvent(event))
@@ -70,11 +81,18 @@ void rtGame::run() {
     }
 }
 
-void rtGame::changeState(rtState * s) {
-    if(currentState != NULL)
-        delete currentState;
-    currentState = s;
+// void rtGame::changeState(rtState * s) {
+//     std::cout<<"Changing state\n\n";
+//     if(currentState != NULL)
+//         delete currentState;
+//     currentState = NULL;
+//     currentState = s;
+//     
+//     SDL_FillRect(screen, NULL, 0x0);
+//     currentState->firstDisplay(screen);
+// }
+
+void rtGame::changeState() {
+    stateChange= true;
     
-    SDL_FillRect(screen, NULL, 0x0);
-    currentState->firstDisplay(screen);
 }

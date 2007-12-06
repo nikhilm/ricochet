@@ -34,6 +34,8 @@ class rtGame {
     
     static bool gameRunning;
     
+    static bool stateChange;
+    
 public:
     
     enum { SCREEN_WIDTH=800, SCREEN_HEIGHT=600 };    
@@ -42,7 +44,7 @@ public:
     
     static void run();
     
-    static void changeState(rtState * s);
+    static void changeState(/*rtState * s*/);
 };
 
 #endif

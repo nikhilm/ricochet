@@ -22,12 +22,20 @@
 #include "levelparser.h"
 #include "game.h"
 
+rtNewGameAction::rtNewGameAction(rtStartState * state) {
+    st = state;
+}
 void rtNewGameAction::trigger(const SDL_Event& evt) {
-    rtGame::changeState(rtLevelParser::getLevel(0));
+    st->nextState = rtLevelParser::getLevel(0);
+    rtGame::changeState();
 }
 
+rtPasscodeAction::rtPasscodeAction(rtStartState * state) {
+    st = state;
+}
 void rtPasscodeAction::trigger(const SDL_Event& evt) {
-    rtGame::changeState(new rtPasscodeState);
+    st->nextState = new rtPasscodeState;
+    rtGame::changeState();
 }
 
 void rtQuitAction::trigger(const SDL_Event& evt) {
@@ -36,7 +44,7 @@ void rtQuitAction::trigger(const SDL_Event& evt) {
 
 bool rtPaused::handleEvent(SDL_Event &evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-        rtGame::changeState(nextState);
+        rtGame::changeState();
         return true;
     }
     return false;
@@ -90,10 +98,9 @@ rtTransitionState::rtTransitionState(int levelDone) {
         nextState = rtLevelParser::getLevel(levelDone + 1);
         rtLevel * lvl = (rtLevel *)nextState;
         
-        title = "Next level\n" + lvl->m_title;
+        title = "Next level:\n" + lvl->m_title;
         
         text = lvl->m_subtitle;
         text += "\n\nPasscode: " + lvl->m_passcode;
     }
 }
-        

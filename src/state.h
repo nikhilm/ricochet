@@ -32,9 +32,11 @@
 #include "textutil.h"
 #include "menu.h"
 
+class rtStartState;
+
 class rtState {
 public:    
-    
+    rtState * nextState;
     virtual void firstDisplay(SDL_Surface *surf) {}
     
     virtual void display(SDL_Surface *) {}
@@ -49,17 +51,22 @@ public:
  *******************************/
 
 class rtNewGameAction : public rtMenuAction {
+    rtStartState * st;
 public:
+    rtNewGameAction(rtStartState *);
     void trigger(const SDL_Event& evt);
 };
 
 class rtPasscodeAction : public rtMenuAction {
+    rtStartState * st;
 public:
+    rtPasscodeAction(rtStartState *);
     void trigger(const SDL_Event& evt);
 };
 
 class rtQuitAction : public rtMenuAction {
 public:
+    rtQuitAction(rtStartState * state) {};
     void trigger(const SDL_Event& evt);
 };
 
@@ -72,9 +79,9 @@ class rtStartState : public rtState {
 public:
     rtStartState() {
         menu = new rtMenu(250, 250);
-        menu->addItem("New Game", new rtNewGameAction);
-        menu->addItem("Enter Passcode", new rtPasscodeAction);
-        menu->addItem("Quit", new rtQuitAction);
+        menu->addItem("New Game", new rtNewGameAction(this));
+        menu->addItem("Enter Passcode", new rtPasscodeAction(this));
+        menu->addItem("Quit", new rtQuitAction(this));
     }
     
     void firstDisplay(SDL_Surface * surf) {

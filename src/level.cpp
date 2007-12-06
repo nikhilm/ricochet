@@ -37,6 +37,8 @@ rtLevel::rtLevel() : DOCK_OFFSET_X(DOCK_OFFSET_X_LOGICAL * rtBlock::WIDTH),
     m_clicked = false;
     m_currentHandlingBlockHandled = false;
     
+    nextState = NULL;
+    
 }
 
 void rtLevel::setTitle(std::string title) {
@@ -140,12 +142,13 @@ void rtLevel::update() {
             else {
                 m_currentHandlingBlockHandled = m_currentHandlingBlock->handlePhotonEdge(*m_photon);
             }
-            if(m_photon)
+            std::cout<<"in update m_photon is "<<m_photon<<std::endl;
+            if(m_photon != NULL)
                 m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL
         }
         if(!m_currentHandlingBlockHandled)
-            m_currentHandlingBlockPos = NULL;
+            m_currentHandlingBlock = NULL;
         
         if(m_photon)
             m_photon->move();
@@ -269,15 +272,23 @@ void rtLevel::switchToggled(rtSwitch *sw) {
 // ends game
 // if game over because player won success should be true
 void rtLevel::levelDone() {
-    rtGame::changeState(new rtTransitionState(m_levelNumber));    
+    //cleanup
+    killPhoton();
+    for(int i = 0; i < m_grid.size(); ++i) {
+        delete m_grid[i];
+        m_grid[i] = NULL;
+    }
+    nextState = new rtTransitionState(m_levelNumber);
+    rtGame::changeState();    
 }
 
 // kills the photon and resets all switches to off
 // TODO:segfault bug
 void rtLevel::killPhoton() {
-    std::cout<<m_photon->type()<<std::endl;
+    std::cout<<"Killing photon\n";
     delete m_photon;
     m_photon = NULL;
+    std::cout<<"in killPhoton m_photon is "<<m_photon<<std::endl;
     for(int i = 0; i < m_grid.size(); ++i) {
         if(m_grid[i]->type() == rtBlock::SWITCH || m_grid[i]->type() == rtBlock::MULTI_SWITCH) {
             rtSwitch *sw = (rtSwitch *) m_grid[i];
