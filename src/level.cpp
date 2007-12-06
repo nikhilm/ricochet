@@ -93,11 +93,13 @@ void rtLevel::display(SDL_Surface *surf) {
     SDL_FillRect(surf, &in, 0x000000);
     
     for(int i = 0; i < m_userBlockList.size(); i++) {
-        (m_userBlockList[i])->display(surf, 0, 0);
+        if(m_userBlockList[i])
+            (m_userBlockList[i])->display(surf, 0, 0);
     }
     
     for(int i = 0; i < m_grid.size(); i++) {
-        (m_grid[i])->display(surf, 0, 0);
+        if(m_grid[i])
+            (m_grid[i])->display(surf, 0, 0);
     }
     
     if(m_photon != NULL)
@@ -142,7 +144,6 @@ void rtLevel::update() {
             else {
                 m_currentHandlingBlockHandled = m_currentHandlingBlock->handlePhotonEdge(*m_photon);
             }
-            std::cout<<"in update m_photon is "<<m_photon<<std::endl;
             if(m_photon != NULL)
                 m_photon->move();
             return; // this is important, if we don't return the current handling block will become NULL
@@ -285,10 +286,8 @@ void rtLevel::levelDone() {
 // kills the photon and resets all switches to off
 // TODO:segfault bug
 void rtLevel::killPhoton() {
-    std::cout<<"Killing photon\n";
     delete m_photon;
     m_photon = NULL;
-    std::cout<<"in killPhoton m_photon is "<<m_photon<<std::endl;
     for(int i = 0; i < m_grid.size(); ++i) {
         if(m_grid[i]->type() == rtBlock::SWITCH || m_grid[i]->type() == rtBlock::MULTI_SWITCH) {
             rtSwitch *sw = (rtSwitch *) m_grid[i];

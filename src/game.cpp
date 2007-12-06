@@ -60,11 +60,14 @@ void rtGame::run() {
     {
         if(stateChange) {
             rtState * tmp = currentState->nextState;
+            std::cout<<"Trying to change state\n";
             if(tmp) {
+                std::cout<<":: Changed state\n";
                 delete currentState;
                 currentState = NULL;
-                currentState = tmp;
+                currentState = tmp;                
             }
+            stateChange = false;
         }
         
         while(SDL_PollEvent(&event))
