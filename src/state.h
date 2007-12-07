@@ -104,7 +104,6 @@ public:
 class rtPaused : public rtState {
 protected:
     std::string title, text;
-    rtState * nextState;
     bool change;
 public:
     rtPaused() {
