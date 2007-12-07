@@ -72,7 +72,7 @@ bool rtPasscodeState::handleEvent(SDL_Event &evt) {
         }
     
         else if(evt.key.keysym.sym == SDLK_RETURN) {
-            nextState = rtLevelParser::getLevelFromPasscode(code);
+            nextState = new rtTransitionState(rtLevelParser::getLevelFromPasscode(code)->m_levelNumber - 1);
             if(nextState)
                 rtGame::changeState();
             return true;
