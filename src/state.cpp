@@ -103,7 +103,7 @@ rtTransitionState::rtTransitionState(int levelDone) {
         title = "Next level:\n" + lvl->m_title;
         
         text = lvl->m_subtitle;
-        text += "\nPasscode: " + lvl->m_passcode;
+        text += "\n\nPasscode: " + lvl->m_passcode;
         text += "\n";
     }
 }
