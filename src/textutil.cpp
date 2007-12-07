@@ -120,8 +120,10 @@ void rtTextUtil::render(const char * text,
 
     while(!txt.empty()) {
         token = splitString(txt);
-        if(token.empty())
-            break;
+        if(token.empty()) {
+            r.y += TTF_FontHeight(font) + yPadding;
+            continue;
+        }
         txtSurf = render(token.c_str(), color, font, bold, italic);
 
         if(txtSurf == NULL) {
