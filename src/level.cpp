@@ -269,7 +269,6 @@ int rtLevel::getDockY(int pos) {
  
 void rtLevel::switchToggled(rtSwitch *sw) {
     ( sw->on() ? m_switchesAlive-- : m_switchesAlive++ );
-    std::cout<<"Switches alive = "<<m_switchesAlive<<std::endl;
     if(m_switchesAlive == 0)
         levelDone();
 }
