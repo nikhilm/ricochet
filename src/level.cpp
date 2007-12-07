@@ -73,6 +73,10 @@ void rtLevel::addGridBlock(rtBlock * b) {
         m_switchesAlive++;
 }
 
+void rtLevel::firstDisplay(SDL_Surface * surf) {
+    display(surf);
+}
+
 void rtLevel::display(SDL_Surface *surf) {
     SDL_FillRect(surf, NULL, 0x0);
     // dock  

@@ -88,6 +88,8 @@ public:
     
     void addGridBlock(rtBlock * b);
     
+    void firstDisplay(SDL_Surface *surf);
+    
     void display(SDL_Surface *surf);
     
     void registerPhoton(rtPhoton *);

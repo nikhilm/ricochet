@@ -53,16 +53,15 @@ void rtGame::run() {
     //begin game
     gameRunning = true;
     
-    currentState = new rtStartState;
+    currentState = new rtTransitionState(0);//rtStartState;
+    currentState->firstDisplay(screen);
     
     SDL_Event event;
     while(gameRunning)
     {
         if(stateChange) {
             rtState * tmp = currentState->nextState;
-            std::cout<<"Trying to change state\n";
             if(tmp) {
-                std::cout<<":: Changed state\n";
                 delete currentState;
                 currentState = NULL;
                 currentState = tmp;

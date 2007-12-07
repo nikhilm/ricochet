@@ -44,7 +44,8 @@ void rtQuitAction::trigger(const SDL_Event& evt) {
 
 bool rtPaused::handleEvent(SDL_Event &evt) {
     if(evt.type == SDL_MOUSEBUTTONDOWN && evt.button.button == SDL_BUTTON_LEFT) {
-        rtGame::changeState();
+        if(nextState)
+            rtGame::changeState();
         return true;
     }
     return false;
@@ -71,8 +72,10 @@ bool rtPasscodeState::handleEvent(SDL_Event &evt) {
         }
     
         else if(evt.key.keysym.sym == SDLK_RETURN) {
-            rtLevelParser::getLevelFromPasscode(code);
-            std::cout<<"Getting level from passcode\n";
+            nextState = rtLevelParser::getLevelFromPasscode(code);
+            std::cout<<"Loading next level\n";
+            if(nextState)
+                rtGame::changeState();
             return true;
         }
     }
