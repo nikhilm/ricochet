@@ -99,5 +99,5 @@ void rtGame::run() {
 
 void rtGame::changeState() {
     stateChange= true;
-    
+    std::cout<<"rtGame :: Changing state\n";
 }
