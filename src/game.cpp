@@ -53,7 +53,7 @@ void rtGame::run() {
     //begin game
     gameRunning = true;
     
-    currentState = new rtTransitionState(0);//rtStartState;
+    currentState = new rtStartState;
     currentState->firstDisplay(screen);
     
     SDL_Event event;
