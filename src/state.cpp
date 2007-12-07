@@ -26,7 +26,7 @@ rtNewGameAction::rtNewGameAction(rtStartState * state) {
     st = state;
 }
 void rtNewGameAction::trigger(const SDL_Event& evt) {
-    st->nextState = rtLevelParser::getLevel(0);
+    st->nextState = new rtTransitionState(-1);
     rtGame::changeState();
 }
 
