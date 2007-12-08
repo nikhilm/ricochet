@@ -114,8 +114,8 @@ public:
     
     void firstDisplay(SDL_Surface * surf) {
         SDL_Color c = {255, 0, 0};
-        rtTextUtil::render(title.c_str(), c, rtTextUtil::RT_LARGE_FONT, surf, 400, 50, rtTextUtil::ALIGN_CENTER);
-        rtTextUtil::render(text.c_str(), c, rtTextUtil::RT_SMALL_FONT, surf, 400, 300, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(title.c_str(), c, rtTextUtil::RT_LARGE_FONT, surf, 400, 60, rtTextUtil::ALIGN_CENTER);
+        rtTextUtil::render(text.c_str(), c, rtTextUtil::RT_SMALL_FONT, surf, 400, 310, rtTextUtil::ALIGN_CENTER);
         
     }
 
