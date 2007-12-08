@@ -205,7 +205,12 @@ bool rtLevel::handleEvent(SDL_Event &evt) {
             m_dragInProgress = false;
         }
     }
-    return false;
+    else if(evt.type == SDL_KEYDOWN && evt.key.keysym.sym == SDLK_ESCAPE) {
+        nextState = new rtTransitionState(m_levelNumber - 1);
+        rtGame::changeState();
+    }
+    
+    return true;
 }
 
 bool rtLevel::pointBlockIntersection(rtBlock *b, int x, int y) {
