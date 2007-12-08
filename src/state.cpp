@@ -48,6 +48,11 @@ bool rtPaused::handleEvent(SDL_Event &evt) {
             rtGame::changeState();
         return true;
     }
+    else if(evt.type == SDL_KEYDOWN && evt.key.keysym.sym == SDLK_ESCAPE) {
+        nextState = new rtStartState;
+        rtGame::changeState();
+        return true;
+    }
     return false;
 }
 /******************
