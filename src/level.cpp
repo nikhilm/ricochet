@@ -161,6 +161,12 @@ void rtLevel::update() {
 }
 
 bool rtLevel::handleEvent(SDL_Event &evt) {
+    if(evt.type == SDL_KEYDOWN && evt.key.keysym.sym == SDLK_ESCAPE) {
+        nextState = new rtTransitionState(m_levelNumber - 1);
+        rtGame::changeState();
+        return true;
+    }
+    
     //if a photon is active then nothing works
     if(m_photon) return false;
     
@@ -204,10 +210,6 @@ bool rtLevel::handleEvent(SDL_Event &evt) {
             m_activeBlock == NULL;
             m_dragInProgress = false;
         }
-    }
-    else if(evt.type == SDL_KEYDOWN && evt.key.keysym.sym == SDLK_ESCAPE) {
-        nextState = new rtTransitionState(m_levelNumber - 1);
-        rtGame::changeState();
     }
     
     return true;
