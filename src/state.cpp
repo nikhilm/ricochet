@@ -77,9 +77,16 @@ bool rtPasscodeState::handleEvent(SDL_Event &evt) {
         }
     
         else if(evt.key.keysym.sym == SDLK_RETURN) {
-            nextState = new rtTransitionState(rtLevelParser::getLevelFromPasscode(code)->m_levelNumber - 1);
-            if(nextState)
-                rtGame::changeState();
+            rtLevel * lvl = rtLevelParser::getLevelFromPasscode(code);
+            if(lvl) {
+                nextState = new rtTransitionState(rtLevelParser::getLevelFromPasscode(code)->m_levelNumber - 1);
+                if(nextState)
+                    rtGame::changeState();
+            }
+            else {
+                title = "Invalid code!\nEnter Passcode";
+                code = "";
+            }
             return true;
         }
     }
