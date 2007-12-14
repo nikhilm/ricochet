@@ -248,15 +248,21 @@ void rtLevel::resetDockBlocks() {
     }
 }
         
-void rtLevel::resolveDrop(rtBlock *b) {
-    if(b->x() <= GRID_WIDTH * rtBlock::WIDTH && b->y() <= GRID_HEIGHT * rtBlock::HEIGHT) {
+void rtLevel::resolveDrop(rtBlock *b) {//if there is already a block there, put this drag back into user list
+    bool overwrite = false;
+    for(int i = 0; i < m_grid.size(); ++i) {
+        if(pointBlockIntersection(m_grid[i], b->x()+rtBlock::WIDTH/2, b->y()+rtBlock::HEIGHT/2))
+            overwrite = true;
+    }
+    
+    if(overwrite) {
+        addUserBlock(b);
+    }
+    else {        
         //integer division truncation helps
         b->setX((b->x()+rtBlock::WIDTH/2)/rtBlock::WIDTH * rtBlock::WIDTH);
         b->setY((b->y()+rtBlock::HEIGHT/2)/rtBlock::HEIGHT * rtBlock::HEIGHT);
         m_grid.push_back(b);
-    }
-    else {
-        addUserBlock(b);
     }
 }
 
