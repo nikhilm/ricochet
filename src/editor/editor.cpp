@@ -83,7 +83,8 @@ class rtEditor {
     
     void deleteBlock() {
         int x = getGridCoordX(), y = getGridCoordY();
-        delete m_grid[x][y];
+//         if(m_grid[x][y])
+//             delete m_grid[x][y];
         m_grid[y][x] = NULL;
     }
     
