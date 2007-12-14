@@ -283,3 +283,22 @@ eUeUlUlUlUlUlUlUlUlUeUeU
 eUeUeUeUeUeUeUeUeUeUeUeU
 
 !
+
+> Game of life
+< simple rules
+& glider
+@ dDpDdLxUdL
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+eUeUwUwUwUeUeUeUeUeUeUeU
+eUeUwUlReUeUeUeUeUeUeUeU
+eUeUeUwUeUeUwUeUeUwUeUeU
+eUeUeUeUeUwUsUeUeUsUeUeU
+eUeUeUeUeUwUeUeUeUwUeUeU
+eUeUeUeUeUwUwUwUwUeUeUeU
+eUeUwUwUeUeUeUeUeUeUeUeU
+eUeUwUsUwUxUeUeUeUeUeUeU
+eUeUeUwUeUeUeUeUeUeUeUeU
+eUeUeUeUeUeUeUeUeUeUeUeU
+
+!
