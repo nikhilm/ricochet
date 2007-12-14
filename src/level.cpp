@@ -298,8 +298,11 @@ void rtLevel::levelDone() {
 void rtLevel::killPhoton() {
     delete m_photon;
     m_photon = NULL;
+    
+    m_switchesAlive = 0;
     for(int i = 0; i < m_grid.size(); ++i) {
         if(m_grid[i]->type() == rtBlock::SWITCH || m_grid[i]->type() == rtBlock::MULTI_SWITCH) {
+            m_switchesAlive++;
             rtSwitch *sw = (rtSwitch *) m_grid[i];
             if(sw->on())
                 sw->toggleState();
