@@ -102,7 +102,7 @@ rtLevel * rtLevelParser::getLevel(int num) {
     for(int i = 0, x = 0, y = 0; i < fake.gridStr.length(); i++, x++) {
         if(fake.gridStr[i] == '\n') {
             y++;
-            x = 0;
+            x = -1;
             continue;
         }
         if(fake.gridStr[i] == 'e') {
