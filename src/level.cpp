@@ -204,6 +204,11 @@ bool rtLevel::handleEvent(SDL_Event &evt) {
                     return m_grid[i]->clicked();
                 }
             }
+
+            //otherwise it's a user block, so put it back in the dock
+            addUserBlock(m_activeBlock);
+            return true;
+
         }
         else {
             resolveDrop(m_activeBlock);
