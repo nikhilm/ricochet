@@ -25,7 +25,7 @@ Run
     
     
 - Click gun to start the photon.
-- Walls destroy the photon.
+- Walls rebound the photon.
 - Normal mirrors reflect the photon 90 degrees, but destroy it when hit on the wrong side.
 - Triangular mirrors reflect the photon 90 degrees, but let it pass through when hit on the wrong side.
 - Arrows always guide the photon in the direction they point to.
