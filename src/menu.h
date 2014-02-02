@@ -103,9 +103,11 @@ protected:
      * Draws the border around the rtMenuItem
      */
     virtual void drawBorder() {
-        SDL_FillRect(surf, &createRect(oX, oY, width, height), getMappedColor((currentState == NORMAL ? borderNormal : borderHover)));
+        SDL_Rect rect = createRect(oX, oY, width, height);
+        SDL_FillRect(surf, &rect, getMappedColor((currentState == NORMAL ? borderNormal : borderHover)));
     //fill in the remaining with black
-        SDL_FillRect(surf, &getBackgroundRect(), getMappedColor(createColor(0, 0, 0)));
+        SDL_Rect bg = getBackgroundRect();
+        SDL_FillRect(surf, &bg, getMappedColor(createColor(0, 0, 0)));
 
     }
 
@@ -114,7 +116,8 @@ protected:
      */
     virtual void displayNormal() {
         drawBorder();
-        SDL_FillRect(surf, &getBackgroundRect(), getMappedColor(backgroundNormal));
+        SDL_Rect bg = getBackgroundRect();
+        SDL_FillRect(surf, &bg, getMappedColor(backgroundNormal));
         drawText();
     }
     /**
@@ -122,7 +125,8 @@ protected:
     */
     virtual void displayHover() {
         drawBorder();
-        SDL_FillRect(surf, &getBackgroundRect(), getMappedColor(backgroundHover));
+        SDL_Rect bg = getBackgroundRect();
+        SDL_FillRect(surf, &bg, getMappedColor(backgroundHover));
         drawText();
     }
 

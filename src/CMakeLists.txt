@@ -7,20 +7,20 @@ SET ( RICOCHET_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/levelparser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/level.h
     ${CMAKE_CURRENT_SOURCE_DIR}/level.cpp
-)
-
-# extended sources
-SET ( RICOCHET_X_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/game.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics.h
     ${CMAKE_CURRENT_SOURCE_DIR}/highscore.h
-#    ${CMAKE_CURRENT_SOURCE_DIR}/menu.cpp
-#    ${CMAKE_CURRENT_SOURCE_DIR}/menu.h
     ${CMAKE_CURRENT_SOURCE_DIR}/textutil.h
     ${CMAKE_CURRENT_SOURCE_DIR}/textutil.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/state.h
     ${CMAKE_CURRENT_SOURCE_DIR}/state.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/game.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
+)
+
+# extended sources
+SET ( RICOCHET_X_SRCS
+#    ${CMAKE_CURRENT_SOURCE_DIR}/menu.cpp
+#    ${CMAKE_CURRENT_SOURCE_DIR}/menu.h
 )
 
 INCLUDE_DIRECTORIES (.)
